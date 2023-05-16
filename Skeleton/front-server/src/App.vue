@@ -3,17 +3,17 @@
     <v-app-bar app>
       <v-toolbar-title>Navigation</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text>Link 1</v-btn>
-      <v-btn text>Link 2</v-btn>
-      <v-btn text>Link 3</v-btn>
+      <v-btn text to="/">Main</v-btn>
+      <v-btn text to="/create">Create</v-btn>
+      <v-btn text to="/signup">Sign Up</v-btn>
+      <v-btn text to="/login">Log In</v-btn>
     </v-app-bar>
 
     <v-main>
-      <!-- 나머지 앱 내용 -->
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
-
 <script>
 
 export default {
