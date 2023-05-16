@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title>Navigation</v-toolbar-title>
+      <v-toolbar-title>BankSSafy</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text to="/">Main</v-btn>
       <v-btn text to="/create">Create</v-btn>
