@@ -44,6 +44,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'finlife',
+    'kakaomaps',
     'corsheaders',
     'rest_framework',
     'django.contrib.admin',
