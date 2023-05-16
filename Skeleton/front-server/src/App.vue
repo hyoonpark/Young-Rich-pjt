@@ -1,45 +1,44 @@
 <template>
   <v-app>
-    <div>
-      <article-list v-bind:propsdata="dataList"></article-list>
-    </div>
+    <v-app-bar app>
+      <v-toolbar-title>Navigation</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn text>Link 1</v-btn>
+      <v-btn text>Link 2</v-btn>
+      <v-btn text>Link 3</v-btn>
+    </v-app-bar>
+
     <v-main>
-      <router-view/>
+      <!-- 나머지 앱 내용 -->
     </v-main>
   </v-app>
 </template>
 
 <script>
-import axios from 'axios';
-import ArticleList from './components/ArticleList.vue';
-
-let url = "http://localhost:8000/finlife/deposit-products/"
 
 export default {
   name: 'App',
 
   data: () => {
     return {
-      dataList : []
+   
     }
   },
   components : {
-    "ArticleList" : ArticleList,
+  
   },
-  mounted() {
-    axios({
-      method : "GET",
-      url : url
-    }).then(response => {
-      this.dataList = response.data
-    }).catch(response => {
-      console.log("Failed",response)
-    })
-  },
-  methods : { //crud 로직 
-    getProductList : function() {},
-    UpdateProductList : function() {},
-    deleteProductList : function() {},
+  methods : { 
+    
   }
 };
 </script>
+
+<style>
+.v-toolbar-title {
+  font-size: 18px;
+}
+
+.v-btn {
+  margin-left: 8px;
+}
+</style>
