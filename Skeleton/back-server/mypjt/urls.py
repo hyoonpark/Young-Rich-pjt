@@ -22,4 +22,5 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('finlife/', include('finlife.urls')),
+    path('map/', include('kakaomaps.urls')),
 ]
