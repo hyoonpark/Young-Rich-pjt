@@ -24,4 +24,5 @@ urlpatterns = [
     path('finlife/', include('finlife.urls')),
     path('map/', include('kakaomaps.urls')),
     path('calculator/', include('calculators.urls')),
+    path('articles/', include('articles.urls')),
 ]
