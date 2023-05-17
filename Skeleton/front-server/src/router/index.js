@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MainPageView from '@/views/MainPageView'
+import CompareView from '@/views/CompareView'
 import CreateView from '@/views/CreateView'
 import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
+import MainPageView from '@/views/MainPageView'
 
 
 Vue.use(VueRouter)
@@ -35,11 +36,16 @@ const routes = [
   },
 
   {
-    path: '/:id',
+    path: '/id',
     name: 'DetailView',
     component: DetailView,
   },
 
+  {
+    path : '/rate-comparison',
+    name : 'CompareView',
+    component : CompareView,
+  }
 ]
 
 const router = new VueRouter({

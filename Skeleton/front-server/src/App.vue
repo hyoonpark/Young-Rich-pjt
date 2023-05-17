@@ -4,6 +4,7 @@
       <v-toolbar-title>BankSSafy</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text to="/">Main</v-btn>
+      <v-btn text to="/rate-comparison">Compare</v-btn>
       <v-btn text to="/create">Create</v-btn>
       <v-btn text to="/signup">Sign Up</v-btn>
       <v-btn text to="/login">Log In</v-btn>
@@ -14,6 +15,8 @@
     </v-main>
   </v-app>
 </template>
+
+
 <script>
 
 export default {

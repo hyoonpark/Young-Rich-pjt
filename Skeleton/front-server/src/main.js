@@ -7,16 +7,6 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import axios from "axios"
 
-let url = "http://localhost:8000/finlife/deposit-products/"
-
-axios.get(url)
-.then(function(response){
-  console.log(response)
-})
-.catch(function(response){
-  console.log(response)
-})
-
 Vue.config.productionTip = false
 
 new Vue({
@@ -25,3 +15,7 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+axios.defaults.baseURL = "http://localhost:8000" // 기본 URL 설정
+
+Vue.prototype.$axios = axios // Vue 인스턴스에서 axios를 사용할 수 있도록 프로토타입에 할당
