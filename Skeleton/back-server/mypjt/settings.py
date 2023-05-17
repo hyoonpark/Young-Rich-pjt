@@ -27,6 +27,7 @@ environ.Env.read_env(
 
 API_KEY = os.environ.get('API_KEY')
 KAKAO_KEY = os.environ.get('KAKAO_KEY')
+CURRENCY_KEY = os.environ.get('CURRENCY_KEY')
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,6 +47,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'finlife',
     'kakaomaps',
+    'calculators',
     'corsheaders',
     'rest_framework',
     'django.contrib.admin',
