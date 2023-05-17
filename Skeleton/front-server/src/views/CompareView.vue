@@ -1,6 +1,6 @@
 <template>
   <section class="dataList">
-    <h1 class="list-title">예금 List</h1>
+    
     <deposit-list ref="depositList" :propsdata="mergedData"></deposit-list>
   </section>
 

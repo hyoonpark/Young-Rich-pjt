@@ -41,6 +41,7 @@ export default new Vuex.Store({
                 return {
                   ...data,
                   additionalData: additionalData,
+                  
                 };
               });
           });
