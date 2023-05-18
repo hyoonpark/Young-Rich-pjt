@@ -3,6 +3,9 @@
     <div>
       <article-list v-bind:propsdata="dataList"></article-list>
     </div>
+    <div>
+      <router-link to="/calculator">환율계산기</router-link>
+    </div>
     <v-main>
       <router-view/>
     </v-main>
@@ -13,7 +16,7 @@
 import axios from 'axios';
 import ArticleList from './components/ArticleList.vue';
 
-let url = "http://localhost:8000/finlife/deposit-products/"
+let url = "http://localhost:8000/"
 
 export default {
   name: 'App',
