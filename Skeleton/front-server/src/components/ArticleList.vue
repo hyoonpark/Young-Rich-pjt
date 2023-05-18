@@ -9,8 +9,7 @@
       </v-list-item>
     </v-card>
   </v-flex>
-   
- 
+
 </template>
 
 <script>

@@ -1,45 +1,32 @@
 <template>
-  <v-app>
-    <div>
-      <article-list v-bind:propsdata="dataList"></article-list>
-    </div>
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
+  <div id="app">
+    <nav>
+      <router-link :to="{ name: 'ArticleView' }">Articles</router-link>
+    </nav>
+    <router-view/>
+  </div>
 </template>
 
-<script>
-import axios from 'axios';
-import ArticleList from './components/ArticleList.vue';
 
-let url = "http://localhost:8000/finlife/deposit-products/"
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  name: 'App',
+nav {
+  padding: 30px;
+}
 
-  data: () => {
-    return {
-      dataList : []
-    }
-  },
-  components : {
-    "ArticleList" : ArticleList,
-  },
-  mounted() {
-    axios({
-      method : "GET",
-      url : url
-    }).then(response => {
-      this.dataList = response.data
-    }).catch(response => {
-      console.log("Failed",response)
-    })
-  },
-  methods : { //crud 로직 
-    getProductList : function() {},
-    UpdateProductList : function() {},
-    deleteProductList : function() {},
-  }
-};
-</script>
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+</style>

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Article, Comment
+from .models import Article, Comment, Reply, ArticleLike, CommentLike, ReplyLike
 
 
 class ArticleListSerializer(serializers.ModelSerializer):
@@ -19,6 +19,30 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ('article',)
 
 
+class ReplySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reply
+        fields = '__all__'
+
+
+class ArticleLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleLike
+        fields = '__all__'
+
+
+class CommentLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommentLike
+        fields = '__all__'
+
+
+class ReplyLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReplyLike
+        fields = '__all__'
+
+
 class ArticleSerializer(serializers.ModelSerializer):
     comment_set = CommentSerializer(many=True, read_only=True)
     comment_count = serializers.IntegerField(source='comment_set.count', read_only=True)
@@ -28,6 +52,3 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = '__all__'
         # read_only_fields = ('user', )
-
-
-

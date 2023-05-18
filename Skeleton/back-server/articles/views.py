@@ -10,8 +10,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from rest_framework import status
 from django.shortcuts import get_object_or_404, get_list_or_404
-from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerializer
-from .models import Article, Comment
+from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerializer, ReplySerializer, ArticleLikeSerializer, CommentLikeSerializer, ReplyLikeSerializer
+from .models import Article, Comment, Reply, ArticleLike, CommentLike, ReplyLike
 
 
 
@@ -92,3 +92,112 @@ def comment_create(request, article_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(article=article)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+def reply_list(request):
+    if request.method == 'GET':
+        replies = get_list_or_404(Reply)
+        serializer = ReplySerializer(replies, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET', 'DELETE', 'PUT'])
+def reply_detail(request, reply_pk):
+    reply = get_object_or_404(Reply, pk=reply_pk)
+
+    if request.method == 'GET':
+        serializer = ReplySerializer(reply)
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        reply.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'PUT':
+        serializer = ReplySerializer(reply, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
+
+@api_view(['POST'])
+def toggle_like(request):
+    """
+    좋아요를 토글하는 함수입니다.
+    POST 요청으로 좋아요를 토글할 객체의 타입(article, comment, reply)과 ID를 전달해야 합니다.
+    """
+
+    # 요청에서 타입과 ID 가져오기
+    obj_type = request.data.get('type')  # 객체 타입(article, comment, reply)
+    obj_id = request.data.get('id')  # 객체 ID
+
+    # 타입에 따라서 좋아요 처리
+    if obj_type == 'article':
+        model = Article
+        like_model = ArticleLike
+    elif obj_type == 'comment':
+        model = Comment
+        like_model = CommentLike
+    elif obj_type == 'reply':
+        model = Reply
+        like_model = ReplyLike
+    else:
+        return Response({'error': 'Invalid object type'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # 객체 가져오기
+    obj = get_object_or_404(model, pk=obj_id)
+
+    # 현재 사용자
+    user = request.user
+
+    try:
+        # 좋아요 여부 확인
+        like = like_model.objects.get(user=user, **{obj_type: obj})
+
+        # 이미 좋아요를 한 경우 좋아요 취소
+        like.delete()
+        liked = False
+    except like_model.DoesNotExist:
+        # 좋아요를 하지 않은 경우 좋아요 추가
+        like = like_model.objects.create(user=user, **{obj_type: obj})
+        liked = True
+
+    # 좋아요 개수
+    like_count = like_model.objects.filter(**{obj_type: obj}).count()
+
+    return Response({'liked': liked, 'like_count': like_count}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_like_status(request, obj_type, obj_id):
+    """
+    좋아요 상태 및 개수를 가져오는 함수입니다.
+    GET 요청으로 좋아요 상태 및 개수를 가져올 객체의 타입(article, comment, reply)과 ID를 전달해야 합니다.
+    """
+
+    # 타입에 따라서 좋아요 모델 선택
+    if obj_type == 'article':
+        model = Article
+        like_model = ArticleLike
+    elif obj_type == 'comment':
+        model = Comment
+        like_model = CommentLike
+    elif obj_type == 'reply':
+        model = Reply
+        like_model = ReplyLike
+    else:
+        return Response({'error': 'Invalid object type'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # 객체 가져오기
+    obj = get_object_or_404(model, pk=obj_id)
+
+    # 현재 사용자
+    user = request.user
+
+    # 좋아요 여부 확인
+    liked = like_model.objects.filter(user=user, **{obj_type: obj}).exists()
+
+    # 좋아요 개수
+    like_count = like_model.objects.filter(**{obj_type: obj}).count()
+
+    return Response({'liked': liked, 'like_count': like_count}, status=status.HTTP_200_OK)
