@@ -20,6 +20,9 @@
 export default {
   name: 'SignUpView',
   data() {
+    return {
+      
+    }
   },
   methods: {
   }
