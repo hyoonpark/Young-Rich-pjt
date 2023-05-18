@@ -1,8 +1,8 @@
 <template>
   <section class="dataList">
     <div class="tab-bar">
-      <button class="tab" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">예금</button>
-      <button class="tab" :class="{ active: activeTab === 'savings' }" @click="changeTab('savings')">적금</button>
+     <button class="tab deposit" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">예금</button>
+     <button class="tab savings" :class="{ active: activeTab === 'savings' }" @click="changeTab('savings')">적금</button>
     </div>
 
     <div class="tab-content">
@@ -11,8 +11,7 @@
       </div>
 
       <div v-if="activeTab === 'savings'">
-        <h2 class="list-title">적금 List</h2>
-        <!-- 적금에 대한 컴포넌트 또는 내용을 추가하세요 -->
+        <saving-list ref="savingList" :propsdata="mergedSavingData"></saving-list>
       </div>
     </div>
   </section>
@@ -21,11 +20,13 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import DepositList from '@/components/DepositList.vue';
+import SavingList from '@/components/SavingList.vue';
 
 export default {
   name: 'CompareView',
   components: {
-    DepositList: DepositList,
+    DepositList,
+    SavingList,
   },
   data() {
     return {
@@ -33,9 +34,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(['dataList']),
+    ...mapState(['depositList', 'savingList']),
     mergedDepositData() {
-      return this.dataList.map(data => {
+      return this.depositList.map(data => {
         if (data.additionalData) {
           return {
             ...data,
@@ -46,30 +47,34 @@ export default {
         }
       });
     },
+    mergedSavingData() {
+      return this.savingList.map(data => {
+        if (data.additionalData) {
+          return {
+            ...data,
+            intr_rate: data.additionalData.intr_rate,
+            }
+        
+        } else {
+          return data;
+        }
+      });
+    },
   },
   methods: {
-    ...mapActions(['fetchData']),
+    ...mapActions(['fetchDepositData', 'fetchSavingData']),
     changeTab(tab) {
       this.activeTab = tab;
     },
   },
   mounted() {
-    this.fetchData();
+    this.fetchDepositData();
+    this.fetchSavingData();
   },
 };
 </script>
 
 <style>
-.dataList {
-  margin-top: 100px;
-  text-align: center;
-}
-
-.tab-bar {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 20px;
-}
 
 .tab {
   padding: 8px 16px;
@@ -78,33 +83,11 @@ export default {
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .tab.active {
   background-color: #e2e2e2;
 }
 
-.tab-content {
-  margin-left: 100px;
-}
-
-.list-title {
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-/* 추가된 스타일 */
-.tab-bar {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.tab {
-  flex: 1;
-  margin-right: 5px;
-}
-
-.tab-content {
-  margin-left: 0;
-}
 </style>

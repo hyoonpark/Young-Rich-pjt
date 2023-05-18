@@ -13,8 +13,6 @@
 export default {
   name: 'DetailView',
   data() {
-    return {
-    }
   },
   created() {
   },
