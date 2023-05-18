@@ -17,6 +17,9 @@
 export default {
   name: 'CreateView',
   data() {
+    return {
+      
+    }
   },
   methods: {
   }

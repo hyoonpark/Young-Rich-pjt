@@ -2,11 +2,12 @@
   <v-container class="dataList" fluid v-if="propsdata && propsdata.length > 0">
     <v-card class="list-card" outlined >
       <v-card-text>
-        <h2 class="list-title">예금 List</h2> <br>
+        <h2 class="list-title">적금 List</h2> <br>
         <div class="table-container">
           <v-data-table :headers="headers" :items="flattenData">
             <template v-slot:item="{ item }">
               <tr>
+                {{items}}
                 <td>{{ item.kor_co_nm }}</td>
                 <td>{{ item.fin_prdt_nm }}</td>
                 <td>{{ item.save_trm }} 개월</td>
@@ -22,7 +23,7 @@
 
 <script>
 export default {
-  name: 'DepositList',
+  name: 'SavingList',
   props: {
     propsdata: Array,
   },
@@ -58,8 +59,8 @@ export default {
 
 <style>
 .dataList {
-  
-  display: relative;
+  margin-top: 150px;
+  display: flex;
   justify-content: center;
 }
 
@@ -78,4 +79,14 @@ export default {
   margin-top: 0;
 }
 
+/* 반응형 스타일 */
+@media (max-width: 600px) {
+  .list-card {
+    max-height: unset;
+  }
+  
+  .table-container {
+    max-height: unset;
+  }
+}
 </style>
