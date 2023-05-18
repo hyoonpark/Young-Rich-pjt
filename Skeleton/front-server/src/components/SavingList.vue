@@ -2,7 +2,7 @@
   <v-container class="dataList" fluid v-if="propsdata && propsdata.length > 0">
     <v-card class="list-card" outlined >
       <v-card-text>
-        <h2 class="list-title">예금 List</h2> <br>
+        <h2 class="list-title">적금 List</h2> <br>
         <div class="table-container">
           <v-data-table :headers="headers" :items="flattenData">
             <template v-slot:item="{ item }">
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'DepositList',
+  name: 'SavingList',
   props: {
     propsdata: Array,
   },
@@ -40,18 +40,18 @@ export default {
       this.propsdata.forEach(data => {
         data.additionalData.forEach(item => {
           flattenedData.push({
-
-            id : data.id,
-
             kor_co_nm: data.kor_co_nm,
             fin_prdt_nm: data.fin_prdt_nm,
             save_trm: item.save_trm,
+            rsrv_type_nm : item.rsrv_type_nm,
+            intr_rate_type_nm : item.intr_rate_type_nm,
             intr_rate: item.intr_rate,
+            intr_rate2: item.intr_rate2,
             join_member: data.join_member,
             join_way: data.join_way,
             etc_note: data.etc_note,
-
-            intr_rate_type_nm: item.intr_rate_type_nm,
+            mtrt_int : data.mtrt_int,
+            max_limit : data.max_limit,
             spcl_cnd : data.spcl_cnd
           });
         });
@@ -61,7 +61,7 @@ export default {
   },
   methods : {
     goToDetail(item) {
-      this.$router.push({ name: 'DetailDeposit', params: { item: item } })
+      this.$router.push({ name: 'DetailSaving', params: { item: item } })
     }
   }
 };
