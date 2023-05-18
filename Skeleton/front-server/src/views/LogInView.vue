@@ -1,45 +1,41 @@
 <template>
-    <div class="formContainer">
-      <form class="login-box">
-        <p>아이디</p>
-        <input type="text" v-model="username" name="username" label="ID를 입력하세요" />
-        <p>비밀번호</p>
-        <input type="password" v-model="password" name="userpassword" label="비밀번호를 입력하세요" />
-        <br />
-      </form>
-    <div class="login-btn">
-      <input
-        type="submit"
-        class="button"
-        name="submit"
-        @click="login({username, password})"
-        value="로그인"
-      />
-        <div class="login-btn-txt">
-          <a>아이디/비밀번호 찾기 |</a>
-          <a class="bold">
-            <router-link :to="{ name: 'signup' }">&nbsp;&nbsp;회원가입</router-link>
-          </a>
-        </div>
-      </div>
-    </div>  
- </template>
+  <div>
+    <h1>LogIn Page</h1>
+    <form @submit.prevent="login">
+      <label for="username">username : </label>
+      <input type="text" id="username" v-model="username"><br>
+
+      <label for="password"> password : </label>
+      <input type="password" id="password" v-model="password"><br>
+
+      <input type="submit" value="logIn">
+    </form>
+
+  
+  </div>
+</template>
 
 <script>
-import {mapState, mapActions} from "vuex";
 export default {
+  name: 'LogInView',
   data() {
     return {
-      username : null,
-      password : null
+      username: null,
+      password: null,
     }
   },
-  computed: {
-    ...mapState(['isLogin',"isLoginError"])
-  },
-  methods : {
-    ...mapActions(['login'])
+  methods: {
+    login() {
+      const username = this.username
+      const password = this.password
+
+      const payload = {
+        username, password
+      }
+
+      this.$store.dispatch('login', payload)
+
+    }
   }
 }
-
 </script>

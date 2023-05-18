@@ -108,12 +108,12 @@ MIDDLEWARE = [
 ]
 
 #CORS
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080',
-    'http://127.0.0.1:8000',
-    'http://localhost:8000',
-)
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:8080',
+#     'http://127.0.0.1:8000',
+#     'http://localhost:8000',
+# )
 
 
 

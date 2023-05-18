@@ -6,6 +6,7 @@ import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
 import MainPageView from '@/views/MainPageView'
+import ArticleView from '@/views/ArticleView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
 
@@ -19,6 +20,12 @@ const routes = [
     component: MainPageView
   },
  
+  {
+    path: '/',
+    name: 'ArticleView',
+    component: ArticleView
+  },
+
   {
     path: '/create',
     name: 'CreateView',

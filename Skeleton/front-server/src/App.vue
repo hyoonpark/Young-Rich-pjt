@@ -7,7 +7,17 @@
       <v-btn text to="/rate-comparison">Compare</v-btn>
       <v-btn text to="/create">Create</v-btn>
       <v-btn text to="/signup">Sign Up</v-btn>
-      <v-btn text to="/login">Log In</v-btn>
+      <template v-if="isLogin">
+        <v-btn text @click="logout">LogOut</v-btn>
+        <v-btn text>{{ getUsername }}</v-btn>
+        
+      </template>
+      <template v-else>
+        <v-btn text to="/login">Log In</v-btn>
+        <v-btn text style="color: red;">로그인 해주세요</v-btn>
+
+        
+      </template>
     </v-app-bar>
 
     <v-main>
@@ -16,23 +26,24 @@
   </v-app>
 </template>
 
-
 <script>
-
 export default {
   name: 'App',
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+    getUsername() {
+      return `환영한다, ${this.$store.state.user.userName}`;
+    },
+  },
 
-  data: () => {
-    return {
-   
+  methods : {
+    logout() {
+      this.$store.dispatch('logout')
     }
-  },
-  components : {
-  
-  },
-  methods : { 
-    
   }
+
 };
 </script>
 
