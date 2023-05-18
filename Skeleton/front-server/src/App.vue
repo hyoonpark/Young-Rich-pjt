@@ -10,6 +10,9 @@
       <v-btn text to="/login">Log In</v-btn>
     </v-app-bar>
 
+    <div>
+      <router-link to="/calculator">환율계산기</router-link>
+    </div>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -18,13 +21,17 @@
 
 
 <script>
+import axios from 'axios';
+import ArticleList from './components/ArticleList.vue';
+
+let url = "http://localhost:8000/"
 
 export default {
   name: 'App',
 
   data: () => {
     return {
-   
+  
     }
   },
   components : {

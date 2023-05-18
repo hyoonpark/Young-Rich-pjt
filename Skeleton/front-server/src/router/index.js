@@ -5,6 +5,7 @@ import CreateView from '@/views/CreateView'
 import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
+import CalculatorView from '@/views/CalculatorView'
 import MainPageView from '@/views/MainPageView'
 
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/id',
     name: 'DetailView',
     component: DetailView,
+  },
+  {
+    path: '/calculator',
+    name: 'CalculatorView',
+    component: CalculatorView
   },
 
   {
