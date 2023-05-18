@@ -1,15 +1,13 @@
 <template>
   <div>
     <h1>LogIn Page</h1>
-    <form>
-      <label for="username">username : </label>
-      <input type="text" id="username"><br>
+    <v-form>
+      <v-text-field label="Username" v-model="username"></v-text-field>
 
-      <label for="password"> password : </label>
-      <input type="password" id="password"><br>
+      <v-text-field label="Password" type="password" v-model="password"></v-text-field>
 
-      <input type="submit" value="logIn">
-    </form>
+      <v-btn color="primary" @click="login">Log In</v-btn>
+    </v-form>
   </div>
 </template>
 
@@ -17,8 +15,15 @@
 export default {
   name: 'LogInView',
   data() {
+    return {
+      username: '',
+      password: ''
+    };
   },
   methods: {
+    login() {
+      // 로그인 로직
+    }
   }
-}
+};
 </script>
