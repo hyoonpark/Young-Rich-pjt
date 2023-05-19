@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import ArticleView from '@/views/ArticleView'
+import CompareView from '@/views/CompareView'
 import CreateView from '@/views/CreateView'
 import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
+import MainPageView from '@/views/MainPageView'
+import ArticleView from '@/views/ArticleView'
+import DetailDeposit from '@/components/DetailDeposit'
+import DetailSaving from '@/components/DetailSaving'
 
 
 Vue.use(VueRouter)
@@ -12,10 +16,16 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'MainPageView',
+    component: MainPageView
+  },
+ 
+  {
+    path: '/',
     name: 'ArticleView',
     component: ArticleView
   },
- 
+
   {
     path: '/create',
     name: 'CreateView',
@@ -35,11 +45,31 @@ const routes = [
   },
 
   {
-    path: '/:id',
+    path: '/id',
     name: 'DetailView',
     component: DetailView,
   },
+  {
+    path: '/calculator',
+    name: 'CalculatorView',
+    component: CalculatorView
+  },
 
+  {
+    path : '/rate-comparison',
+    name : 'CompareView',
+    component : CompareView,
+  },
+  {
+    path: '/detaildeposit/:id', 
+    name: 'DetailDeposit',
+    component: DetailDeposit,
+  },
+  {
+    path: '/detailsaving/:id', 
+    name: 'DetailSaving',
+    component: DetailSaving,
+  },
 ]
 
 const router = new VueRouter({

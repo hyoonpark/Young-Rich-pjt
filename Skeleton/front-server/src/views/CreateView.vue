@@ -1,5 +1,3 @@
-<!-- views/CreateView.vue -->
-
 <template>
   <div>
     <h1>게시글 작성</h1>
@@ -20,40 +18,28 @@ const API_URL = 'http://127.0.0.1:8000'
 export default {
   name: 'CreateView',
   data() {
-    return {
-      title: null,
-      content: null,
-    }
   },
   methods: {
-    createArticle() {
-      const title = this.title
-      const content = this.content
-
-      if (!title) {
-        alert('제목 입력해주세요')
-        return
-      } else if (!content){
-        alert('내용 입력해주세요')
-        return
-      }
-      axios({
-        method: 'post',
-        url: `${API_URL}/api/v1/articles/`,
-        data: { title, content},
-      })
-      .then(() => {
-        // console.log(res)
-        this.$router.push({name: 'ArticleView'})
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.v-container {
+  height: 100vh;
+}
 
+.v-row {
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.v-card {
+  width: 100%;
+}
+
+.v-btn {
+  margin-top: 16px;
+}
 </style>

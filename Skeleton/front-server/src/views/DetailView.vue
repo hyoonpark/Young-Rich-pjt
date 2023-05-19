@@ -44,13 +44,7 @@ export default {
   name: 'DetailView',
   data() {
     return {
-      article: null,
-      liked: false,
-      likeCount: 0,
-      isProcessing: false,
-      comments: [],
-      newCommentContent: '',
-      newReplyContent: ''
+
     }
   },
   created() {
