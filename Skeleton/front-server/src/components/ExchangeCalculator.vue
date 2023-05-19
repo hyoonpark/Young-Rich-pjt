@@ -146,7 +146,7 @@ export default {
     async updateCurrency() {
       try {
         const response = await axios.get(
-          `https://v6.exchangerate-api.com/v6/51e2c95c2ce5649de60a9353/latest/${this.currencyOne}`
+          `https://v6.exchangerate-api.com/v6/{{ CURRENCY_KEY }}/latest/${this.currencyOne}`
         );
 
         const data = response.data;
