@@ -6,7 +6,12 @@
         <div class="table-container">
           <v-data-table :headers="headers" :items="flattenData">
             <template v-slot:item="{ item }">
+<<<<<<< HEAD
               <tr @click="goToDetail(item)">
+=======
+              <tr>
+                {{items}}
+>>>>>>> main
                 <td>{{ item.kor_co_nm }}</td>
                 <td>{{ item.fin_prdt_nm }}</td>
                 <td>{{ item.save_trm }} 개월</td>
@@ -43,6 +48,7 @@ export default {
             kor_co_nm: data.kor_co_nm,
             fin_prdt_nm: data.fin_prdt_nm,
             save_trm: item.save_trm,
+<<<<<<< HEAD
             rsrv_type_nm : item.rsrv_type_nm,
             intr_rate_type_nm : item.intr_rate_type_nm,
             intr_rate: item.intr_rate,
@@ -53,17 +59,26 @@ export default {
             mtrt_int : data.mtrt_int,
             max_limit : data.max_limit,
             spcl_cnd : data.spcl_cnd
+=======
+            intr_rate: item.intr_rate,
+            join_member: data.join_member,
+            join_way: data.join_way,
+            etc_note: data.etc_note,
+>>>>>>> main
           });
         });
       });
       return flattenedData;
     },
   },
+<<<<<<< HEAD
   methods : {
     goToDetail(item) {
       this.$router.push({ name: 'DetailSaving', params: { item: item } })
     }
   }
+=======
+>>>>>>> main
 };
 </script>
 

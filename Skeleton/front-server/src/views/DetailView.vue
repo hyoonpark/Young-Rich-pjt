@@ -14,7 +14,10 @@ export default {
   name: 'DetailView',
   data() {
     return {
+<<<<<<< HEAD
       
+=======
+>>>>>>> main
     }
   },
   created() {

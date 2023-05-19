@@ -7,6 +7,7 @@
       <v-btn text to="/rate-comparison">Compare</v-btn>
       <v-btn text to="/create">Create</v-btn>
       <v-btn text to="/signup">Sign Up</v-btn>
+<<<<<<< HEAD
       <template v-if="isLogin">
         <v-btn text @click="logout">LogOut</v-btn>
         <v-btn text>{{ getUsername }}</v-btn>
@@ -20,13 +21,30 @@
       </template>
     </v-app-bar>
 
+=======
+      <v-btn text to="/login">Log In</v-btn>
+    </v-app-bar>
+
+    <div>
+      <router-link to="/calculator">환율계산기</router-link>
+    </div>
+>>>>>>> main
     <v-main>
       <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
+
 <script>
+<<<<<<< HEAD
+=======
+import axios from 'axios';
+import ArticleList from './components/ArticleList.vue';
+
+let url = "http://localhost:8000/"
+
+>>>>>>> main
 export default {
   name: 'App',
   computed: {
@@ -38,10 +56,23 @@ export default {
     },
   },
 
+<<<<<<< HEAD
   methods : {
     logout() {
       this.$store.dispatch('logout')
     }
+=======
+  data: () => {
+    return {
+  
+    }
+  },
+  components : {
+  
+  },
+  methods : { 
+    
+>>>>>>> main
   }
 
 };

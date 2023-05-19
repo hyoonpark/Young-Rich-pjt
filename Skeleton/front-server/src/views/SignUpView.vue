@@ -23,11 +23,16 @@ export default {
   name: 'SignUpView',
   data() {
     return {
+<<<<<<< HEAD
       username: null,
       password1: null,
       password2: null,
     }
   },
+=======
+  }
+},
+>>>>>>> main
   methods: {
     signUp() {
       // console.log('signup')
