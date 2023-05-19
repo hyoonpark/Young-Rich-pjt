@@ -10,6 +10,8 @@ import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
 import KakaoView from '@/components/Map/KakaoMap'
 import ExchangeView from '@/components/ExchangeCalculator'
+import ArticleListView from '@/views/ArticleListView'
+import ArticleDetailView from '@/views/ArticleDetailView'
 
 
 Vue.use(VueRouter)
@@ -25,6 +27,18 @@ const routes = [
     path: '/create',
     name: 'CreateView',
     component: CreateView
+  },
+
+  {
+    path: '/board',
+    name: 'ArticleListView',
+    component: ArticleListView,
+  },
+
+  {
+    path: 'article/:id',
+    name: 'ArticleDetailView',
+    component: ArticleDetailView,
   },
 
   {
