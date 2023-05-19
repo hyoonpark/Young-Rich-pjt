@@ -5,6 +5,7 @@
       <v-spacer></v-spacer>
       <v-btn text to="/">Main</v-btn>
       <v-btn text to="/rate-comparison">Compare</v-btn>
+      <v-btn text to="/map">Search Bank</v-btn>
       <v-btn text to="/create">Create</v-btn>
       <v-btn text to="/signup">Sign Up</v-btn>
       <template v-if="isLogin">
