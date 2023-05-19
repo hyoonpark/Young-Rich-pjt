@@ -8,6 +8,7 @@ import LogInView from '@/views/LogInView'
 import MainPageView from '@/views/MainPageView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
+import KakaoView from '@/components/Map/KakaoMap'
 
 
 Vue.use(VueRouter)
@@ -48,6 +49,13 @@ const routes = [
     name : 'CompareView',
     component : CompareView,
   },
+
+  {
+    path: '/map',
+    name: 'KakaoView',
+    component: KakaoView,
+  },
+
   {
     path: '/detaildeposit/:id', 
     name: 'DetailDeposit',

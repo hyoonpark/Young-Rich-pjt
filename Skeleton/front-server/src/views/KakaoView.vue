@@ -1,6 +1,7 @@
 <template>
     <div>
       <h3>가까운 은행 찾아보자</h3>
+      <div class="kmap" ref="map"></div>
       <div class="controll">
         <button @click="zoom(1)">ZOOM+</button>
         <button @click="zoom(-1)">ZOOM-</button>
@@ -21,7 +22,7 @@
   </template>
   
   <script>
-  import KakaoMap from '@/components/map/KakaoMap';
+  import KakaoMap from '@/components/Map/KakaoMap';
   export default {
     components: {
       KakaoMap
@@ -74,6 +75,10 @@
   </script>
   
   <style>
+  .kmap {
+    width: 100%;
+    height: 600px;
+  }
   .map-area {
     display: flex;
     position: relative;
