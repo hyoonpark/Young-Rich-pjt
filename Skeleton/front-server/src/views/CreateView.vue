@@ -22,12 +22,8 @@ export default {
   name: 'CreateView',
   data() {
     return {
-<<<<<<< HEAD
       title: '',
       content: ''
-=======
-      
->>>>>>> main
     }
   },
   methods: {

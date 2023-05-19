@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-<<<<<<< HEAD
 
 import createPersistedState from 'vuex-persistedstate'
 import router from '../router'
@@ -17,15 +16,6 @@ const deposit_optionsUrlPrefix = "http://localhost:8000/finlife/deposit-product-
 const saving_url = "http://localhost:8000/finlife/saving-products/";
 const saving_optionsUrlPrefix = "http://localhost:8000/finlife/saving-product-options/"
 
-=======
-
-Vue.use(Vuex);
-
-const deposit_url = "http://localhost:8000/finlife/deposit-products/";
-const deposit_optionsUrlPrefix = "http://localhost:8000/finlife/deposit-product-options/";
-const saving_url = "http://localhost:8000/finlife/saving-products/";
-const saving_optionsUrlPrefix = "http://localhost:8000/finlife/saving-product-options/"
->>>>>>> main
 
 export default new Vuex.Store({
   plugins: [
@@ -34,7 +24,6 @@ export default new Vuex.Store({
   state: {
     depositList: [],
     savingList: [],
-<<<<<<< HEAD
     token: null,
     user : {
       id : null,
@@ -50,9 +39,6 @@ export default new Vuex.Store({
       return state.user.userName;
     }
     },
-=======
-  },
->>>>>>> main
   mutations: {
     SET_DEPOSIT_LIST(state, depositList) {
       state.depositList = depositList;
@@ -82,7 +68,6 @@ export default new Vuex.Store({
         return data;
       });
     },
-<<<<<<< HEAD
     SAVE_TOKEN(state, token) {
       state.token = token;
       router.push({name : 'CompareView'}) //  store/index.js $router 접근 불가 -> import를 해야함
@@ -98,8 +83,6 @@ export default new Vuex.Store({
       }
       router.push({name:'MainPageView'})
     },
-=======
->>>>>>> main
   },
   actions: {
     fetchDepositData({ commit }) {
@@ -154,7 +137,6 @@ export default new Vuex.Store({
           console.error(error);
         });
       },
-<<<<<<< HEAD
       signUp(context, payload) {
         const username = payload.username
         const password1 = payload.password1
@@ -208,7 +190,5 @@ export default new Vuex.Store({
       logout({commit}) {
         commit('LOGOUT')
       }
-=======
->>>>>>> main
     },
 })

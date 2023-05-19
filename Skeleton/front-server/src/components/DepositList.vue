@@ -6,11 +6,8 @@
         <div class="table-container">
           <v-data-table :headers="headers" :items="flattenData">
             <template v-slot:item="{ item }">
-<<<<<<< HEAD
               <tr @click="goToDetail(item)">
-=======
-              <tr>
->>>>>>> main
+
                 <td>{{ item.kor_co_nm }}</td>
                 <td>{{ item.fin_prdt_nm }}</td>
                 <td>{{ item.save_trm }} 개월</td>
@@ -44,12 +41,7 @@ export default {
       this.propsdata.forEach(data => {
         data.additionalData.forEach(item => {
           flattenedData.push({
-<<<<<<< HEAD
-
             id : data.id,
-
-=======
->>>>>>> main
             kor_co_nm: data.kor_co_nm,
             fin_prdt_nm: data.fin_prdt_nm,
             save_trm: item.save_trm,
@@ -57,38 +49,28 @@ export default {
             join_member: data.join_member,
             join_way: data.join_way,
             etc_note: data.etc_note,
-<<<<<<< HEAD
-
             intr_rate_type_nm: item.intr_rate_type_nm,
             spcl_cnd : data.spcl_cnd
-=======
->>>>>>> main
           });
         });
       });
       return flattenedData;
     },
   },
-<<<<<<< HEAD
+
   methods : {
     goToDetail(item) {
       this.$router.push({ name: 'DetailDeposit', params: { item: item } })
     }
   }
-=======
->>>>>>> main
 };
 </script>
 
 <style>
 .dataList {
-<<<<<<< HEAD
+
   margin-top: 150px;
   display: flex;
-=======
-  
-  display: relative;
->>>>>>> main
   justify-content: center;
 }
 
@@ -107,7 +89,7 @@ export default {
   margin-top: 0;
 }
 
-<<<<<<< HEAD
+
 /* 반응형 스타일 */
 @media (max-width: 600px) {
   .list-card {
@@ -118,6 +100,4 @@ export default {
     max-height: unset;
   }
 }
-=======
->>>>>>> main
 </style>

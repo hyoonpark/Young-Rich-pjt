@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <v-container class="login-container" fluid>
     <v-row justify="center" align="center" class="login-row">
       <v-col cols="12" sm="8" md="4">
@@ -31,18 +30,6 @@
       </v-col>
     </v-row>
   </v-container>
-=======
-  <div>
-    <h1>LogIn Page</h1>
-    <v-form>
-      <v-text-field label="Username" v-model="username"></v-text-field>
-
-      <v-text-field label="Password" type="password" v-model="password"></v-text-field>
-
-      <v-btn color="primary" @click="login">Log In</v-btn>
-    </v-form>
-  </div>
->>>>>>> main
 </template>
 
 <script>
@@ -50,18 +37,12 @@ export default {
   name: 'LogInView',
   data() {
     return {
-<<<<<<< HEAD
       username: null,
       password: null,
-=======
-      username: '',
-      password: ''
->>>>>>> main
     };
   },
   methods: {
     login() {
-<<<<<<< HEAD
       const username = this.username;
       const password = this.password;
 
@@ -102,10 +83,3 @@ export default {
   margin-top: 16px;
 }
 </style>
-=======
-      // 로그인 로직
-    }
-  }
-};
-</script>
->>>>>>> main

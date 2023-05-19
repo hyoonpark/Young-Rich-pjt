@@ -5,15 +5,10 @@ import CreateView from '@/views/CreateView'
 import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
-<<<<<<< HEAD
 import MainPageView from '@/views/MainPageView'
 import ArticleView from '@/views/ArticleView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
-=======
-import CalculatorView from '@/views/CalculatorView'
-import MainPageView from '@/views/MainPageView'
->>>>>>> main
 
 
 Vue.use(VueRouter)
@@ -23,15 +18,12 @@ const routes = [
     path: '/',
     name: 'MainPageView',
     component: MainPageView
-<<<<<<< HEAD
   },
  
   {
     path: '/',
     name: 'ArticleView',
     component: ArticleView
-=======
->>>>>>> main
   },
 
   {
@@ -67,7 +59,6 @@ const routes = [
     path : '/rate-comparison',
     name : 'CompareView',
     component : CompareView,
-<<<<<<< HEAD
   },
   {
     path: '/detaildeposit/:id', 
@@ -79,9 +70,6 @@ const routes = [
     name: 'DetailSaving',
     component: DetailSaving,
   },
-=======
-  }
->>>>>>> main
 ]
 
 const router = new VueRouter({
