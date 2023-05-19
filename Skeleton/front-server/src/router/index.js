@@ -9,6 +9,7 @@ import MainPageView from '@/views/MainPageView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
 import KakaoView from '@/components/Map/KakaoMap'
+import ExchangeView from '@/components/ExchangeCalculator'
 
 
 Vue.use(VueRouter)
@@ -65,6 +66,11 @@ const routes = [
     path: '/detailsaving/:id', 
     name: 'DetailSaving',
     component: DetailSaving,
+  },
+  {
+    path: '/exchange',
+    name: 'ExchangeView',
+    component: ExchangeView,
   },
 ]
 
