@@ -6,6 +6,7 @@ import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
 import MainPageView from '@/views/MainPageView'
+import ProfileView from '@/components/ProfileView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
 
@@ -49,14 +50,20 @@ const routes = [
     component : CompareView,
   },
   {
-    path: '/detaildeposit/:id', 
+    path: '/detail-deposit/:id',
     name: 'DetailDeposit',
     component: DetailDeposit,
   },
   {
-    path: '/detailsaving/:id', 
+    path: '/detail-saving/:id',
     name: 'DetailSaving',
     component: DetailSaving,
+
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfileView,
   },
 ]
 

@@ -28,6 +28,7 @@ export default new Vuex.Store({
     user : {
       id : null,
       userName : null,
+      profile: null,
     }
  
   },
@@ -80,8 +81,16 @@ export default new Vuex.Store({
       state.user = {
         id : null,
         userName: null,
+        profile : null,
       }
       router.push({name:'MainPageView'})
+    },
+    //프로필 관련
+    updateUserProfile(state, profile) {
+      state.user.profile = profile;
+    },
+    updateUserName(state, userName) {
+      state.user.userName = userName;
     },
   },
   actions: {
@@ -189,6 +198,14 @@ export default new Vuex.Store({
       },
       logout({commit}) {
         commit('LOGOUT')
-      }
+      },
+
+      initialize({ commit }) {
+         const username = this.state.user.userName;
+         const storedProfile = JSON.parse(localStorage.getItem(`userProfile_${username}`));
+        if (storedProfile) {
+          commit('updateUserProfile', storedProfile);
+        }
+      },
     },
 })

@@ -6,12 +6,14 @@
         <div class="table-container">
           <v-data-table :headers="headers" :items="flattenData">
             <template v-slot:item="{ item }">
+             
               <tr @click="goToDetail(item)">
-                {{items}}
+            
                 <td>{{ item.kor_co_nm }}</td>
                 <td>{{ item.fin_prdt_nm }}</td>
                 <td>{{ item.save_trm }} 개월</td>
                 <td>{{ item.intr_rate }}</td>
+                
               </tr>
             </template>
           </v-data-table>
@@ -34,6 +36,7 @@ export default {
         { text: '상품이름', value: 'fin_prdt_nm' },
         { text: '기간', value: 'save_trm' },
         { text: '금리', value: 'intr_rate' },
+        
       ].map(header => ({ ...header, align: 'center' }));
     },
     flattenData() {
@@ -44,7 +47,7 @@ export default {
             kor_co_nm: data.kor_co_nm,
             fin_prdt_nm: data.fin_prdt_nm,
             save_trm: item.save_trm,
-
+            id : data.id,
             rsrv_type_nm : item.rsrv_type_nm,
             intr_rate_type_nm : item.intr_rate_type_nm,
             intr_rate: item.intr_rate,
@@ -54,7 +57,9 @@ export default {
             etc_note: data.etc_note,
             mtrt_int : data.mtrt_int,
             max_limit : data.max_limit,
-            spcl_cnd : data.spcl_cnd
+            spcl_cnd : data.spcl_cnd,
+            dcls_strt_day : data.dcls_strt_day,
+            dcls_end_day : data.dcls_end_day,
 
           });
         });
@@ -65,7 +70,9 @@ export default {
 
   methods : {
     goToDetail(item) {
-      this.$router.push({ name: 'DetailSaving', params: { item: item } })
+      const id = item.id
+      
+      this.$router.push({ name: 'DetailSaving', params: { item, id } })
     }
   }
 

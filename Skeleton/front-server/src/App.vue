@@ -9,7 +9,7 @@
       <v-btn text to="/signup">Sign Up</v-btn>
       <template v-if="isLogin">
         <v-btn text @click="logout">LogOut</v-btn>
-        <v-btn text>{{ getUsername }}</v-btn>
+        <v-btn text to="/profile">{{ getUsername }}</v-btn>
         
       </template>
       <template v-else>
@@ -38,7 +38,6 @@ export default {
       return `환영한다, ${this.$store.state.user.userName}`;
     },
   },
-
   methods : {
     logout() {
       this.$store.dispatch('logout')
