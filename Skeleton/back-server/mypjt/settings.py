@@ -26,6 +26,8 @@ environ.Env.read_env(
 )
 
 API_KEY = os.environ.get('API_KEY')
+KAKAO_KEY = os.environ.get('KAKAO_KEY')
+CURRENCY_KEY = os.environ.get('CURRENCY_KEY')
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,6 +45,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'calculators',
+    'kakaomaps',
     'accounts',
     'finlife',
     'corsheaders',
@@ -125,7 +129,7 @@ ROOT_URLCONF = 'mypjt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -152,6 +152,8 @@ export default new Vuex.Store({
           .then((res) => {
             // console.log(res)
             // context.commit('SIGN_UP', res.data.key)
+            const user = {userName : username}
+            context.commit('SET_USER',user)
             context.commit('SAVE_TOKEN', res.data.key)
             alert('회원가입이 완료되었습니다')
           })
