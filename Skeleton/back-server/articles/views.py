@@ -122,50 +122,29 @@ def reply_detail(request, reply_pk):
 
 @api_view(['POST'])
 def toggle_like(request):
-    """
-    좋아요를 토글하는 함수입니다.
-    POST 요청으로 좋아요를 토글할 객체의 타입(article, comment, reply)과 ID를 전달해야 합니다.
-    """
+    obj_type = request.data.get('type')
+    obj_id = request.data.get('id')
 
-    # 요청에서 타입과 ID 가져오기
-    obj_type = request.data.get('type')  # 객체 타입(article, comment, reply)
-    obj_id = request.data.get('id')  # 객체 ID
-
-    # 타입에 따라서 좋아요 처리
     if obj_type == 'article':
-        model = Article
-        like_model = ArticleLike
+        obj = get_object_or_404(Article, pk=obj_id)
+        serializer_class = ArticleLikeSerializer
     elif obj_type == 'comment':
-        model = Comment
-        like_model = CommentLike
+        obj = get_object_or_404(Comment, pk=obj_id)
+        serializer_class = CommentLikeSerializer
     elif obj_type == 'reply':
-        model = Reply
-        like_model = ReplyLike
+        obj = get_object_or_404(Reply, pk=obj_id)
+        serializer_class = ReplyLikeSerializer
     else:
-        return Response({'error': 'Invalid object type'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Invalid object type'}, status=status.HTTP_400_BAD_REQUEST)
 
-    # 객체 가져오기
-    obj = get_object_or_404(model, pk=obj_id)
-
-    # 현재 사용자
-    user = request.user
-
-    try:
-        # 좋아요 여부 확인
-        like = like_model.objects.get(user=user, **{obj_type: obj})
-
-        # 이미 좋아요를 한 경우 좋아요 취소
-        like.delete()
-        liked = False
-    except like_model.DoesNotExist:
-        # 좋아요를 하지 않은 경우 좋아요 추가
-        like = like_model.objects.create(user=user, **{obj_type: obj})
-        liked = True
-
-    # 좋아요 개수
-    like_count = like_model.objects.filter(**{obj_type: obj}).count()
-
-    return Response({'liked': liked, 'like_count': like_count}, status=status.HTTP_200_OK)
+    if obj.likes.filter(user=request.user).exists():
+        obj.likes.filter(user=request.user).delete()
+        return Response({'message': 'Like removed'})
+    else:
+        serializer = serializer_class(data={'user': request.user.id, obj_type: obj.id})
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message': 'Like added'}, status=status.HTTP_201_CREATED)
 
 
 @api_view(['GET'])
@@ -195,9 +174,9 @@ def get_like_status(request, obj_type, obj_id):
     user = request.user
 
     # 좋아요 여부 확인
-    liked = like_model.objects.filter(user=user, **{obj_type: obj}).exists()
+    liked = like_model.objects.filter(user=user, **{f"{obj_type}_id": obj_id}).exists()
 
     # 좋아요 개수
-    like_count = like_model.objects.filter(**{obj_type: obj}).count()
+    like_count = like_model.objects.filter(**{f"{obj_type}_id": obj_id}).count()
 
     return Response({'liked': liked, 'like_count': like_count}, status=status.HTTP_200_OK)
