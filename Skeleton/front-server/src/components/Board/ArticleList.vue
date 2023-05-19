@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import ArticleListItem from '@/components/ArticleListItem'
+import ArticleListItem from '@/components/Board/ArticleListItem'
 
 export default {
-  name: 'Article',
+  name: 'ArticleList',
   components: {
     ArticleListItem,
   },
