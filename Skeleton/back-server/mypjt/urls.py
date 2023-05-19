@@ -26,5 +26,5 @@ urlpatterns = [
     path('accounts/signup/', include('dj_rest_auth.registration.urls')),
     path('map/', include('kakaomaps.urls')),
     path('calculator/', include('calculators.urls')),  
-
+    path('api/v1/', include('articles.urls')),
 ]
