@@ -34,6 +34,7 @@ export default {
   },
   created() {
     this.checkInterestProduct();
+
   },
   methods: {
     checkInterestProduct() {

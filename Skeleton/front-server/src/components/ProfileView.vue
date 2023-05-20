@@ -6,7 +6,7 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6">
-            <v-text-field v-model="nickname" :disabled="!isEditing" label="닉네임"></v-text-field>
+            <v-text-field v-model="username" :disabled="!isEditing" label="닉네임"></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field v-model="email" :disabled="!isEditing" label="이메일"></v-text-field>
@@ -68,20 +68,31 @@ export default {
   data() {
     return {
       isEditing: false,
-      nickname: '',
-      email: '',
-      age: 0,
-      assets: 0,
-      salary: 0,
-      depositProducts: [], 
+      depositProducts: [],
       savingProducts: [],
     };
   },
   computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    email() {
+      return this.user.email;
+    },
+    age() {
+      return this.user.age;
+    },
+    assets() {
+      return this.user.assets;
+    },
+    salary() {
+      return this.user.salary;
+    },
     username() {
-      return this.$store.state.user.userName;
+      return this.user.username;
     },
   },
+
   methods: {
     toggleEditing() {
       this.isEditing = !this.isEditing;

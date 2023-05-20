@@ -35,7 +35,7 @@ export default {
       return this.$store.getters.isLogin;
     },
     getUsername() {
-      return `환영한다, ${this.$store.state.user.userName}`;
+      return `환영한다, ${this.$store.state.user.username}`;
     },
   },
   methods : {

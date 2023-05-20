@@ -67,7 +67,8 @@ export default {
 
   methods : {
     goToDetail(item) {
-      this.$router.push({ name: 'DetailDeposit', params: { item: item } })
+      const id = item.id
+      this.$router.push({ name: 'DetailDeposit', params: { item,id} })
     }
   }
 };

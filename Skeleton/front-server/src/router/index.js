@@ -9,7 +9,7 @@ import MainPageView from '@/views/MainPageView'
 import ProfileView from '@/components/ProfileView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
-
+import AddInformation from '@/components/AddInformation'
 
 Vue.use(VueRouter)
 
@@ -65,6 +65,11 @@ const routes = [
     name: 'Profile',
     component: ProfileView,
   },
+  {
+    path: '/addinfromation',
+    name : 'AddInformation',
+    component : AddInformation,
+  }
 ]
 
 const router = new VueRouter({

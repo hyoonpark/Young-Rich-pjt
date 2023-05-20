@@ -7,6 +7,7 @@ from .serializers import DepositProductsSerializer, DepositOptionsSerializer,Sav
 from django.views.decorators.http import require_http_methods
 from rest_framework import status
 from django.conf import settings
+
 import requests
 
 API_KEY = settings.API_KEY
@@ -171,4 +172,3 @@ def saving_top_rate(request):
         }
     
     return Response(data)
-

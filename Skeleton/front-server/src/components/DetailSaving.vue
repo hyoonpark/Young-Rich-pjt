@@ -3,9 +3,8 @@
     <h2>은행명: {{ $route.params.item.kor_co_nm }}</h2>
     <p>상품이름: {{ $route.params.item.fin_prdt_nm }}</p>
     <p>기간: {{ $route.params.item.save_trm }} 개월</p>
-    <p>공시 시작일 : {{ formatDate($route.params.item.dcls_strt_day) || '종료기간 미정' }}</p>
-    <p>공시 종료일 : {{ formatDate($route.params.item.dcls_end_day) || '종료기간 미정' }}</p>
-
+    <p>공시 시작일 : {{ $route.params.item.dcls_strt_day || '종료기간 미정' }}</p>
+    <p>공시 종료일 : {{ $route.params.item.dcls_end_day || '종료기간 미정' }}</p>
     <p>저축 금리 유형명: {{ $route.params.item.intr_rate_type_nm }}</p>
     <p>저축 금리: {{ $route.params.item.intr_rate }}%</p>
     <p>적립 유형명: {{ $route.params.item.rsrv_type_nm }}</p>

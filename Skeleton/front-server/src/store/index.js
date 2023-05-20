@@ -27,8 +27,12 @@ export default new Vuex.Store({
     token: null,
     user : {
       id : null,
-      userName : null,
-      profile: null,
+      username : null,
+      email : null,
+      age : null,
+      assets : null,
+      salary : null,
+      
     }
  
   },
@@ -80,18 +84,17 @@ export default new Vuex.Store({
       state.token = null;
       state.user = {
         id : null,
-        userName: null,
-        profile : null,
+        username : null,
+        email : null,
+        age : null,
+        assets : null,
+        salary : null,
+
       }
       router.push({name:'MainPageView'})
     },
-    //프로필 관련
-    updateUserProfile(state, profile) {
-      state.user.profile = profile;
-    },
-    updateUserName(state, userName) {
-      state.user.userName = userName;
-    },
+
+
   },
   actions: {
     fetchDepositData({ commit }) {
@@ -147,54 +150,68 @@ export default new Vuex.Store({
         });
       },
       signUp(context, payload) {
-        const username = payload.username
-        const password1 = payload.password1
-        const password2 = payload.password2
+        const username = payload.username;
+        const email = payload.email;
+        const password1 = payload.password1;
+        const password2 = payload.password2;
+        const age = parseInt(payload.age); // Integer 형식으로 변환
+        const assets = parseInt(payload.assets); // Integer 형식으로 변환
+        const salary = parseInt(payload.salary); // Integer 형식으로 변환
+      
+        axios.post(`${API_URL}/accounts/create-user/`, {
+          username: username,
+          email: email,
+          password: password1,
+          age: age,
+          assets: assets,
+          salary: salary
+        })
+        .then(response => {
   
-        axios({
-          method: 'post',
-          url: `${API_URL}/accounts/signup/`,
-          data: {
-            username, password1, password2
-          }
+          alert('회원가입이 완료되었습니다.');
         })
-          .then((res) => {
-            // console.log(res)
-            // context.commit('SIGN_UP', res.data.key)
-            const user = {userName : username}
-            context.commit('SET_USER',user)
-            context.commit('SAVE_TOKEN', res.data.key)
-            alert('회원가입이 완료되었습니다')
-          })
-          .catch((err) => {
-          console.log(err)
-          alert('이미 존재하는 회원이거나, 아이디가 형식에 맞지 않습니다.')
-        })
+        .catch(error => {
+          // 회원가입 실패 처리
+          console.error(error);
+          alert('회원가입 중 오류가 발생했습니다.');
+        });
       },
       login(context, payload) {
-        const username = payload.username
-        const password = payload.password
-  
-        axios({
-          method: 'post',
-          url: `${API_URL}/accounts/login/`,
-          data: {
-            username, password
-          }
-        })
-          .then((res) => {
-            const user = {userName : username}
-            context.commit('SET_USER',user)
-            context.commit('SAVE_TOKEN', res.data.key)
-            alert('로그인이 처리되었습니다')
-          })
+        const username = payload.username;
+        const password = payload.password;
       
-        .catch((err) =>  {
-          console.log(err)
-          alert('아이디와 비밀번호를 확인하세요!')
-        })
-
-
+        return axios
+          .post(`${API_URL}/accounts/login/`, {
+            username,
+            password
+          })
+          .then(response => {
+            const token = response.data.token;
+            // 토큰을 저장하거나 Vuex 스토어에 저장
+            context.commit('SAVE_TOKEN', token);
+            const user = {
+              id: response.data.id,
+              username: response.data.username,
+              email: response.data.email,
+              age: response.data.age,
+              assets: response.data.assets,
+              salary: response.data.salary
+            };
+            context.commit('SET_USER', user);
+      
+            // 로그인 성공 처리
+            alert('로그인이 처리되었습니다.');
+            // 사용자 정보 요청을 통해 사용자 정보를 가져옵니다.
+            return axios.get(`${API_URL}/accounts/login/`, {
+              headers: {
+                Authorization: `Token ${token}`
+              }
+            });
+          })
+          .catch(error => {
+            // 로그인 실패 처리
+            console.error(error);
+          });
       },
       logout({commit}) {
         commit('LOGOUT')
