@@ -14,4 +14,4 @@ class UserSerializer(serializers.ModelSerializer):
 class InterestProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = InterestProduct
-        fields = ['product_type', 'fin_prdt_nm', 'save_trm']
+        fields = ['product_type','kor_co_nm' ,'fin_prdt_nm', 'save_trm']

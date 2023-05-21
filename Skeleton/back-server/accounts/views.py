@@ -26,15 +26,16 @@ def CreateUser(request):
 def LoginUser(request):
     username = request.data.get('username')
     password = request.data.get('password')
-    
+
     user = authenticate(request, username=username, password=password)
+
     if user is not None:
         token, created = Token.objects.get_or_create(user=user)
         
         serializer = UserSerializer(user)
         user_data = serializer.data
         user_data['token'] = token.key
-        print(user_data)
+        
         return Response(user_data)
     else:
         return Response({'error': 'Invalid credentials'}, status=400)
@@ -72,7 +73,7 @@ def update_profile(request):
 def interest_product(request):
     user = request.user
     product_data = request.data
-    print(user,request.method)
+    
     if request.method == "POST" :
         
         # 이미 등록된 상품인지 확인
@@ -83,6 +84,7 @@ def interest_product(request):
         serializer = InterestProductSerializer(data=product_data)
         if serializer.is_valid():
             serializer.save(user=user)
+            print(serializer)
             return Response({'message': '관심 상품이 등록되었습니다!'})
 
         return Response(serializer.errors, status=400)
@@ -100,7 +102,6 @@ def interest_product(request):
 def check_interest(request):
     user = request.user
     product_data = request.data
-
         
     existing_product = InterestProduct.objects.filter(user=user, **product_data).exists()
     if existing_product:
@@ -108,4 +109,21 @@ def check_interest(request):
 
     else :
         return Response({'message': '등록되지 않은 상품!'})
+    
 
+@api_view(['POST'])
+def get_interest(request):
+    
+    user_id = request.user.id
+    product_type = request.data.get('product_type')
+    
+    # 필터링된 데이터를 가져옴
+    if product_type == 1:
+        filtered_products = InterestProduct.objects.filter(product_type=1, user_id=user_id)
+    else:
+        filtered_products = InterestProduct.objects.filter(product_type=2, user_id=user_id)
+    
+    # Serializer를 사용하여 데이터 직렬화
+    serializer = InterestProductSerializer(filtered_products, many=True)
+
+    return Response(serializer.data)

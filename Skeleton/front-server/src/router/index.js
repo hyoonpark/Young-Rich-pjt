@@ -9,6 +9,7 @@ import MainPageView from '@/views/MainPageView'
 import ProfileView from '@/components/ProfileView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
+import Statistics from '@/components/Statistics'
 
 Vue.use(VueRouter)
 
@@ -64,7 +65,11 @@ const routes = [
     name: 'Profile',
     component: ProfileView,
   },
-
+  {
+    path: '/profile/Statistics',
+    name : 'Statistics',
+    component : Statistics,
+  }
 ]
 
 const router = new VueRouter({

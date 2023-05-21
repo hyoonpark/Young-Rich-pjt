@@ -41,9 +41,10 @@ export default {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
         save_trm: this.$route.params.item.save_trm,
+        kor_co_nm: this.$route.params.item.kor_co_nm,
         product_type: 1,
       };
-
+      
       this.$store.dispatch('registerDepositProduct', product)
         .then(() => {
           this.isInterested = true;
@@ -61,9 +62,10 @@ export default {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
         save_trm: this.$route.params.item.save_trm,
+        kor_co_nm: this.$route.params.item.kor_co_nm,
         product_type: 1,
       };
-
+      
       this.$store.dispatch('unregisterDepositProduct', product)
         .then(() => {
           this.isInterested = false;

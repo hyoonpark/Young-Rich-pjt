@@ -15,9 +15,11 @@
     <p>가입 방법: {{ $route.params.item.join_way }}</p>
     <p>우대 조건: {{ $route.params.item.spcl_cnd }}</p>
     <p>기타 특이 사항: {{ $route.params.item.etc_note }}</p>
-
-    <v-btn @click="toggleInterestProduct" :color="isInterested ? 'red' : 'primary'" class="interest-btn">
-  {{ isInterested ? '관심 등록 해제' : '관심 상품 등록' }}
+    <v-btn v-if="isInterested" @click="unregisterSavingProduct" color="red" class="interest-btn">
+      관심 상품 등록 해제
+    </v-btn>
+    <v-btn v-else @click="registerSavingProduct" color="primary" class="interest-btn">
+      관심 상품 등록
     </v-btn>
   </div>
 </template>
@@ -31,46 +33,77 @@ export default {
     };
   },
   created() {
-    this.checkInterestProduct();
+    this.checkInterestProduct()
+
   },
   methods: {
-    checkInterestProduct() {
-      const storedProducts = JSON.parse(localStorage.getItem('interestProducts')) || [];
-      const productId = this.$route.params.item.fin_prdt_nm;
-      this.isInterested = storedProducts.some(product => product.name === productId);
+    registerSavingProduct() {
+      const product = {
+        fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
+        save_trm: this.$route.params.item.save_trm,
+        kor_co_nm: this.$route.params.item.kor_co_nm,
+        product_type: 2,
+      };
+      
+      this.$store.dispatch('registerDepositProduct', product)
+        .then(() => {
+          this.isInterested = true;
+          alert('적금상품이 등록되었습니다!');
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 409) {
+            alert('이미 등록한 상품입니다.');
+          } else {
+            console.error('상품 등록에 실패하였습니다', error);
+          }
+        });
     },
-    toggleInterestProduct() {
-  const product = {
-    id: this.$route.params.item.id, 
-    name: this.$route.params.item.fin_prdt_nm,
-    type: 'saving',
+    unregisterSavingProduct() {
+      const product = {
+        fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
+        save_trm: this.$route.params.item.save_trm,
+        kor_co_nm: this.$route.params.item.kor_co_nm,
+        product_type: 2,
+      };
+      
+      this.$store.dispatch('unregisterDepositProduct', product)
+        .then(() => {
+          this.isInterested = false;
+          alert('적금상품 등록이 해제되었습니다!');
+        })
+        .catch(error => {
+          console.error('상품 등록 해제에 실패하였습니다', error);
+        });
+    },
+    checkInterestProduct() {
+      const product = {
+        fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
+        save_trm: this.$route.params.item.save_trm,
+        product_type: 2,
+      };
 
-    username: this.$store.state.user.userName,
-  };
-
-  const storedProducts = JSON.parse(localStorage.getItem('interestProducts')) || [];
-
-  if (this.isInterested) {
-    // 관심 상품 등록 해제
-    const index = storedProducts.findIndex(item => item.name === product.name && item.username === product.username);
-    if (index > -1) {
-      storedProducts.splice(index, 1);
-      localStorage.setItem('interestProducts', JSON.stringify(storedProducts));
+      this.$store.dispatch('checkInterestProduct', product)
+        .then(() => {
+          this.isInterested = false;
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 409) {
+            this.isInterested = true;
+          } else {
+            console.error('통신에 실패하였습니다', error);
+          }
+        });
     }
-  } else {
-    // 관심 상품 등록
-    storedProducts.push(product);
-    localStorage.setItem('interestProducts', JSON.stringify(storedProducts));
-  }
-
-  this.isInterested = !this.isInterested;
-  const message = this.isInterested ? '관심 상품이 등록되었습니다!' : '관심 등록이 해제되었습니다!';
-  alert(message);
-},
   },
 };
 </script>
 
+
+<style scoped>
+.interest-btn {
+  margin-top: 20px;
+}
+</style>
 <style scoped>
 .interest-btn {
   margin-top: 20px;

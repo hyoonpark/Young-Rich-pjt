@@ -141,6 +141,33 @@ export default new Vuex.Store({
           console.error(error);
         });
     },
+    fetchInterestProducts({ commit, state }, { userId, productType }) {
+      return new Promise((resolve, reject) => {
+        if (state.token) {
+          const token = state.token
+          const config = {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          };
+          const params = {
+            user_id: userId,
+            product_type: productType,
+          };
+        
+          axios.post(`${API_URL}/accounts/get_interest/`, params, config)
+            .then(response => {
+              resolve(response.data);
+             
+            })
+            .catch(error => {
+              reject(error);
+            });
+        } else {
+          reject(new Error('인증되지 않은 사용자입니다.'));
+        }
+      });
+    },
     signUp(context, payload) {
       const username = payload.username;
       const email = payload.email;
@@ -149,7 +176,7 @@ export default new Vuex.Store({
       const age = parseInt(payload.age); // Integer 형식으로 변환
       const assets = parseInt(payload.assets); // Integer 형식으로 변환
       const salary = parseInt(payload.salary); // Integer 형식으로 변환
-
+    
       axios
         .post(`${API_URL}/accounts/create-user/`, {
           username: username,
@@ -161,6 +188,7 @@ export default new Vuex.Store({
         })
         .then((response) => {
           alert('회원가입이 완료되었습니다.');
+          router.push('/');
         })
         .catch((error) => {
           // 회원가입 실패 처리
@@ -246,8 +274,8 @@ export default new Vuex.Store({
       }
     },
     registerDepositProduct({ commit, state }, product) {
-      if (state.token) {
-        return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
+        if (state.token) {
           const token = state.token;
           console.log(token);
           const config = {
@@ -263,16 +291,16 @@ export default new Vuex.Store({
             .catch((error) => {
               reject(error);
             });
-        });
-      } else {
-        return Promise.reject(new Error('인증되지 않은 사용자입니다.'));
-      }
+        } else {
+          reject(new Error('인증되지 않은 사용자입니다.'));
+        }
+      });
     },
     unregisterDepositProduct({ commit, state }, product) {
       if (state.token) {
         return new Promise((resolve, reject) => {
           const token = state.token;
-          console.log(token);
+      
           const config = {
             headers: {
               Authorization: `Token ${token}`,
@@ -295,7 +323,7 @@ export default new Vuex.Store({
       if (state.token) {
         return new Promise((resolve, reject) => {
           const token = state.token;
-          console.log(token)
+        
           const config = {
             headers: {
               Authorization: `Token ${token}`,
