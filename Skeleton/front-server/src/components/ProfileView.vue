@@ -6,10 +6,10 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6">
-            <v-text-field v-model="username" :disabled="!isEditing" label="닉네임"></v-text-field>
+           <v-text-field v-model="username" :disabled="!isEditing || isUsernameDisabled" label="닉네임"></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
-            <v-text-field v-model="email" :disabled="!isEditing" label="이메일"></v-text-field>
+            <v-text-field v-model="email" :disabled="!isEditing || isEmailDisabled" label="이메일"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -68,6 +68,8 @@ export default {
   data() {
     return {
       isEditing: false,
+      isUsernameDisabled: true, 
+      isEmailDisabled: true,
       depositProducts: [],
       savingProducts: [],
     };
@@ -76,68 +78,91 @@ export default {
     user() {
       return this.$store.state.user;
     },
-    email() {
-      return this.user.email;
+    email: {
+      get() {
+        return this.user.email;
+      },
+
     },
-    age() {
-      return this.user.age;
+    assets: {
+      get() {
+        return this.user.assets;
+      },
+      set(value) {
+        this.user.assets = value;
+      }
     },
-    assets() {
-      return this.user.assets;
+    salary: {
+      get() {
+        return this.user.salary;
+      },
+      set(value) {
+        this.user.salary = value;
+      }
     },
-    salary() {
-      return this.user.salary;
-    },
-    username() {
-      return this.user.username;
+    username: {
+      get() {
+        return this.user.username;
+      },
+
+      },
+    age: {
+      get() {
+        return this.user.age; 
+      },
+      set(value) {
+        this.user.age = value; 
+      }
     },
   },
-
   methods: {
     toggleEditing() {
       this.isEditing = !this.isEditing;
+
     },
     saveChanges() {
-  // 프로필 정보 저장
-      const userProfile = {
-        nickname: this.nickname,
+      this.$store.commit('updateUserProfile', {
+        username: this.username,
         email: this.email,
-        age: this.age,
-        assets: this.assets,
-        salary: this.salary,
-      };
+        age: parseInt(this.age),
+        assets: parseInt(this.assets),
+        salary: parseInt(this.salary),
+      });
+      this.$store.dispatch('saveProfileChanges', this.$store.state.user)
+        .then(() => {
+          this.toggleEditing();
+          alert('프로필 수정이 완료되었습니다!');
 
-      const username = this.$store.state.user.userName;
-      localStorage.setItem(`userProfile_${username}`, JSON.stringify(userProfile));
-      this.$store.commit('updateUserProfile', userProfile);
-
-      this.toggleEditing();
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
-    initializeProfileData() {
-      const username = this.$store.state.user.userName;
-      const storedProfile = JSON.parse(localStorage.getItem(`userProfile_${username}`)); // 각 유저의 프로필을 가져오도록 수정
-      const storedProducts = JSON.parse(localStorage.getItem('interestProducts')) || [];
-      const storedProductsDeposit = JSON.parse(localStorage.getItem('interestProductsDeposit')) || [];
+    // initializeProfileData() {
+    //   const username = this.$store.state.user.userName;
+    //   const storedProfile = JSON.parse(localStorage.getItem(`userProfile_${username}`)); // 각 유저의 프로필을 가져오도록 수정
+    //   const storedProducts = JSON.parse(localStorage.getItem('interestProducts')) || [];
+    //   const storedProductsDeposit = JSON.parse(localStorage.getItem('interestProductsDeposit')) || [];
 
   
-      if (storedProfile) {
-        this.nickname = storedProfile.nickname;
-        this.email = storedProfile.email;
-        this.age = storedProfile.age;
-        this.assets = storedProfile.assets;
-        this.salary = storedProfile.salary;
-      }
+    //   if (storedProfile) {
+    //     this.nickname = storedProfile.nickname;
+    //     this.email = storedProfile.email;
+    //     this.age = storedProfile.age;
+    //     this.assets = storedProfile.assets;
+    //     this.salary = storedProfile.salary;
+    //   }
 
 
-      this.depositProducts = storedProductsDeposit.filter(
-        product => product.type === 'deposit' && product.username === username
-      );
-      this.savingProducts = storedProducts.filter(
-        product => product.type === 'saving' && product.username === username
-      );
+    //   this.depositProducts = storedProductsDeposit.filter(
+    //     product => product.type === 'deposit' && product.username === username
+    //   );
+    //   this.savingProducts = storedProducts.filter(
+    //     product => product.type === 'saving' && product.username === username
+    //   );
 
-      this.loadInterestProducts();
-    },
+    //   this.loadInterestProducts();
+    // },
     loadInterestProducts() {
       const username = this.$store.state.user.userName;
       const storedProductsDeposit = JSON.parse(localStorage.getItem('interestProductsDeposit')) || [];
@@ -161,7 +186,7 @@ export default {
   },
   },
   created() {
-    this.initializeProfileData();
+    // this.initializeProfileData();
     this.loadInterestProducts();
   },
 };

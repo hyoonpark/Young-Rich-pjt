@@ -6,3 +6,10 @@ class CustomUser(AbstractUser):
     assets = models.IntegerField()
     salary = models.IntegerField()
 
+
+class InterestProduct(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product_type = models.IntegerField()
+    fin_prdt_nm = models.TextField()
+    save_trm = models.IntegerField()
+

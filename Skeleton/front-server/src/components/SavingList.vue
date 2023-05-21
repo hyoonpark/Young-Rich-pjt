@@ -9,10 +9,10 @@
              
               <tr @click="goToDetail(item)">
             
-                <td>{{ item.kor_co_nm }}</td>
-                <td>{{ item.fin_prdt_nm }}</td>
-                <td>{{ item.save_trm }} 개월</td>
-                <td>{{ item.intr_rate }}</td>
+                <td class="center">{{ item.kor_co_nm }}</td>
+                <td class="center">{{ item.fin_prdt_nm }}</td>
+                <td class="center">{{ item.save_trm }} 개월</td>
+                <td class="center">{{ item.intr_rate }}%</td>
                 
               </tr>
             </template>
@@ -110,5 +110,9 @@ export default {
   .table-container {
     max-height: unset;
   }
+}
+
+.center {
+  text-align: center;
 }
 </style>

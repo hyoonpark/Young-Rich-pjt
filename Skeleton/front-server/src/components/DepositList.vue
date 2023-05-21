@@ -6,12 +6,13 @@
         <div class="table-container">
           <v-data-table :headers="headers" :items="flattenData">
             <template v-slot:item="{ item }">
+           
               <tr @click="goToDetail(item)">
 
                 <td>{{ item.kor_co_nm }}</td>
                 <td>{{ item.fin_prdt_nm }}</td>
                 <td>{{ item.save_trm }} 개월</td>
-                <td>{{ item.intr_rate }}</td>
+                <td>{{ item.intr_rate }}%</td>
               </tr>
             </template>
           </v-data-table>

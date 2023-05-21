@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser,InterestProduct
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,3 +10,8 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = CustomUser.objects.create_user(**validated_data)
         return user
+
+class InterestProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InterestProduct
+        fields = ['product_type', 'fin_prdt_nm', 'save_trm']
