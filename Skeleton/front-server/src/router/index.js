@@ -6,10 +6,13 @@ import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
 import MainPageView from '@/views/MainPageView'
-import ProfileView from '@/components/ProfileView'
+import ProfileView from '@/views/ProfileView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
 import Statistics from '@/components/Statistics'
+import ProfileDeposit from '@/components/ProfileDeposit'
+import ProfileSaving from '@/components/ProfileSaving'
+
 
 Vue.use(VueRouter)
 
@@ -69,7 +72,17 @@ const routes = [
     path: '/profile/Statistics',
     name : 'Statistics',
     component : Statistics,
-  }
+  },
+  {
+    path : '/profiledeposit',
+    name : 'ProfileDeposit',
+    component : ProfileDeposit,
+  },
+  {
+    path : '/profilesaving',
+    name : 'ProfileSaving',
+    component : ProfileSaving,
+  },
 ]
 
 const router = new VueRouter({

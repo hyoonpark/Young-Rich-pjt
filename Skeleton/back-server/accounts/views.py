@@ -71,9 +71,10 @@ def update_profile(request):
     
 @api_view(['POST','DELETE'])
 def interest_product(request):
+
     user = request.user
     product_data = request.data
-    
+    print(user)
     if request.method == "POST" :
         
         # 이미 등록된 상품인지 확인
@@ -82,17 +83,18 @@ def interest_product(request):
             return Response(status=409)
 
         serializer = InterestProductSerializer(data=product_data)
+       
         if serializer.is_valid():
             serializer.save(user=user)
-            print(serializer)
+         
             return Response({'message': '관심 상품이 등록되었습니다!'})
 
         return Response(serializer.errors, status=400)
     elif request.method == "DELETE":
 
         try:
-            print(product_data)
-            product = InterestProduct.objects.get(user=user, **product_data)
+           
+            product = InterestProduct.objects.get(user=user, product_type=product_data['product_type'], fin_prdt_nm=product_data['fin_prdt_nm'], save_trm=product_data['save_trm'])
             product.delete()
             return Response({'message': '관심 상품 등록이 해제되었습니다!'})
         except :
@@ -100,6 +102,7 @@ def interest_product(request):
 
 @api_view(['POST'])
 def check_interest(request):
+
     user = request.user
     product_data = request.data
         

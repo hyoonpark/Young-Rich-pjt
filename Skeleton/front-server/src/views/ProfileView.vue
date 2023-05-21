@@ -1,3 +1,5 @@
+
+
 <template>
   <v-container>
     <h1>Profile Page</h1>
@@ -39,9 +41,10 @@
           <v-col cols="6">
             <h2>예금</h2>
             <v-list>
-              <v-list-item v-for="product in depositProducts" :key="product.id" @click="navigateToProductDetails(product)">
+              <v-list-item v-for="product in depositProducts" :key="product.id" @click="GoToProfileDeposit(product)" >
                 <v-list-item-content>
-                  <v-list-item-title>{{ product.fin_prdt_nm }} / {{product.save_trm}}개월</v-list-item-title>
+                  
+                   <v-list-item-title >{{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -49,9 +52,10 @@
           <v-col cols="6">
             <h2>적금</h2>
             <v-list>
-              <v-list-item v-for="product in savingProducts" :key="product.id" @click="navigateToProductDetails(product)">
+              <v-list-item v-for="product in savingProducts" :key="product.id" @click="GoToProfileSaving(product)">
                 <v-list-item-content>
-                  <v-list-item-title>{{ product.fin_prdt_nm }} / {{product.save_trm}}개월</v-list-item-title>
+                
+                  <v-list-item-title>{{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -59,11 +63,25 @@
         </v-row>
       </v-card-text>
     </v-card>
+    <h1>한 눈에 보는 내 상품</h1>
+      <v-card class="statistic-list">
+        <v-row>
+          <v-col cols="6">
+            <h2>원형 그래프</h2>
+          </v-col>
+          <v-col cols="6">
+            <h2>막대 그래프</h2>
+
+          </v-col>
+        </v-row>
+      </v-card>
   </v-container>
 </template>
 
 <script>
+
 export default {
+  
   name: 'ProfileView',
   data() {
     return {
@@ -72,7 +90,9 @@ export default {
       isEmailDisabled: true,
       depositProducts: [],
       savingProducts: [],
-    };
+
+
+      }
   },
   computed: {
     user() {
@@ -116,6 +136,8 @@ export default {
     },
   },
   methods: {
+
+
     toggleEditing() {
       this.isEditing = !this.isEditing;
 
@@ -146,7 +168,6 @@ export default {
       this.$store.dispatch('fetchInterestProducts', { userId, productType })
         .then(response => {
           this.depositProducts = response;
-          
     
         })
         .catch(error => {
@@ -161,18 +182,28 @@ export default {
       this.$store.dispatch('fetchInterestProducts', { userId, productType })
         .then(response => {
           this.savingProducts = response;
-          
     
         })
         .catch(error => {
           console.error(error);
         });
-    }
+    },
+    GoToProfileDeposit(product) {
+      const id = product.fin_prdt_nm
+    
+      this.$router.push({ name: 'ProfileDeposit', params: {product,id}});
+    },
+    GoToProfileSaving(product) {
+      const id = product.fin_prdt_nm
+     
+      this.$router.push({ name: 'ProfileSaving', params: {product,id}});
+    },
   },
   created() {
-    // this.initializeProfileData();
+    
     this.loadinterestSaving(),
     this.loadinterestDeposit()
+
   },
 };
 </script>
@@ -181,6 +212,14 @@ export default {
 .profile-info {
   padding: 16px;
   margin-bottom: 16px;
+}
+
+h1 {
+  margin-top: 100px;
+}
+
+.statistic-list {
+  margin-top : 40px;
 }
 
 .interest-product-list {
