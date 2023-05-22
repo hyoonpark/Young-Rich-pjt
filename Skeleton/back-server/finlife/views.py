@@ -192,9 +192,10 @@ def save_finance_company(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['POST'])
 def finance_company(request):
-    products = FinanceCompany.objects.all()
-    serializer = FinanceCompanySerializer(products, many=True)
-    print(serializer)
+  
+    bank_name = request.data['kor_co_nm']
+    company = FinanceCompany.objects.get(kor_co_nm=bank_name)
+    serializer = FinanceCompanySerializer(company)
     return Response(serializer.data)

@@ -28,6 +28,8 @@
             <p>가입 방법: {{ $route.params.item.join_way }}</p>
             <p>우대 조건: {{ $route.params.item.spcl_cnd }}</p>
             <p>기타 특이 사항: {{ $route.params.item.etc_note }}</p>
+            <p>문의 번호: {{ this.phone_number }}</p>
+            <p>홈페이지: <a :href="this.homepage">{{ this.homepage }}</a></p>
           </v-col>
         </v-row>
       </v-card-text>
@@ -97,6 +99,8 @@ export default {
       months: null,
       interestResult: null,
       bankName : null,
+      phone_number : null,
+      homepage : null,
     };
   },
   created() {
@@ -130,18 +134,16 @@ export default {
       this.$router.push('/rate-comparison')
     },  
     getCompanyData() {
-    const bank_name = {
-      kor_co_nm: this.$route.params.item.kor_co_nm,
-    };
+      const bank_name = this.$route.params.item.kor_co_nm
       this.$store.dispatch('fetchCompanyData', bank_name)
-      .then(response => {
-        this.phone_number = response.cal_tel;
-        this.homepage = response.homp_url;
-        console.log(this.phone_number);
-      })
-      .catch(() => {
-        console.error('일치하는 회사 정보를 찾을 수 없습니다.');
-      });
+        .then(companyData => {
+          this.phone_number = companyData.cal_tel;
+          this.homepage = companyData.homp_url;
+         
+        })
+        .catch(() => {
+          console.error('일치하는 회사 정보를 찾을 수 없습니다.');
+        });
     },
     registerDepositProduct() {
       const product = {
