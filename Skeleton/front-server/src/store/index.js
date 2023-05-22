@@ -13,7 +13,7 @@ const deposit_url = 'http://localhost:8000/finlife/deposit-products/';
 const deposit_optionsUrlPrefix = 'http://localhost:8000/finlife/deposit-product-options/';
 const saving_url = 'http://localhost:8000/finlife/saving-products/';
 const saving_optionsUrlPrefix = 'http://localhost:8000/finlife/saving-product-options/';
-
+const company_url = 'http://127.0.0.1:8000/finlife/finance-company/'
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
@@ -43,6 +43,9 @@ export default new Vuex.Store({
     },
     SET_SAVING_LIST(state, savingList) {
       state.savingList = savingList;
+    },
+    SET_COMPANY_LIST(state,companyList) {
+      state.companyList = companyList;
     },
     SET_DEPOSIT_ADDITIONAL_DATA(state, { finPrdtCd, additionalData }) {
       state.depositList = state.depositList.map((data) => {
@@ -139,6 +142,18 @@ export default new Vuex.Store({
         })
         .catch((error) => {
           console.error(error);
+        });
+    },
+    fetchCompanyData({ commit },{bank_name}) {
+      return axios.get(company_url)
+        .then(response => {
+          const companyList = response.data;
+          commit('SET_COMPANY_LIST', companyList);
+          return response;
+        })
+        .catch(error => {
+          console.error('회사 정보를 가져오는데 실패하였습니다', error);
+        
         });
     },
     fetchInterestProducts({ commit, state }, { userId, productType }) {

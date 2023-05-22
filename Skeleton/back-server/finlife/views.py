@@ -191,9 +191,10 @@ def save_finance_company(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-@api_view(['POST'])
-def finance_company(request) :
+
+@api_view(['GET'])
+def finance_company(request):
     products = FinanceCompany.objects.all()
     serializer = FinanceCompanySerializer(products, many=True)
+    print(serializer)
     return Response(serializer.data)
