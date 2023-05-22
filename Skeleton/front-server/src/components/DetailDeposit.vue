@@ -103,7 +103,8 @@ export default {
     this.checkInterestProduct()
     this.calculateInterest()
     this.principal = 100000
-
+    this.getCompanyData()
+    
   },
   methods: {
     setBankName(item) {
@@ -128,7 +129,20 @@ export default {
     backcompare() {
       this.$router.push('/rate-comparison')
     },  
-
+    getCompanyData() {
+    const bank_name = {
+      kor_co_nm: this.$route.params.item.kor_co_nm,
+    };
+      this.$store.dispatch('fetchCompanyData', bank_name)
+      .then(response => {
+        this.phone_number = response.cal_tel;
+        this.homepage = response.homp_url;
+        console.log(this.phone_number);
+      })
+      .catch(() => {
+        console.error('일치하는 회사 정보를 찾을 수 없습니다.');
+      });
+    },
     registerDepositProduct() {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
@@ -225,7 +239,6 @@ export default {
 </script>
 
 
-</script>
 
 <style scoped>
 .card-title {
