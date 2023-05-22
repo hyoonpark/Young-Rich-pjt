@@ -10,9 +10,10 @@
               <v-text-field v-model="email" label="이메일"></v-text-field>
               <v-text-field v-model="password1" label="비밀번호" type="password"></v-text-field>
               <v-text-field v-model="password2" label="비밀번호 확인" type="password"></v-text-field>
-              <v-text-field v-model="age" label="나이"></v-text-field>
-              <v-text-field v-model="assets" label="자산"></v-text-field>
-              <v-text-field v-model="salary" label="월급"></v-text-field>
+              <div v-if="password1 !== password2" class="red--text">비밀번호가 일치하지 않습니다.</div>
+              <v-text-field v-model="age" label="나이" :suffix="'세'"></v-text-field>
+              <v-text-field v-model="assets" label="자산" :suffix="'만원'"></v-text-field>
+              <v-text-field v-model="salary" label="월급" :suffix="'만원'"></v-text-field>
               <v-btn type="submit" color="primary">Sign Up</v-btn>
             </v-form>
           </v-card-text>

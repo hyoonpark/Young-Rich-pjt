@@ -21,6 +21,7 @@
     <v-btn v-else @click="registerSavingProduct" color="primary" class="interest-btn">
       관심 상품 등록
     </v-btn>
+    <v-btn @click="backcompare" class="interest-btn">뒤로 가기</v-btn>
   </div>
 </template>
 
@@ -37,6 +38,10 @@ export default {
 
   },
   methods: {
+    backcompare() {
+      this.$router.push('/rate-comparison')
+    },  
+
     registerSavingProduct() {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,

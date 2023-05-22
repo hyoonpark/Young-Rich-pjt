@@ -1,27 +1,78 @@
 <template>
-  <div>
-    <h2>은행명: {{ $route.params.item.kor_co_nm }}</h2>
-    <p>상품이름: {{ $route.params.item.fin_prdt_nm }}</p>
-    <p>기간: {{ $route.params.item.save_trm }} 개월</p>
-    <p>공시 시작일 : {{ $route.params.item.dcls_strt_day || '종료기간 미정' }}</p>
-    <p>공시 종료일 : {{ $route.params.item.dcls_end_day || '종료기간 미정' }}</p>
-    <p>저축 금리 유형명: {{ $route.params.item.intr_rate_type_nm }}</p>
-    <p>저축 금리: {{ $route.params.item.intr_rate }}%</p>
-    <p>적립 유형명: {{ $route.params.item.rsrv_type_nm }}</p>
-    <p>최고 우대금리: {{ $route.params.item.intr_rate2 }}%</p>
-    <p>만기 후 이자율: {{ $route.params.item.mtrt_int }}</p>
-    <p>최고 한도: {{ $route.params.item.max_limit }}원</p>
-    <p>가입 조건: {{ $route.params.item.join_member }}</p>
-    <p>가입 방법: {{ $route.params.item.join_way }}</p>
-    <p>우대 조건: {{ $route.params.item.spcl_cnd }}</p>
-    <p>기타 특이 사항: {{ $route.params.item.etc_note }}</p>
-    <v-btn v-if="isInterested" @click="unregisterDepositProduct" color="red" class="interest-btn">
-      관심 상품 등록 해제
-    </v-btn>
-    <v-btn v-else @click="registerDepositProduct" color="primary" class="interest-btn">
-      관심 상품 등록
-    </v-btn>
-  </div>
+  <v-container fluid>
+    <div class="header">
+      <h2>{{ $route.params.item.kor_co_nm }} - {{ $route.params.item.fin_prdt_nm }}</h2>
+      <v-btn @click="backcompare" class="back-btn">
+        뒤로 가기
+      </v-btn>
+    </div>
+    <v-card class="mt-5">
+      <v-card-title>
+        <h5>세부 정보</h5>
+      </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <p><span class="highlight">기간 : {{ $route.params.item.save_trm }} 개월</span></p>
+            <p><span class="highlight">저축 금리: {{ $route.params.item.intr_rate }}%</span></p>
+            <p>저축 금리 유형명: {{ $route.params.item.intr_rate_type_nm }}</p>
+            <p>공시 시작일: {{ $route.params.item.dcls_strt_day || '종료기간 미정' }}</p>
+            <p>공시 종료일: {{ $route.params.item.dcls_end_day || '종료기간 미정' }}</p>
+            <p>적립 유형명: {{ $route.params.item.rsrv_type_nm }}</p>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <p><span class="highlight">최고 우대금리: {{ $route.params.item.intr_rate2 }}%</span></p>
+            <p>만기 후 이자율: {{ $route.params.item.mtrt_int }}</p>
+            <p>최고 한도: {{ $route.params.item.max_limit }}원</p>
+            <p>가입 조건: {{ $route.params.item.join_member }}</p>
+            <p>가입 방법: {{ $route.params.item.join_way }}</p>
+            <p>우대 조건: {{ $route.params.item.spcl_cnd }}</p>
+            <p>기타 특이 사항: {{ $route.params.item.etc_note }}</p>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn v-if="isInterested" @click="unregisterDepositProduct" color="red" class="mr-4">
+          관심 상품 등록 해제
+        </v-btn>
+        <v-btn v-else @click="registerDepositProduct" color="primary" class="mr-4">
+          관심 상품 등록
+        </v-btn>
+       
+      </v-card-actions>
+    </v-card>
+
+    <!-- [2: 이자 계산하기] -->
+    <h2>이자 계산해보기</h2>
+    <v-card class="mt-5">
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field v-model="principal" label="월 적립금 (원)" type="number" outlined></v-text-field>
+            <v-btn color="primary" @click="calculateInterest">계산</v-btn>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-btn-toggle v-model="activeTab" mandatory>
+              <v-btn :value="'bestinterestRate'"  @click="changeTab('bestinterestRate')"><span class='cals'>최고 금리</span></v-btn>
+              <v-btn :value="'interestRate'"  @click="changeTab('interestRate')"><span class='cals'>저축 금리</span></v-btn>
+            </v-btn-toggle>
+            <template v-if="activeTab === 'bestinterestRate'">
+              <p><span >원금 합계: <span class="black-text">{{ principal * months }} 원</span></span></p>
+              <p><span >세전 이자: <span class="black-text">{{ bestinterestResult.toFixed(0) }} 원</span></span></p>
+              <p><span >이자 과세 (15.4%): <span class="black-text">{{ (bestinterestResult * 0.154).toFixed(0) }} 원</span></span></p>
+              <p><span >세후 수령액: <span class="green-text">{{ (principal*months + (bestinterestResult * 0.846)).toFixed(0) }} 원</span></span></p>
+            </template>
+            <template v-else-if="activeTab === 'interestRate'">
+              <p><span >원금 합계: <span class="black-text">{{ principal * months }} 원</span></span></p>
+              <p><span >세전 이자: <span class="black-text">{{ interestResult.toFixed(0) }} 원</span></span></p>
+              <p><span >이자 과세 (15.4%): <span class="black-text">{{ (interestResult * 0.154).toFixed(0) }} 원</span></span></p>
+              <p><span >세후 수령액: <span class="green-text">{{ (principal*months + (interestResult * 0.846)).toFixed(0) }} 원</span></span></p>
+            </template>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -30,13 +81,34 @@ export default {
   data() {
     return {
       isInterested: false,
+      activeTab: 'bestinterestRate',
+      principal: 1000000,
+      bestinterestRate: null,
+      interestRate: null,
+      months: null,
+      interestResult: null
     };
   },
   created() {
     this.checkInterestProduct()
+    this.calculateInterest()
 
   },
   methods: {
+    changeTab(tab) {
+      this.activeTab = tab;
+    },
+    calculateInterest() {
+      this.bestinterestRate = this.$route.params.item.intr_rate2;
+      this.interestRate = this.$route.params.item.intr_rate;
+      this.months = this.$route.params.item.save_trm;
+      this.interestResult = (this.interestRate/100) * this.principal * ((this.months)/12)
+      this.bestinterestResult = (this.bestinterestRate/100) * this.principal * ((this.months)/12)
+    },
+    backcompare() {
+      this.$router.push('/rate-comparison')
+    },  
+
     registerDepositProduct() {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
@@ -133,8 +205,50 @@ export default {
 </script>
 
 
+</script>
+
 <style scoped>
-.interest-btn {
-  margin-top: 20px;
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.highlight {
+  
+  color: blue;
+}
+
+
+h2 {
+  margin-top: 50px;
+}
+.v-btn-toggle .v-btn {
+  font-size: 13px;
+  margin-bottom: 25px;
+  padding: 4px 8px;
+  background-color: skyblue;
+}
+
+.black-text {
+  color: black;
+}
+
+.green-text {
+  color: green;
+}
+
+.cals {
+  font-weight : bold;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-btn {
+  margin-left: 20px;
+  margin-top: 45px;
 }
 </style>

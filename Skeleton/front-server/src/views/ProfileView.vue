@@ -34,7 +34,7 @@
         <v-btn v-if="isEditing" @click="saveChanges">저장</v-btn>
       </v-card-actions>
     </v-card>
-    <h1>관심 상품 목록</h1>
+    <h2 class="subtitle">관심 상품 목록</h2>
     <v-card class="interest-product-list">
       <v-card-text>
         <v-row>
@@ -44,7 +44,7 @@
               <v-list-item v-for="product in depositProducts" :key="product.id" @click="GoToProfileDeposit(product)" >
                 <v-list-item-content>
                   
-                   <v-list-item-title >{{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
+                   <v-list-item-title >{{ product.kor_co_nm }} / {{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -55,7 +55,7 @@
               <v-list-item v-for="product in savingProducts" :key="product.id" @click="GoToProfileSaving(product)">
                 <v-list-item-content>
                 
-                  <v-list-item-title>{{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
+                  <v-list-item-title>{{product.kor_co_nm}}  / {{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -63,14 +63,14 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <h1>한 눈에 보는 내 상품</h1>
+    <h2 class="subtitle">한 눈에 보는 내 상품</h2>
       <v-card class="statistic-list">
         <v-row>
           <v-col cols="6">
-            <h2>원형 그래프</h2>
+            <h3>원형 그래프</h3>
           </v-col>
           <v-col cols="6">
-            <h2>막대 그래프</h2>
+            <h3>막대 그래프</h3>
 
           </v-col>
         </v-row>
@@ -214,8 +214,8 @@ export default {
   margin-bottom: 16px;
 }
 
-h1 {
-  margin-top: 100px;
+h2.subtitle {
+  margin-top: 50px;
 }
 
 .statistic-list {
