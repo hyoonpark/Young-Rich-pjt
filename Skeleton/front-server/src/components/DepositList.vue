@@ -8,11 +8,11 @@
             <template v-slot:item="{ item }">
            
               <tr @click="goToDetail(item)">
-      
-                <td>{{ item.kor_co_nm }}</td>
-                <td>{{ item.fin_prdt_nm }}</td>
-                <td>{{ item.save_trm }} 개월</td>
-                <td>{{ item.intr_rate }}%</td>
+                
+                <td class="center"><img v-if="setBankName(item)" :src="getBankImage(item.kor_co_nm)" alt="Bank Image" class="bank-image">{{ item.kor_co_nm }}</td>
+                <td class="center">{{ item.fin_prdt_nm }}</td>
+                <td class="center">{{ item.save_trm }} 개월</td>
+                <td class="center">{{ item.intr_rate }}%</td>
               </tr>
             </template>
           </v-data-table>
@@ -25,6 +25,11 @@
 <script>
 export default {
   name: 'DepositList',
+  data() {
+    return {
+      bankName : null,
+    }
+  },
   props: {
     propsdata: Array,
   },
@@ -67,6 +72,14 @@ export default {
   },
 
   methods : {
+    setBankName(item) {
+      this.bankName = item.kor_co_nm;
+      return true
+    },
+    getBankImage(bankName) {
+      console.log(`@/assets/bank_images/${bankName}.png`)
+      return require(`@/assets/bank_images/${bankName}.png`);
+    },
     goToDetail(item) {
       const id = item.id
       this.$router.push({ name: 'DetailDeposit', params: { item,id} })
@@ -109,4 +122,19 @@ export default {
     max-height: unset;
   }
 }
+
+.bank-image {
+  width: 36px;
+  height: 35px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.center {
+  text-align: center;
+ 
+}
+
 </style>

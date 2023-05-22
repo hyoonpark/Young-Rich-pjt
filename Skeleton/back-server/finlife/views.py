@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
-from .models import DepositProducts, DepositOptions,SavingProducts,SavingOptions
-from .serializers import DepositProductsSerializer, DepositOptionsSerializer,SavingOptionsSerializer,SavingProductsSerializer
+from .models import DepositProducts, DepositOptions,SavingProducts,SavingOptions,FinanceCompany
+from .serializers import DepositProductsSerializer, DepositOptionsSerializer,SavingOptionsSerializer,SavingProductsSerializer,FinanceCompanySerializer
 from django.views.decorators.http import require_http_methods
 from rest_framework import status
 from django.conf import settings
@@ -172,3 +172,28 @@ def saving_top_rate(request):
         }
     
     return Response(data)
+
+
+@api_view(['GET'])
+def save_finance_company(request):
+    URLS = BASE_URL + 'companySearch.json'
+    params = {
+        'auth': settings.API_KEY,
+        'topFinGrpNo': '020000',
+        'pageNo': 1,
+    }
+    response = requests.get(URLS, params=params).json()
+    data = response['result']['baseList']
+
+    serializer = FinanceCompanySerializer(data=data, many=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+def finance_company(request) :
+    products = FinanceCompany.objects.all()
+    serializer = FinanceCompanySerializer(products, many=True)
+    return Response(serializer.data)

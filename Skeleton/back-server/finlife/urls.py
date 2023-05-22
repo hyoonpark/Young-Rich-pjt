@@ -10,4 +10,6 @@ urlpatterns = [
     path('saving-products/', views.saving_products),
     path('saving-product-options/<str:fin_prdt_cd>/', views.saving_product_options),
     path('saving-products/top_rate/', views.saving_top_rate),
+    path('save-finance-company/', views.save_finance_company),
+    path('finance-company/', views.finance_company),
 ]

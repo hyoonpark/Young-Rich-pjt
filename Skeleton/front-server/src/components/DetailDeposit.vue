@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <div class="header">
-      <h2>{{ $route.params.item.kor_co_nm }} - {{ $route.params.item.fin_prdt_nm }}</h2>
+      <h2><img v-if="setBankName($route.params.item)" :src="getBankImage($route.params.item.kor_co_nm)" alt="Bank Image" class="bank-image">{{ $route.params.item.kor_co_nm }} - {{ $route.params.item.fin_prdt_nm }}</h2>
       <v-btn @click="backcompare" class="back-btn">
         뒤로 가기
       </v-btn>
@@ -18,12 +18,12 @@
             <p>저축 금리 유형명: {{ $route.params.item.intr_rate_type_nm }}</p>
             <p>공시 시작일: {{ $route.params.item.dcls_strt_day || '종료기간 미정' }}</p>
             <p>공시 종료일: {{ $route.params.item.dcls_end_day || '종료기간 미정' }}</p>
-            <p>적립 유형명: {{ $route.params.item.rsrv_type_nm }}</p>
+            <p>적립 유형명: {{ $route.params.item.rsrv_type_nm || '구분 없음' }}</p>
           </v-col>
           <v-col cols="12" sm="6">
             <p><span class="highlight">최고 우대금리: {{ $route.params.item.intr_rate2 }}%</span></p>
             <p>만기 후 이자율: {{ $route.params.item.mtrt_int }}</p>
-            <p>최고 한도: {{ $route.params.item.max_limit }}원</p>
+            <p>최고 한도: {{ $route.params.item.max_limit || '홈페이지 참고' }}원</p>
             <p>가입 조건: {{ $route.params.item.join_member }}</p>
             <p>가입 방법: {{ $route.params.item.join_way }}</p>
             <p>우대 조건: {{ $route.params.item.spcl_cnd }}</p>
@@ -48,8 +48,13 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6">
+            <br>
+            <p>{{ $route.params.item.save_trm }} 개월 만기시 세후 수령액 ({{$route.params.item.intr_rate_type_nm }})</p>
+            <br>
             <v-text-field v-model="principal" label="월 적립금 (원)" type="number" outlined></v-text-field>
             <v-btn color="primary" @click="calculateInterest">계산</v-btn>
+            <br><br>
+         
           </v-col>
           <v-col cols="12" sm="6">
             <v-btn-toggle v-model="activeTab" mandatory>
@@ -57,16 +62,20 @@
               <v-btn :value="'interestRate'"  @click="changeTab('interestRate')"><span class='cals'>저축 금리</span></v-btn>
             </v-btn-toggle>
             <template v-if="activeTab === 'bestinterestRate'">
-              <p><span >원금 합계: <span class="black-text">{{ principal * months }} 원</span></span></p>
-              <p><span >세전 이자: <span class="black-text">{{ bestinterestResult.toFixed(0) }} 원</span></span></p>
-              <p><span >이자 과세 (15.4%): <span class="black-text">{{ (bestinterestResult * 0.154).toFixed(0) }} 원</span></span></p>
-              <p><span >세후 수령액: <span class="green-text">{{ (principal*months + (bestinterestResult * 0.846)).toFixed(0) }} 원</span></span></p>
+              <p><span >원금 합계: <span class="black-text">{{ this.principal.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) }} 원</span></span></p>
+              <p><span >세전 이자: <span class="black-text">+ {{ bestinterestResult.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) }} 원</span></span></p>
+              <p><span >이자 과세 (15.4%): <span class="black-text">- {{ (bestinterestResult * 0.154).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}} 원</span></span></p>
+              <v-alert :value="showResult" type="success">
+                <p>세후 수령액: {{ (this.principal + (bestinterestResult * 0.846)).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) }} 원</p>
+              </v-alert>
             </template>
             <template v-else-if="activeTab === 'interestRate'">
-              <p><span >원금 합계: <span class="black-text">{{ principal * months }} 원</span></span></p>
-              <p><span >세전 이자: <span class="black-text">{{ interestResult.toFixed(0) }} 원</span></span></p>
-              <p><span >이자 과세 (15.4%): <span class="black-text">{{ (interestResult * 0.154).toFixed(0) }} 원</span></span></p>
-              <p><span >세후 수령액: <span class="green-text">{{ (principal*months + (interestResult * 0.846)).toFixed(0) }} 원</span></span></p>
+              <p><span >원금 합계: <span class="black-text">{{ this.principal.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) }} 원</span></span></p>
+              <p><span >세전 이자: <span class="black-text">+ {{ (interestResult).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}} 원</span></span></p>
+              <p><span >이자 과세 (15.4%): <span class="black-text">- {{ (interestResult * 0.154).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) }} 원</span></span></p>
+              <v-alert  type="success">
+                <p>세후 수령액: {{ (this.principal + (interestResult * 0.846)).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) }} 원</p>
+              </v-alert>
             </template>
           </v-col>
         </v-row>
@@ -86,19 +95,30 @@ export default {
       bestinterestRate: null,
       interestRate: null,
       months: null,
-      interestResult: null
+      interestResult: null,
+      bankName : null,
     };
   },
   created() {
     this.checkInterestProduct()
     this.calculateInterest()
+    this.principal = 100000
 
   },
   methods: {
+    setBankName(item) {
+      this.bankName = item.kor_co_nm;
+      return true
+    },
+    getBankImage(bankName) {
+     
+      return require(`@/assets/bank_images/${bankName}.png`);
+    },
     changeTab(tab) {
       this.activeTab = tab;
     },
     calculateInterest() {
+      this.principal =  this.principal*this.months
       this.bestinterestRate = this.$route.params.item.intr_rate2;
       this.interestRate = this.$route.params.item.intr_rate;
       this.months = this.$route.params.item.save_trm;

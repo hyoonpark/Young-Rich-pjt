@@ -43,3 +43,8 @@ class SavingOptions(models.Model) :
     intr_rate2 = models.FloatField()
     save_trm = models.IntegerField()
     rsrv_type_nm = models.CharField(max_length=100)
+    
+class FinanceCompany(models.Model) :
+    kor_co_nm = models.TextField()
+    homp_url = models.TextField()
+    cal_tel =  models.IntegerField()
