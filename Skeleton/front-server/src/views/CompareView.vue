@@ -1,5 +1,5 @@
 <template>
-  <section class="dataList">
+  <section class="dataList" ref="dataListRef">
     <div class="tab-bar">
       <button class="tab deposit" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">
         <v-avatar size="24">
@@ -94,6 +94,17 @@ export default {
   margin-right: 5px;
   display: flex;
   align-items: center;
+}
+.dataList {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+/* Add a margin-top to the tab content */
+.tab-content {
+  margin-top: 40px;
 }
 
 .tab.active {
