@@ -6,14 +6,13 @@
         <div class="table-container">
           <v-data-table :headers="headers" :items="flattenData">
             <template v-slot:item="{ item }">
-             
+           
               <tr @click="goToDetail(item)">
-            
-                <td class="center">{{ item.kor_co_nm }}</td>
+                
+                <td class="center"><img v-if="setBankName(item)" :src="getBankImage(item.kor_co_nm)" alt="Bank Image" class="bank-image">{{ item.kor_co_nm }}</td>
                 <td class="center">{{ item.fin_prdt_nm }}</td>
                 <td class="center">{{ item.save_trm }} 개월</td>
                 <td class="center">{{ item.intr_rate }}%</td>
-                
               </tr>
             </template>
           </v-data-table>
@@ -26,6 +25,11 @@
 <script>
 export default {
   name: 'SavingList',
+  data() {
+    return {
+      bankName : null,
+    }
+  },
   props: {
     propsdata: Array,
   },
@@ -36,7 +40,6 @@ export default {
         { text: '상품이름', value: 'fin_prdt_nm' },
         { text: '기간', value: 'save_trm' },
         { text: '금리', value: 'intr_rate' },
-        
       ].map(header => ({ ...header, align: 'center' }));
     },
     flattenData() {
@@ -69,18 +72,25 @@ export default {
   },
 
   methods : {
+    setBankName(item) {
+      this.bankName = item.kor_co_nm;
+      return true
+    },
+    getBankImage(bankName) {
+      console.log(`@/assets/bank_images/${bankName}.png`)
+      return require(`@/assets/bank_images/${bankName}.png`);
+    },
     goToDetail(item) {
       const id = item.id
-      
-      this.$router.push({ name: 'DetailSaving', params: { item, id } })
+      this.$router.push({ name: 'DetailSaving', params: { item,id} })
     }
   }
-
 };
 </script>
 
 <style>
 .dataList {
+
   margin-top: 150px;
   display: flex;
   justify-content: center;
@@ -101,6 +111,7 @@ export default {
   margin-top: 0;
 }
 
+
 /* 반응형 스타일 */
 @media (max-width: 600px) {
   .list-card {
@@ -112,7 +123,18 @@ export default {
   }
 }
 
+.bank-image {
+  width: 36px;
+  height: 35px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
 .center {
   text-align: center;
+ 
 }
+
 </style>

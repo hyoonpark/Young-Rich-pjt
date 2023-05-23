@@ -44,7 +44,7 @@
               <v-list-item v-for="product in depositProducts" :key="product.id" @click="GoToProfileDeposit(product)" >
                 <v-list-item-content>
                   
-                   <v-list-item-title >{{ product.kor_co_nm }} / {{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
+                   <v-list-item-title ><img v-if="setBankName(product)" :src="getBankImage(product.kor_co_nm)" alt="Bank Image" class="bank-image"> {{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -55,7 +55,7 @@
               <v-list-item v-for="product in savingProducts" :key="product.id" @click="GoToProfileSaving(product)">
                 <v-list-item-content>
                 
-                  <v-list-item-title>{{product.kor_co_nm}}  / {{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
+                  <v-list-item-title ><img v-if="setBankName(product)" :src="getBankImage(product.kor_co_nm)" alt="Bank Image" class="bank-image"> {{ product.fin_prdt_nm }} / {{ product.save_trm }}개월</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -90,7 +90,7 @@ export default {
       isEmailDisabled: true,
       depositProducts: [],
       savingProducts: [],
-
+      bankName : null,
 
       }
   },
@@ -136,7 +136,14 @@ export default {
     },
   },
   methods: {
-
+    setBankName(product) {
+      this.bankName = product.kor_co_nm;
+      return true
+    },
+    getBankImage(bankName) {
+      console.log(`@/assets/bank_images/${bankName}.png`)
+      return require(`@/assets/bank_images/${bankName}.png`);
+    },
 
     toggleEditing() {
       this.isEditing = !this.isEditing;

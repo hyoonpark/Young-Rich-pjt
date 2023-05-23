@@ -60,7 +60,7 @@ export default {
       this.$store.dispatch('registerDepositProduct', product)
         .then(() => {
           this.isInterested = true;
-          alert('예금상품이 등록되었습니다!');
+          alert('적금상품이 등록되었습니다!');
         })
         .catch(error => {
           if (error.response && error.response.status === 409) {
@@ -92,7 +92,7 @@ export default {
       this.$store.dispatch('unregisterDepositProduct', product)
         .then(() => {
           this.isInterested = false;
-          alert('예금상품 등록이 해제되었습니다!');
+          alert('적금상품 등록이 해제되었습니다!');
         })
         .catch(error => {
           console.error('상품 등록 해제에 실패하였습니다', error);
