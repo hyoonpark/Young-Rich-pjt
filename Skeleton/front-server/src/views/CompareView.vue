@@ -1,32 +1,35 @@
 <template>
-  <section class="dataList" ref="dataListRef">
-    <div class="tab-bar">
-      <button class="tab deposit" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">
-        <v-avatar size="24">
-          <v-icon>mdi-cash-multiple</v-icon>
-        </v-avatar>
-        예금
-      </button>
-      <button class="tab savings" :class="{ active: activeTab === 'savings' }" @click="changeTab('savings')">
-        <v-avatar size="24">
-          <v-icon>mdi-piggy-bank</v-icon>
-        </v-avatar>
-        적금
-      </button>
-    </div>
+  <v-main>
+    <section class="v-main" ref="dataListRef">
+      <div class="tab-bar">
+        <button class="tab deposit" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">
+          <v-avatar size="24">
+            <v-icon>mdi-cash-multiple</v-icon>
+          </v-avatar>
+          예금
+        </button>
+        <button class="tab savings" :class="{ active: activeTab === 'savings' }" @click="changeTab('savings')">
+          <v-avatar size="24">
+            <v-icon>mdi-piggy-bank</v-icon>
+          </v-avatar>
+          적금
+        </button>
+      </div>
 
-    <v-container class="tab-content">
-      <v-card v-if="activeTab === 'deposit'" class="deposit-list" ref="depositList">
-        <deposit-list :propsdata="mergedDepositData"></deposit-list>
-      </v-card>
+      <div class="tab-content">
+        <v-card v-if="activeTab === 'deposit'" class="deposit-list" ref="depositList">
+          <deposit-list :propsdata="mergedDepositData"></deposit-list>
+        </v-card>
 
-      <v-card v-if="activeTab === 'savings'" class="saving-list" ref="savingList">
-        <saving-list :propsdata="mergedSavingData"></saving-list>
-      </v-card>
-    </v-container>
-  </section>
+        <v-card v-if="activeTab === 'savings'" class="saving-list" ref="savingList">
+          <saving-list :propsdata="mergedSavingData"></saving-list>
+        </v-card>
+      </div>
+    </section>
+
+    <!-- Remainder of your code -->
+  </v-main>
 </template>
-
 <script>
 import { mapState, mapActions } from 'vuex';
 import DepositList from '@/components/DepositList.vue';
@@ -95,18 +98,25 @@ export default {
   display: flex;
   align-items: center;
 }
+
+
+
+.v-main__wrap {
+  display: flex;
+  flex-direction: column;
+}
+
 .dataList {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: white;
+ 
 }
 
-/* Add a margin-top to the tab content */
 .tab-content {
-  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
 }
-
 .tab.active {
   background-color: #e2e2e2;
 }
@@ -115,8 +125,24 @@ export default {
   margin-right: 5px;
 }
 
+.v-card {
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 .deposit-list,
 .saving-list {
-  margin-top: 20px;
+  width: 75%;
+  height : 113%;
+  margin-left : 470px;
 }
+
+@media (max-width: 768px) {
+  .deposit-list,
+  .saving-list {
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+  }
+}
+
 </style>

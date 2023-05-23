@@ -1,27 +1,10 @@
 <template>
-  <v-container class="dataList" fluid v-if="propsdata && propsdata.length > 0">
-      <div class="selector-container">
-      <v-select
-        v-model="selectedRate"
-        :items="rateOptions"
-        label="Interest Rate"
-        outlined
-        dense
-        class="selector"
-      ></v-select>
-      <v-select
-        v-model="selectedDuration"
-        :items="durationOptions"
-        label="Duration"
-        outlined
-        dense
-        class="selector"
-      ></v-select>
-    </div>
-    <v-card class="list-card custom-card" outlined>
+  <v-container  fluid v-if="propsdata && propsdata.length > 0">
+  
+  
       <v-card-text>
         <h2 class="list-title">예금 List</h2><br>
-        <div class="table-container">
+        <div class="table-container" style="height: 200%;">
           <v-row>
             <v-col cols="12" sm="6" md="4" lg="3" v-for="(item, index) in flattenData" :key="index">
               <v-card @click="goToDetail(item)" class="item-card">
@@ -40,7 +23,7 @@
           </v-row>
         </div>
       </v-card-text>
-    </v-card>
+
   </v-container>
 </template>
 <script>
@@ -96,20 +79,6 @@ export default {
 </script>
 
 <style>
-.dataList {
-  
-  display: flex;
-  justify-content: center;
-  max-width: 2000px;
-  /* Increase the max-width value to adjust the container size */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.list-card {
-  max-width: 10%;
-  margin: 10px;
-}
 
 .table-container {
   max-height: 400px;
@@ -121,13 +90,6 @@ export default {
 
 }
 
-.list-card {
-  /* Adjust the width to fit three cards per row */
-  max-width: calc(33.33% - 20px);
-  
-  /* Add some margin to create spacing between cards */
-  margin: 10px;
-}
 
 .item-details {
   display: flex;
@@ -161,35 +123,14 @@ export default {
   color: #777777;
 }
 
-.custom-card {
-  /* Double the width and height */
-  
-   transform : scaleY(1.6);
-   transform : scaleX(1.0);
-   width : 80%;
-   height : 600px;
-}
+
 
 /* 반응형 스타일 */
 @media (max-width: 600px) {
-  .list-card {
-    max-height: unset;
-  
-  }
 
   .table-container {
     max-height: unset;
   }
 }
 
-.selector-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.selector {
-  width: 32%;
-}
 </style>
