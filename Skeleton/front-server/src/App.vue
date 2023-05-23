@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app style="background-color: #80D8FF;">
       <v-toolbar-title>BankSSafy</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text to="/">Main</v-btn>

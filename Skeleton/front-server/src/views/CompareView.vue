@@ -2,11 +2,15 @@
   <section class="dataList">
     <div class="tab-bar">
       <button class="tab deposit" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">
-        <v-icon>mdi-cash-multiple</v-icon>
+        <v-avatar size="24">
+          <v-icon>mdi-cash-multiple</v-icon>
+        </v-avatar>
         예금
       </button>
       <button class="tab savings" :class="{ active: activeTab === 'savings' }" @click="changeTab('savings')">
-        <v-icon>mdi-piggy-bank</v-icon>
+        <v-avatar size="24">
+          <v-icon>mdi-piggy-bank</v-icon>
+        </v-avatar>
         적금
       </button>
     </div>

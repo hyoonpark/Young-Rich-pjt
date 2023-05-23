@@ -87,93 +87,126 @@
               SavingchartData = this.generateBankChartData();
               break;
             default:
-              chartData = {};
+              DepositchartData = {};
+              SavingchartData = {};
+      }
+
+      // Set the minimum value of y-axis to 0
+      DepositchartData.options = {
+        ...DepositchartData.options,
+        scales: {
+          ...DepositchartData.options.scales,
+          y: {
+            ...DepositchartData.options.scales.y,
+            suggestedMin: 0
           }
-  
-          // Create chart using Chart.js
-          new Chart(depositctx, {
-            type: 'bar',
-            data: DepositchartData,
-            options: {
-              responsive: true,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  stepSize: 0.5,
-                  max: 5
-                },
-                x: {
-                  offset: true,
-                  grid: {
-                    offset: true
-                  },
-                  ticks: {
-                    maxRotation: 0, // 레이블 최대 회전값
-                    minRotation: 0 // 레이블 최소 회전값
-                  }
-                }
+        }
+      };
+
+      SavingchartData.options = {
+        ...SavingchartData.options,
+        scales: {
+          ...SavingchartData.options.scales,
+          y: {
+            ...SavingchartData.options.scales.y,
+            suggestedMin: 0
+          }
+        }
+      };
+
+      SavingchartData.options = {
+        ...SavingchartData.options,
+        scales: {
+          ...SavingchartData.options.scales,
+          y: {
+            ...SavingchartData.options.scales.y,
+            suggestedMin: 0
+          }
+        }
+      };
+        new Chart(depositctx, {
+          type: 'bar',
+          data: DepositchartData,
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                stepSize: 0.5,
+                max: 5
               },
-              plugins: {
-                tooltip: {
-                  position: 'average',
-                  mode: 'index',
-                  intersect: false
+              x: {
+                offset: true,
+                grid: {
+                  offset: true
                 },
-                legend: {
-                  display: true,
-                  position: 'top',
-                  align: 'center',
-                  labels: {
-                    boxWidth: 12,
-                    padding: 20
-                  }
+                ticks: {
+                  maxRotation: 0,
+                  minRotation: 0
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+                position: 'average',
+                mode: 'index',
+                intersect: false
+              },
+              legend: {
+                display: true,
+                position: 'top',
+                align: 'center',
+                labels: {
+                  boxWidth: 12,
+                  padding: 20
                 }
               }
             }
-          }),
-          new Chart(savingCtx, {
-            type: 'bar',
-            data: SavingchartData,
-            options: {
-              responsive: true,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  stepSize: 0.5,
-                  max: 5
-                },
-                x: {
-                  offset: true,
-                  grid: {
-                    offset: true
-                  },
-                  ticks: {
-                    maxRotation: 0, // 레이블 최대 회전값
-                    minRotation: 0 // 레이블 최소 회전값
-                  }
-                }
-              },
-              plugins: {
-                tooltip: {
-                  position: 'average',
-                  mode: 'index',
-                  intersect: false
-                },
-                legend: {
-                  display: true,
-                  position: 'top',
-                  align: 'center',
-                  labels: {
-                    boxWidth: 12,
-                    padding: 20
-                  }
-                }
-              }
-            }
-          });
-  
+          }
         });
-      },
+
+        new Chart(savingCtx, {
+          type: 'bar',
+          data: SavingchartData,
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                stepSize: 0.5,
+                max: 5
+              },
+              x: {
+                offset: true,
+                grid: {
+                  offset: true
+                },
+                ticks: {
+                  maxRotation: 0,
+                  minRotation: 0
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+                position: 'average',
+                mode: 'index',
+                intersect: false
+              },
+              legend: {
+                display: true,
+                position: 'top',
+                align: 'center',
+                labels: {
+                  boxWidth: 12,
+                  padding: 20
+                }
+              }
+            }
+          }
+        });
+      });
+    },
       dgenerateInterestRateChartData() {
         // Generate data for '금리별' chart
         const depositLabels = this.depositProducts.map(product => product.fin_prdt_nm);
@@ -190,7 +223,14 @@
               borderColor: 'rgba(75, 192, 192, 1)',
               borderWidth: 3
             },
-          ]
+          ],
+        options: {  // Add options object
+            scales: {
+              y: {
+                suggestedMin: 0  // Set minimum value of y-axis to 0
+              }
+            }
+          }
         };
       },
       sgenerateInterestRateChartData() {
@@ -209,9 +249,16 @@
               borderWidth: 3
             },
   
-          ]
-        };
-      },
+          ],
+        options: {  // Add options object
+          scales: {
+            y: {
+              suggestedMin: 0  // Set minimum value of y-axis to 0
+            }
+          }
+        }
+  };
+},
       generateDurationChartData() {
         const depositLabels = this.depositProducts.map(product => product.fin_prdt_nm);
         const depositData = this.depositProducts.map(product => product.intr_rate);
