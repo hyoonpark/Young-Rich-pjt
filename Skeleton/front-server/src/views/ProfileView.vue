@@ -60,16 +60,21 @@
               </v-list-item>
             </v-list>
           </v-col>
-         
         </v-row>
       </v-card-text>
     </v-card>
     <h2 class="subtitle">한 눈에 보는 내 상품</h2>
     
-      <v-card class="statistic-list">
-        <v-row>
-          <Statistics :savingProducts="savingProducts" :depositProducts="depositProducts" />
-        </v-row>
+        <!-- "한 눈에 보는 내 상품" 옆에 버튼 추가 -->
+        <v-card-actions>
+          <v-btn @click="showStatistics">내 상품 통계 보기</v-btn>
+        </v-card-actions>
+
+        <!-- 통계 컴포넌트를 토글해서 보여줄 영역 -->
+        <v-card v-if="showStatisticsComponent" class="statistic-list">
+          <v-row>
+            <Statistics :savingProducts="savingProducts" :depositProducts="depositProducts" />
+          </v-row>
       </v-card>
   </v-container>
 </template>
@@ -89,7 +94,7 @@ export default {
       depositProducts: [],
       savingProducts: [],
       bankName : null,
-
+      showStatisticsComponent: false,
       }
   },
   components : {
@@ -206,12 +211,11 @@ export default {
      
       this.$router.push({ name: 'ProfileSaving', params: {product,id}});
     },
+    showStatistics() {
+      this.showStatisticsComponent = true;
+    },
   },
   created() {
-      //     this.$nextTick(() => {
-      //   // 다음 뷰 사이클에서 실행되도록 예약
-      //   this.$refs.statistics.drawChart();
-      // })
     this.loadinterestSaving(),
     this.loadinterestDeposit()
   },
