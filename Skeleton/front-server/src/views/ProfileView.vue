@@ -1,5 +1,3 @@
-
-
 <template>
   <v-container>
     <h1>Profile Page</h1>
@@ -63,19 +61,21 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <h2 class="subtitle">한 눈에 보는 내 상품</h2>
-    
-        <!-- "한 눈에 보는 내 상품" 옆에 버튼 추가 -->
-        <v-card-actions>
-          <v-btn @click="showStatistics">내 상품 통계 보기</v-btn>
-        </v-card-actions>
-
-        <!-- 통계 컴포넌트를 토글해서 보여줄 영역 -->
-        <v-card v-if="showStatisticsComponent" class="statistic-list">
-          <v-row>
-            <Statistics :savingProducts="savingProducts" :depositProducts="depositProducts" />
-          </v-row>
-      </v-card>
+    <v-row>
+      <v-col cols="6">
+        <h2 class="subtitle">한 눈에 보는 내 상품</h2>
+      </v-col>
+      <v-col cols="6" class="text-right">
+        <!-- "통계 보기" 버튼 추가 -->
+        <v-btn @click="showStatistics">통계 보기</v-btn>
+      </v-col>
+    </v-row>
+    <!-- 통계 컴포넌트를 토글해서 보여줄 영역 -->
+    <v-card v-if="showStatisticsComponent" class="statistic-list">
+      <v-row>
+        <Statistics :savingProducts="savingProducts" :depositProducts="depositProducts" />
+      </v-row>
+    </v-card>
   </v-container>
 </template>
 
