@@ -60,25 +60,23 @@
               </v-list-item>
             </v-list>
           </v-col>
+         
         </v-row>
       </v-card-text>
     </v-card>
     <h2 class="subtitle">한 눈에 보는 내 상품</h2>
+    
       <v-card class="statistic-list">
         <v-row>
-          <v-col cols="6">
-            <h3>원형 그래프</h3>
-          </v-col>
-          <v-col cols="6">
-            <h3>막대 그래프</h3>
-
-          </v-col>
+          <Statistics :savingProducts="savingProducts" :depositProducts="depositProducts" />
         </v-row>
       </v-card>
   </v-container>
 </template>
 
 <script>
+
+import Statistics from '@/components/Statistics.vue';
 
 export default {
   
@@ -93,6 +91,9 @@ export default {
       bankName : null,
 
       }
+  },
+  components : {
+    Statistics,
   },
   computed: {
     user() {
@@ -207,10 +208,12 @@ export default {
     },
   },
   created() {
-    
+      //     this.$nextTick(() => {
+      //   // 다음 뷰 사이클에서 실행되도록 예약
+      //   this.$refs.statistics.drawChart();
+      // })
     this.loadinterestSaving(),
     this.loadinterestDeposit()
-
   },
 };
 </script>
