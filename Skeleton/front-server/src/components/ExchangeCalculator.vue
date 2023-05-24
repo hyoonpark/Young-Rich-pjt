@@ -1,5 +1,6 @@
 <template>
   <div id="calc">
+    <br>
     <h1 class="ercword">환율계산기</h1>
     <p>외화 환전금액을 계산하여 드립니다.</p>
     <div class="container">
@@ -164,6 +165,10 @@ export default {
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 #calc {
   display: flex;
   flex-direction: column;
@@ -189,20 +194,15 @@ h1 {
 
 .container-two {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 50%;
+  align-items: center;
 }
 
 .container-two button {
-  padding: 25px;
-  font-size: 18px;
-  background-color: #5fbaaf;
-  color: #1a1919;
-  width: 30%;
-  height: 20%;
-  border: none;
-  outline: none;
+  background-color: #5fbaa7;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 10px;
 }
 
 select {
