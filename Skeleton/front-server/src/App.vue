@@ -5,20 +5,34 @@
         <img src="@/assets/logoimage.png" alt="BankSSafy Logo" style="width: 150px; margin-top: 15px;">
       </v-toolbar-title>
       <v-spacer></v-spacer>
+
       <v-btn text to="/" color="white">Main</v-btn>
       <v-btn text to="/rate-comparison" color="white">Compare</v-btn>
       <v-btn text to="/map" color="white">Search Bank</v-btn>
       <v-btn text to="/exchange" color="white">Exchange</v-btn>
       <v-btn text to="/board" color="white">Board</v-btn>
       <v-btn text to="/create" color="white">Create</v-btn>
-      <v-btn text to="/signup" color="white">Sign Up</v-btn>
+      <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn text v-bind="attrs" v-on="on" color="white">Account</v-btn>
+          </template>
+          <v-list>
+            <v-list-item to="/login" v-if="!isLogin">
+              <v-list-item-title>Login</v-list-item-title>
+            </v-list-item>
+            <v-list-item to="/logout" v-if="isLogin" @click="logout">
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item>
+            <v-list-item to="/signup">
+              <v-list-item-title>Signup</v-list-item-title>
+            </v-list-item>
+        </v-list>
+      </v-menu>
       <template v-if="isLogin">
-        <v-btn text @click="logout" color="white">LogOut</v-btn>
         <v-btn text to="/profile" color="white">{{ getUsername }}</v-btn>
       </template>
       <template v-else>
-        <v-btn text to="/login" color="white">Log In</v-btn>
-        <v-btn text style="color: red;">로그인 해주세요</v-btn>
+        <v-btn text to="/login" color="white">로그인 해주세요!</v-btn>
       </template>
     </v-app-bar>
 
@@ -36,24 +50,21 @@ export default {
       return this.$store.getters.isLogin;
     },
     getUsername() {
-      return `환영한다, ${this.$store.state.user.username}`;
+      return `안녕하세요, ${this.$store.state.user.username}님`;
     },
   },
-  methods : {
+  methods: {
     logout() {
-      this.$store.dispatch('logout')
-    }
+      this.$store.dispatch('logout');
+    },
   },
   data() {
-  return {
-
-  };
-},
+    return {};
+  },
 };
 </script>
 
 <style>
-
 .v-toolbar-title {
   font-size: 18px;
 }
@@ -61,4 +72,6 @@ export default {
 .v-btn {
   margin-left: 8px;
 }
+
+
 </style>
