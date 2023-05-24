@@ -34,10 +34,10 @@
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn v-if="isInterested" @click="unregisterSavingProduct" color="red" class="mr-4">
+        <v-btn v-if="isInterested" @click="unregisterDepositProduct" color="red" class="mr-4">
           관심 상품 등록 해제
         </v-btn>
-        <v-btn v-else @click="registerSavingProduct" color="primary" class="mr-4">
+        <v-btn v-else @click="registerDepositProduct" color="primary" class="mr-4">
           관심 상품 등록
         </v-btn>
        
@@ -87,8 +87,11 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex';
+
 export default {
-  name: 'DetailSaving',
+  name: 'Detail',
   data() {
     return {
       isInterested: false,
@@ -102,6 +105,9 @@ export default {
       phone_number : null,
       homepage : null,
     };
+  },
+  computed: {
+    ...mapState(['salary', 'assets', 'age']),
   },
   created() {
     this.checkInterestProduct()
@@ -145,7 +151,7 @@ export default {
           console.error('일치하는 회사 정보를 찾을 수 없습니다.');
         });
     },
-    registerSavingProduct() {
+    registerDepositProduct() {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
         save_trm: this.$route.params.item.save_trm,
@@ -161,9 +167,14 @@ export default {
         join_way : this.$route.params.item.join_way,
         spcl_cnd : this.$route.params.item.spcl_cnd,
         etc_note : this.$route.params.item.etc_note,
+        // 추천 시스템에 사용하고자 함. 일단 보류!
+        // salary : this.$store.state.user.salary,
+        // age : this.$store.state.user.age,
+        // assets : this.$store.state.user.assets,
         product_type: 2,
+        
       };
-      
+      console.log(product)
       this.$store.dispatch('registerDepositProduct', product)
         .then(() => {
           this.isInterested = true;
@@ -177,7 +188,7 @@ export default {
           }
         });
     },
-    unregisterSavingProduct() {
+    unregisterDepositProduct() {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
         save_trm: this.$route.params.item.save_trm,
