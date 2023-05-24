@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app style="background-color: #80D8FF;">
       <v-toolbar-title>BankSSafy</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text to="/">Main</v-btn>
@@ -12,7 +12,7 @@
       <v-btn text to="/signup">Sign Up</v-btn>
       <template v-if="isLogin">
         <v-btn text @click="logout">LogOut</v-btn>
-        <v-btn text>{{ getUsername }}</v-btn>
+        <v-btn text to="/profile">{{ getUsername }}</v-btn>
         
       </template>
       <template v-else>
@@ -38,10 +38,9 @@ export default {
       return this.$store.getters.isLogin;
     },
     getUsername() {
-      return `환영한다, ${this.$store.state.user.userName}`;
+      return `환영한다, ${this.$store.state.user.username}`;
     },
   },
-
   methods : {
     logout() {
       this.$store.dispatch('logout')

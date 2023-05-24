@@ -10,7 +10,11 @@ class DepositProducts(models.Model):
     join_member = models.TextField()
     join_way = models.TextField()
     spcl_cnd = models.TextField()
-
+    mtrt_int = models.TextField()
+    max_limit = models.IntegerField(null=True)
+    dcls_strt_day = models.IntegerField(null=True)
+    dcls_end_day = models.IntegerField(null=True)
+    
 class DepositOptions(models.Model):
     fin_prdt_cd = models.ForeignKey(DepositProducts, on_delete=models.CASCADE)
     intr_rate_type_nm = models.CharField(max_length=100)
@@ -29,6 +33,8 @@ class SavingProducts(models.Model) :
     spcl_cnd = models.TextField()
     mtrt_int = models.TextField()
     max_limit = models.IntegerField(null=True)
+    dcls_strt_day = models.IntegerField(null=True)
+    dcls_end_day = models.IntegerField(null=True)
     
 class SavingOptions(models.Model) :
     fin_prdt_cd = models.ForeignKey(SavingProducts, on_delete=models.CASCADE)
@@ -37,3 +43,8 @@ class SavingOptions(models.Model) :
     intr_rate2 = models.FloatField()
     save_trm = models.IntegerField()
     rsrv_type_nm = models.CharField(max_length=100)
+    
+class FinanceCompany(models.Model) :
+    kor_co_nm = models.TextField()
+    homp_url = models.TextField()
+    cal_tel =  models.IntegerField()

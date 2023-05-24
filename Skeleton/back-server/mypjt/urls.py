@@ -21,10 +21,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/',include('accounts.urls')),
     path('finlife/', include('finlife.urls')),
-    path('accounts/', include('dj_rest_auth.urls')),
-    path('accounts/signup/', include('dj_rest_auth.registration.urls')),
     path('map/', include('kakaomaps.urls')),
-    path('calculator/', include('calculators.urls')),  
-    path('api/v1/', include('articles.urls')),
+    path('calculator/', include('calculators.urls')),
+
 ]

@@ -6,8 +6,12 @@ import DetailView from '@/views/DetailView'
 import SignUpView from '@/views/SignUpView'
 import LogInView from '@/views/LogInView'
 import MainPageView from '@/views/MainPageView'
+import ProfileView from '@/views/ProfileView'
 import DetailDeposit from '@/components/DetailDeposit'
 import DetailSaving from '@/components/DetailSaving'
+import Statistics from '@/components/Statistics'
+import ProfileDeposit from '@/components/ProfileDeposit'
+import ProfileSaving from '@/components/ProfileSaving'
 import KakaoView from '@/components/Map/KakaoMap'
 import ExchangeView from '@/components/ExchangeCalculator'
 import ArticleListView from '@/views/ArticleListView'
@@ -72,14 +76,35 @@ const routes = [
   },
 
   {
-    path: '/detaildeposit/:id', 
+    path: '/detail-deposit/:id',
     name: 'DetailDeposit',
     component: DetailDeposit,
   },
   {
-    path: '/detailsaving/:id', 
+    path: '/detail-saving/:id',
     name: 'DetailSaving',
     component: DetailSaving,
+
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfileView,
+  },
+  {
+    path: '/profile/statistics',
+    name : 'Statistics',
+    component : Statistics,
+  },
+  {
+    path : '/profiledeposit',
+    name : 'ProfileDeposit',
+    component : ProfileDeposit,
+  },
+  {
+    path : '/profilesaving',
+    name : 'ProfileSaving',
+    component : ProfileSaving,
   },
   {
     path: '/exchange',

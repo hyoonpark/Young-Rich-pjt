@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import DepositProducts, DepositOptions,SavingOptions,SavingProducts
+from .models import DepositProducts, DepositOptions,SavingOptions,SavingProducts,FinanceCompany
 
 class DepositProductsSerializer(serializers.ModelSerializer):
     
@@ -28,3 +28,9 @@ class SavingOptionsSerializer(serializers.ModelSerializer):
         model = SavingOptions
         fields = '__all__'
         read_only_fields = ('fin_prdt_cd',)
+        
+class FinanceCompanySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = FinanceCompany
+        fields = ['kor_co_nm','homp_url','cal_tel']

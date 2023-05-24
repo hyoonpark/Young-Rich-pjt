@@ -6,12 +6,13 @@
         <div class="table-container">
           <v-data-table :headers="headers" :items="flattenData">
             <template v-slot:item="{ item }">
+           
               <tr @click="goToDetail(item)">
-                {{items}}
-                <td>{{ item.kor_co_nm }}</td>
-                <td>{{ item.fin_prdt_nm }}</td>
-                <td>{{ item.save_trm }} 개월</td>
-                <td>{{ item.intr_rate }}</td>
+                
+                <td class="center"><img v-if="setBankName(item)" :src="getBankImage(item.kor_co_nm)" alt="Bank Image" class="bank-image">{{ item.kor_co_nm }}</td>
+                <td class="center">{{ item.fin_prdt_nm }}</td>
+                <td class="center">{{ item.save_trm }} 개월</td>
+                <td class="center">{{ item.intr_rate }}%</td>
               </tr>
             </template>
           </v-data-table>
@@ -24,6 +25,11 @@
 <script>
 export default {
   name: 'SavingList',
+  data() {
+    return {
+      bankName : null,
+    }
+  },
   props: {
     propsdata: Array,
   },
@@ -44,7 +50,7 @@ export default {
             kor_co_nm: data.kor_co_nm,
             fin_prdt_nm: data.fin_prdt_nm,
             save_trm: item.save_trm,
-
+            id : data.id,
             rsrv_type_nm : item.rsrv_type_nm,
             intr_rate_type_nm : item.intr_rate_type_nm,
             intr_rate: item.intr_rate,
@@ -54,7 +60,9 @@ export default {
             etc_note: data.etc_note,
             mtrt_int : data.mtrt_int,
             max_limit : data.max_limit,
-            spcl_cnd : data.spcl_cnd
+            spcl_cnd : data.spcl_cnd,
+            dcls_strt_day : data.dcls_strt_day,
+            dcls_end_day : data.dcls_end_day,
 
           });
         });
@@ -64,16 +72,25 @@ export default {
   },
 
   methods : {
+    setBankName(item) {
+      this.bankName = item.kor_co_nm;
+      return true
+    },
+    getBankImage(bankName) {
+      console.log(`@/assets/bank_images/${bankName}.png`)
+      return require(`@/assets/bank_images/${bankName}.png`);
+    },
     goToDetail(item) {
-      this.$router.push({ name: 'DetailSaving', params: { item: item } })
+      const id = item.id
+      this.$router.push({ name: 'DetailSaving', params: { item,id} })
     }
   }
-
 };
 </script>
 
 <style>
 .dataList {
+
   margin-top: 150px;
   display: flex;
   justify-content: center;
@@ -94,6 +111,7 @@ export default {
   margin-top: 0;
 }
 
+
 /* 반응형 스타일 */
 @media (max-width: 600px) {
   .list-card {
@@ -104,4 +122,19 @@ export default {
     max-height: unset;
   }
 }
+
+.bank-image {
+  width: 36px;
+  height: 35px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.center {
+  text-align: center;
+ 
+}
+
 </style>
