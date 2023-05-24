@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h5>{{ article.id }}</h5>
-    <p>{{ article.title }}</p>
+    {{ article.title }}
+    {{ article.username }}
+    <br>
     <router-link :to="{
       name: 'ArticleDetailView',
       params: {id: article.id }}">

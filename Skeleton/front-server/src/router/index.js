@@ -16,6 +16,7 @@ import KakaoView from '@/components/Map/KakaoMap'
 import ExchangeView from '@/components/ExchangeCalculator'
 import ArticleListView from '@/views/ArticleListView'
 import ArticleDetailView from '@/views/ArticleDetailView'
+import ArticleUpdateView from '@/views/ArticleUpdateView'
 
 
 Vue.use(VueRouter)
@@ -40,7 +41,7 @@ const routes = [
   },
 
   {
-    path: 'article/:id',
+    path: '/article/:id',
     name: 'ArticleDetailView',
     component: ArticleDetailView,
   },
@@ -110,6 +111,12 @@ const routes = [
     path: '/exchange',
     name: 'ExchangeView',
     component: ExchangeView,
+  },
+
+  {
+    path: '/update/:id',
+    name: 'ArticleUpdateView',
+    component: ArticleUpdateView
   },
 ]
 

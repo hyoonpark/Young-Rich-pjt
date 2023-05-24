@@ -31,6 +31,7 @@
           alert('로그인이 필요한 페이지입니다...')
           this.$router.push({ name: 'LogInView' })
         }
+        
   
   
         // 로그인이 되어 있으면 getArticles action 실행
