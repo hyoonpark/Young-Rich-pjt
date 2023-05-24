@@ -16,7 +16,7 @@
         </button>
       </div>
 
-      <div class="tab-content" style="height:700px;">
+      <div class="tab-content" style="height:775px;">
         <v-card v-if="activeTab === 'deposit'" class="deposit-list" ref="depositList">
           <deposit-list :propsdata="mergedDepositData"></deposit-list>
         </v-card>

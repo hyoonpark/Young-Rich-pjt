@@ -1,13 +1,13 @@
 <template>
-  <v-container  fluid v-if="propsdata && propsdata.length > 0">
+   <v-container style="height:90%; " fluid v-if="propsdata && propsdata.length > 0">
   
   
-      <v-card-text>
+      <v-card-text style="height:110%">
         <h2 class="list-title">예금 List</h2><br>
-        <div class="table-container" style="height: 200%;">
+        <div class="table-container" style="height: 85%; ">
           <v-row>
             <v-col cols="12" sm="6" md="4" lg="3" v-for="(item, index) in flattenData" :key="index">
-              <v-card @click="goToDetail(item)" class="item-card">
+              <v-card @click="goToDetail(item)" class="item-card" style="background-color:#E1F5FE">
                 <div class="item-details">
                   <div class="item-image-container">
                     <v-img :src="getBankImage(item.kor_co_nm)" alt="Bank Image" class="item-image"></v-img>
@@ -82,7 +82,8 @@ export default {
 <style scoped>
 
 .table-container {
-  max-height: 400px;
+  height: 100%; /* 높이를 100%로 설정하여 컨테이너가 상위 요소의 전체 높이를 차지하도록 합니다. */
+  max-height: none; /* 최대 높이를 제거합니다. */
   overflow-y: auto;
 }
 

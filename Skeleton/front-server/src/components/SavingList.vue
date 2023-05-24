@@ -1,21 +1,21 @@
 <template>
-  <v-container  fluid v-if="propsdata && propsdata.length > 0">
+  <v-container style="height:90%" fluid v-if="propsdata && propsdata.length > 0">
   
   
-      <v-card-text>
+      <v-card-text style="height:110%">
         <h2 class="list-title">적금 List</h2><br>
-        <div class="table-container" style="height: 200%;">
+        <div class="table-container" style="height:85%">
           <v-row>
             <v-col cols="12" sm="6" md="4" lg="3" v-for="(item, index) in flattenData" :key="index">
-              <v-card @click="goToDetail(item)" class="item-card">
+              <v-card @click="goToDetail(item)" class="item-card" style="background-color:#E1F5FE">
                 <div class="item-details">
                   <div class="item-image-container">
                     <v-img :src="getBankImage(item.kor_co_nm)" alt="Bank Image" class="item-image"></v-img>
                   </div>
                   <div class="item-text">
                     <h3 class="item-title">{{ item.fin_prdt_nm }}</h3>
-                    <p class="item-info">{{ item.save_trm }} 개월</p>
-                    <p class="item-info">{{ item.intr_rate }}%</p>
+                    <p class="item-info">기간 : {{ item.save_trm }} 개월</p>
+                    <span class="item-info">최고 금리 {{ item.intr_rate2 }}%</span> / <span class="item-info">평균 금리 {{ item.intr_rate }}%</span>
                   </div>
                 </div>
               </v-card>
@@ -28,7 +28,7 @@
 </template>
 <script>
 export default {
-  name: 'DepositList',
+  name: 'SavingList',
   data() {
     return {
       bankName: null,
@@ -72,7 +72,7 @@ export default {
     },
     goToDetail(item) {
       const id = item.id;
-      this.$router.push({ name: 'DetailDeposit', params: { item, id } });
+      this.$router.push({ name: 'DetailSaving', params: { item, id } });
     },
   },
 };
@@ -81,7 +81,8 @@ export default {
 <style>
 
 .table-container {
-  max-height: 400px;
+  height: 100%; /* 높이를 100%로 설정하여 컨테이너가 상위 요소의 전체 높이를 차지하도록 합니다. */
+  max-height: none; /* 최대 높이를 제거합니다. */
   overflow-y: auto;
 }
 

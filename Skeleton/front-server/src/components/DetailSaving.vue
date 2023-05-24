@@ -34,10 +34,10 @@
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn v-if="isInterested" @click="unregisterDepositProduct" color="red" class="mr-4">
+        <v-btn v-if="isInterested" @click="unregisterSavingProduct" color="red" class="mr-4">
           관심 상품 등록 해제
         </v-btn>
-        <v-btn v-else @click="registerDepositProduct" color="primary" class="mr-4">
+        <v-btn v-else @click="registerSavingProduct" color="primary" class="mr-4">
           관심 상품 등록
         </v-btn>
        
@@ -151,7 +151,7 @@ export default {
           console.error('일치하는 회사 정보를 찾을 수 없습니다.');
         });
     },
-    registerDepositProduct() {
+    registerSavingProduct() {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
         save_trm: this.$route.params.item.save_trm,
@@ -188,7 +188,7 @@ export default {
           }
         });
     },
-    unregisterDepositProduct() {
+    unregisterSavingProduct() {
       const product = {
         fin_prdt_nm: this.$route.params.item.fin_prdt_nm,
         save_trm: this.$route.params.item.save_trm,
