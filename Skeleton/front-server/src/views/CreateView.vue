@@ -16,6 +16,7 @@
       ></v-textarea>
       <v-btn type="submit" color="primary">게시글 생성</v-btn>
     </v-form>
+
   </div>
 </template>
 
@@ -64,6 +65,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+
     }
   }
 }
