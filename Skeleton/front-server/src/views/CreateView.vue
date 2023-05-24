@@ -8,7 +8,7 @@
       <input type="text" id="title" v-model.trim="title"><br>
       <label for="content">내용 : </label>
       <textarea id="content" cols="30" rows="10" v-model="content"></textarea><br>
-      <input type="submit" id="submit">
+      <input type="submit" @submit.prevent="createArticle" id="submit">
     </form>
   </div>
 </template>
@@ -31,24 +31,31 @@ export default {
       const content = this.content
 
       if (!title) {
-        alert('제목 입력해주세요')
+        alert('제목을 입력해주세요')
         return
       } else if (!content){
-        alert('내용 입력해주세요')
+        alert('내용을 입력해주세요')
         return
       }
-      axios({
-        method: 'post',
-        url: `${API_URL}/api/v1/articles/`,
-        data: { title, content},
-      })
-      .then(() => {
-        // console.log(res)
-        this.$router.push({name: 'ArticleListView'})
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+
+      // 인증 토큰을 로컬 스토리지 또는 다른 곳에서 가져옵니다.
+      const token = localStorage.getItem('token')
+
+      // 요청 헤더에 인증 토큰을 포함시킵니다.
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+
+      // 게시글 데이터를 생성하는 POST 요청을 보냅니다.
+      axios.post(`${API_URL}/api/v1/articles/`, { title, content }, config)
+        .then(() => {
+          this.$router.push({ name: 'ArticleListView' })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }
