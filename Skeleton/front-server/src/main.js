@@ -8,6 +8,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'jquery/dist/jquery.js'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
