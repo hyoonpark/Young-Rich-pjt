@@ -15,7 +15,7 @@
       <ul id="placesList">
         <li v-for="(place, index) in places" :key="index" class="item">
           <span :class="'markerbg marker_' + (index + 1)"></span>
-          <div class="info">
+          <div class="spot">
             <h5>{{ place.place_name }}</h5>
             <span v-if="place.road_address_name">{{ place.road_address_name }}</span>
             <span class="jibun gray">{{ place.address_name }}</span>
@@ -110,7 +110,7 @@ export default {
     getListItem(index, place) {
       const el = document.createElement('li');
       let itemStr = `<span class="markerbg marker_${index + 1}"></span>
-        <div class="info">
+        <div class="spot">
           <h5>${place.place_name}</h5>`;
 
       if (place.road_address_name) {
@@ -216,11 +216,11 @@ export default {
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
 #placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
+#placesList .item h5, #placesList .item .spot {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList .item .spot{padding:10px 0 10px 55px;}
+#placesList .spot .gray {color:#8a8a8a;}
+#placesList .spot .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList .spot .tel {color:#009900;}
 #placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
 #placesList .item .marker_1 {background-position: 0 -10px;}
 #placesList .item .marker_2 {background-position: 0 -56px;}
@@ -240,4 +240,7 @@ export default {
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+.spot {
+  background-color: #f5f5f5;
+}
 </style>
