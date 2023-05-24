@@ -74,7 +74,7 @@ def interest_product(request):
 
     user = request.user
     product_data = request.data
-    print(product_data)
+
     if request.method == "POST" :
         
         # 이미 등록된 상품인지 확인
