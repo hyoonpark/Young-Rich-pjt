@@ -1,22 +1,25 @@
 <template>
   <v-main>
-    <section class="v-main" ref="dataListRef">
       <div class="tab-bar">
-        <button class="tab deposit" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">
-          <v-avatar size="24">
-            <v-icon>mdi-cash-multiple</v-icon>
-          </v-avatar>
-          예금
-        </button>
-        <button class="tab savings" :class="{ active: activeTab === 'savings' }" @click="changeTab('savings')">
-          <v-avatar size="24">
-            <v-icon>mdi-piggy-bank</v-icon>
-          </v-avatar>
-          적금
-        </button>
+        <div class="tab-wrapper">
+          <button class="tab deposit" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">
+            <v-avatar size="24">
+              <v-icon>mdi-cash-multiple</v-icon>
+            </v-avatar>
+            예금
+          </button>
+          <button class="tab savings" :class="{ active: activeTab === 'savings' }" @click="changeTab('savings')">
+            <v-avatar size="24">
+              <v-icon>mdi-piggy-bank</v-icon>
+            </v-avatar>
+            적금
+          </button>
+        </div>
       </div>
+    <section class="v-main" ref="dataListRef">
 
-      <div class="tab-content" style="height:775px;">
+
+      <div class="tab-content">
         <v-card v-if="activeTab === 'deposit'" class="deposit-list" ref="depositList">
           <deposit-list :propsdata="mergedDepositData"></deposit-list>
         </v-card>
@@ -87,6 +90,16 @@ export default {
 </script>
 
 <style scoped>
+.tab-bar {
+  display: flex;
+ 
+  margin-bottom: 10px;
+}
+
+.tab-wrapper {
+  display: flex;
+}
+
 .tab {
   padding: 8px 16px;
   background-color: #f2f2f2;
@@ -99,24 +112,6 @@ export default {
   align-items: center;
 }
 
-
-
-.v-main__wrap {
-  display: flex;
-  flex-direction: column;
-}
-
-.dataList {
-  position: sticky;
-  top: 0;
-  z-index: 1;
- 
-}
-
-.tab-content {
-  display: flex;
-  justify-content: space-between;
-}
 .tab.active {
   background-color: #e2e2e2;
 }
@@ -125,23 +120,27 @@ export default {
   margin-right: 5px;
 }
 
+.tab-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .v-card {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
 }
 
 .deposit-list,
 .saving-list {
-  width: 75%;
-  height : 113%;
-  margin-left : 470px;
+  height: 100%;
 }
 
 @media (max-width: 768px) {
   .deposit-list,
   .saving-list {
-    width: 100%;
+    flex: 0 0 100%;
     height: auto;
-    margin-left: 0;
   }
 }
 

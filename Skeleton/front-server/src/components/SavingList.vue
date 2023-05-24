@@ -4,7 +4,7 @@
   
       <v-card-text style="height:110%">
         <h2 class="list-title">적금 List</h2><br>
-        <div class="table-container" style="height:85%">
+        <div class="table-container" style="height:42%">
           <v-row>
             <v-col cols="12" sm="6" md="4" lg="3" v-for="(item, index) in flattenData" :key="index">
               <v-card @click="goToDetail(item)" class="item-card" >
