@@ -3,8 +3,20 @@
   
   
       <v-card-text style="height:110%">
-      <h2 class="list-title">당신에게 꼭 맞는 예금을 찾아보세요 !</h2><br><br>
-          <h3>검색 조건</h3><br>
+
+          <h2 class="list-title">
+            <v-avatar size="54" class="avatar-icon">
+              <v-icon>mdi-account-heart</v-icon>
+            </v-avatar>
+            <span class="title-text">당신에게 꼭 맞는 적금을 찾아보세요 !</span>
+          </h2>
+        
+          <h3>
+            <v-avatar size="35" class="avatar-icon">
+              <v-icon>mdi-magnify</v-icon>
+            </v-avatar>
+            검색 조건
+            </h3><br>
           <v-row>
             <v-col cols="12" sm="6" md="4" lg="3">
               <v-select
@@ -76,6 +88,7 @@
   </v-container>
 </template>
 <script>
+
 export default {
   name: 'SavingList',
   data() {
@@ -85,11 +98,13 @@ export default {
       selectedInterestRate: null,
       selectedPeriod: null,
       selectedPaymentMethod: null,
+
     };
   },
   props: {
     propsdata: Array,
   },
+
   computed: {
     flattenData() {
       const flattenedData = [];

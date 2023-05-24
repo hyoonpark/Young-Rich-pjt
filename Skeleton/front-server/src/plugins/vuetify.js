@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
-import colors from 'vuetify/es5/util/colors'
+
 
 
 Vue.use(Vuetify);
@@ -8,8 +8,15 @@ Vue.use(Vuetify);
 export default new Vuetify({
     theme: {
         themes: {
+          options: {
+            customProperties: true,
+          },
+
           light: {
-            
+            // fonts: {
+            //   family: 'BMDOHYEON',
+            //   url: '../../../../assets/fonts/BMDOHYEON_ttf.ttf',
+            // },
             primary: '#03A9F4',
             secondary: '#b0bec5',
             accent: '#8c9eff',

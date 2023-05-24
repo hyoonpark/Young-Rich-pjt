@@ -13,13 +13,10 @@
       <template v-if="isLogin">
         <v-btn text @click="logout">LogOut</v-btn>
         <v-btn text to="/profile">{{ getUsername }}</v-btn>
-        
       </template>
       <template v-else>
         <v-btn text to="/login">Log In</v-btn>
         <v-btn text style="color: red;">로그인 해주세요</v-btn>
-
-        
       </template>
     </v-app-bar>
 
@@ -28,7 +25,6 @@
     </v-main>
   </v-app>
 </template>
-
 
 <script>
 export default {
@@ -46,11 +42,11 @@ export default {
       this.$store.dispatch('logout')
     }
   }
-
 };
 </script>
 
 <style>
+
 .v-toolbar-title {
   font-size: 18px;
 }
