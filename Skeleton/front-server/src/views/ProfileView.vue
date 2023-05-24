@@ -97,7 +97,6 @@ export default {
       ageOptions: ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대'],
       assetsOptions: ['0-1000만원', '1000-2000만원', '2000-3000만원', '3000-4000만원', '4000-5000만원', '5000-6000만원', '6000-7000만원', '7000-8000만원', '8000-9000만원', '9000-10000만원'],
       salaryOptions: ['0-100만원', '100-200만원', '200-300만원', '300-400만원', '400-500만원', '500-600만원', '600-700만원', '700-800만원', '800-900만원', '900-1000만원'],
-
       }
   },
   components : {
@@ -114,19 +113,24 @@ export default {
 
     },
     assets: {
-      get() {
-        return this.user.assets 
+    get() {
+      console.log(this.getAssetsOption(this.user.assets))
+      // 숫자값을 범위 옵션으로 변환하여 반환
+        return this.getAssetsOption(this.user.assets);
       },
       set(value) {
-        this.user.assets = value;
+        // 범위 옵션을 숫자값으로 변환하여 설정
+        this.user.assets = this.getAssetsValue(value);
       }
     },
     salary: {
-      get() {
-        return this.user.salary
+    get() {
+      // 숫자값을 범위 옵션으로 변환하여 반환
+        return this.getSalaryOption(this.user.salary);
       },
       set(value) {
-        this.user.salary = value;
+        // 범위 옵션을 숫자값으로 변환하여 설정
+        this.user.salary = this.getSalaryValue(value);
       }
     },
     username: {
@@ -137,10 +141,10 @@ export default {
       },
     age: {
       get() {
-        return this.user.age
+        return this.getAgeOption(this.user.age);
       },
       set(value) {
-        this.user.age = value; 
+        this.user.age = this.getAgeValue(value);
       }
     },
   },
@@ -250,6 +254,50 @@ export default {
       }
       return null;
     },
+    getAgeOption(ageValue) {
+    // 실제 나이 값에 따라 나이 옵션으로 변환하여 반환
+    if (ageValue >= 10 && ageValue <= 80) {
+      return `${Math.floor(ageValue / 10) * 10}대`;
+    } else {
+      return null;
+    }
+  },
+  getAssetsValue(assetsOption) {
+    // 범위 옵션에 따라 숫자값으로 변환하여 반환
+    if (assetsOption) {
+      const rangeValues = assetsOption.split('-');
+      if (rangeValues.length === 2) {
+        return parseInt(rangeValues[1], 10);
+      }
+    }
+    return null;
+  },
+  getAssetsOption(assetsValue) {
+    // 숫자값에 따라 범위 옵션으로 변환하여 반환
+    if (assetsValue >= 0 && assetsValue <= 10000) {
+      return `${Math.floor(assetsValue/1000)*1000 -1000}-${Math.floor(assetsValue / 1000) * 1000}만원`;
+    } else {
+      return null;
+    }
+  },
+  getSalaryValue(salaryOption) {
+    // 범위 옵션에 따라 숫자값으로 변환하여 반환
+    if (salaryOption) {
+      const rangeValues = salaryOption.split('-');
+      if (rangeValues.length === 2) {
+        return parseInt(rangeValues[1], 10);
+      }
+    }
+    return null;
+  },
+  getSalaryOption(salaryValue) {
+    // 숫자값에 따라 범위 옵션으로 변환하여 반환
+    if (salaryValue >= 0 && salaryValue <= 1000) {
+      return `${Math.floor(salaryValue / 100) * 100-100}-${Math.floor(salaryValue / 100) * 100}만원`;
+    } else {
+      return null;
+    }
+  },
   },
   created() {
     this.loadinterestSaving(),
