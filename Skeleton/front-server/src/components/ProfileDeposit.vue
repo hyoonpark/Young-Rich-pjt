@@ -278,7 +278,7 @@ h2 {
 
 .header {
   display: flex;
-  align-products: center;
+  
   justify-content: space-between;
 }
 

@@ -185,7 +185,10 @@ def save_finance_company(request):
     response = requests.get(URLS, params=params).json()
     data = response['result']['baseList']
 
-    serializer = FinanceCompanySerializer(data=data, many=True)
+    existing_companies = FinanceCompany.objects.values_list('kor_co_nm', flat=True)
+    new_data = [d for d in data if d['kor_co_nm'] not in existing_companies]
+
+    serializer = FinanceCompanySerializer(data=new_data, many=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -194,8 +197,9 @@ def save_finance_company(request):
 
 @api_view(['POST'])
 def finance_company(request):
-  
+    
     bank_name = request.data['kor_co_nm']
+    print(bank_name)
     company = FinanceCompany.objects.get(kor_co_nm=bank_name)
     serializer = FinanceCompanySerializer(company)
     return Response(serializer.data)

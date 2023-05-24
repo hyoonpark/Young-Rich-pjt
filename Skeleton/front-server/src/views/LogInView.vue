@@ -1,7 +1,7 @@
 <template>
   <v-container class="login-container" fluid>
     <v-row justify="center" align="center" class="login-row">
-      <v-col cols="12" sm="8" md="4">
+     
         <v-card class="login-card">
           <v-card-title class="login-title">
             <h1>로그인</h1>
@@ -27,7 +27,7 @@
             </v-form>
           </v-card-text>
         </v-card>
-      </v-col>
+      
     </v-row>
   </v-container>
 </template>
@@ -60,6 +60,7 @@ export default {
 <style scoped>
 .login-container {
   height: 100vh;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,10 +68,7 @@ export default {
 
 .login-row {
   max-width: 400px;
-}
-
-.login-card {
-  padding: 24px;
+  
 }
 
 .login-title {

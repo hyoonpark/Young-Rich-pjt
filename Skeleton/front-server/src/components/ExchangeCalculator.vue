@@ -2,7 +2,7 @@
   <div id="calc">
     <h1 class="ercword">환율계산기</h1>
     <p>외화 환전금액을 계산하여 드립니다.</p>
-    <div class="container">
+    <div class="container-calc">
       <div class="container-one">
         <select name="first-currency" id="first-currency" v-model="currency_one">
           <option value="AED">AED</option>
@@ -177,7 +177,7 @@ h1 {
   color: #5fbaaf;
 }
 
-.container {
+.container-calc {
   width: 50%;
   height: 100%;
   display: flex;

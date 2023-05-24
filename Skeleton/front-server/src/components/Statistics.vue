@@ -1,20 +1,25 @@
 <template>
+  
   <v-tabs v-model="activeTab">
     <v-tab v-for="(tab, index) in tabs" :key="index" @click="changeTab(index)">
       {{ tab.label }}
+     
     </v-tab>
-
+    
     <v-tab-item v-for="(tab, index) in tabs" :key="index" v-show="activeTab === index">
+  
       <v-container>
         <v-row>
           <v-col cols="12">
             <v-row>
-              <v-col cols="6">
-                  
+              
+              <v-col cols="6"> 
+                <h2>예금</h2>
                 <canvas :ref="`depositchartCanvas${index}`" style="width: 50%; height:100%;"></canvas>
               </v-col>
+              
               <v-col cols="6">
-                 
+                <h2>적금</h2>
                 <canvas :ref="`savingChartCanvas${index}`" style="width: 50%; height:50%;"></canvas>
               </v-col>
             </v-row>
@@ -53,7 +58,7 @@ export default {
       depositProducts: []
     };
   },
-  mounted() {
+  created() {
     this.$nextTick(() => {
       this.drawCharts();
     });
@@ -252,84 +257,130 @@ export default {
         }
     }, 
     dgenerateSavingTypeChartData() {
-      const depositLabels = this.depositProducts.map(product => product.fin_prdt_nm);
-      const depositLabels2 = this.depositProducts.map(product => product.save_trm);
-      const depositData = this.depositProducts.map(product => product.intr_rate);
-      const labels_s2 = depositLabels.map((label, index) => `${label}(${depositLabels2[index]}개월)`);
-      
-      return {
-        labels: labels_s2,
-        datasets: [
-          {
-            label: '금리(%)',
-            data: depositData,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 3
-          },
-        ],
+        const depositData = this.depositProducts.map(product => product.intr_rate_type_nm);
+        const countMap = {
+          '단리': 0,
+          '복리': 0
+        };
+
+        for (let i = 0; i < depositData.length; i++) {
+          const rateType = depositData[i];
+         
+          if (rateType === '단리' || rateType === '복리') {
+            countMap[rateType]++;
+          }
         }
-    }, 
-    sgenerateSavingTypeChartData() {
-      const savingLabels = this.savingProducts.map(product => product.fin_prdt_nm);
-      const savingLabels2 = this.savingProducts.map(product => product.save_trm);
-      const savingData = this.savingProducts.map(product => product.intr_rate);
-      const labels = savingLabels.map((label, index) => `${label}(${savingLabels2[index]}개월)`);
+
+        const savingData = Object.values(countMap);
+        const labels = Object.keys(countMap);
+
+        return {
+          labels: labels,
+          datasets: [
+            {
+              label: '금리 유형',
+              data: savingData,
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 3
+            },
+          ],
+        };
+      },
+      sgenerateSavingTypeChartData() {
       
-      return {
-        labels: labels,
-        datasets: [
-          {
-            label: '금리(%)',
-            data: savingData,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 3
-          },
-        ],
+        const savingData = this.savingProducts.map(product => product.intr_rate_type_nm);
+        
+        const countMap = {
+          '단리': 0,
+          '복리': 0
+        };
+
+        for (let i = 0; i < savingData.length; i++) {
+          const rateType = savingData[i];
+          if (rateType === '단리' || rateType === '복리') {
+            countMap[rateType]++;
+          }
         }
-    }, 
+
+        const savingDataCount = Object.values(countMap);
+        const labels = Object.keys(countMap)
+        return {
+          labels: labels,
+          datasets: [
+            {
+              label: '금리 유형',
+              data: savingDataCount,
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 3
+            },
+          ],
+        };
+    },
     dgenerateBankChartData() {
-      const depositLabels = this.depositProducts.map(product => product.fin_prdt_nm);
-      const depositLabels2 = this.depositProducts.map(product => product.save_trm);
-      const depositData = this.depositProducts.map(product => product.intr_rate);
-      const labels = depositLabels.map((label, index) => `${label}(${depositLabels2[index]}개월)`);
-      
+      const depositLabels = this.depositProducts.map(product => product.kor_co_nm);
+      const depositData = [];
+
+      for (let i = 0; i < depositLabels.length; i++) {
+        const label = depositLabels[i];
+        const count = this.depositProducts.filter(product => product.kor_co_nm === label).length;
+        depositData.push(count);
+      }
+
       return {
-        labels: labels,
+        labels: depositLabels,
         datasets: [
           {
-            label: '금리(%)',
+            label: '은행명',
             data: depositData,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 3
           },
         ],
-        }
-    }, 
+      };
+    },
     sgenerateBankChartData() {
-      const savingLabels = this.savingProducts.map(product => product.fin_prdt_nm);
-      const savingLabels2 = this.savingProducts.map(product => product.save_trm);
-      const savingData = this.savingProducts.map(product => product.intr_rate);
-      const labels = savingLabels.map((label, index) => `${label}(${savingLabels2[index]}개월)`);
-      
-      return {
-        labels: labels,
-        datasets: [
-          {
-            label: '금리(%)',
-            data: savingData,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 3
-          },
-        ],
-        }
-    }, 
-    changeTab(index) {
-      this.activeTab = index;
+    const savingLabels = this.savingProducts.map(product => product.kor_co_nm);
+    const savingData = [];
+    const bankCount = {};
+
+    for (let i = 0; i < savingLabels.length; i++) {
+      const label = savingLabels[i];
+      if (bankCount[label]) {
+        bankCount[label]++;
+      } else {
+        bankCount[label] = 1;
+      }
     }
+
+    for (const label in bankCount) {
+      savingData.push(bankCount[label]);
+    }
+
+    return {
+      labels: Object.keys(bankCount),
+      datasets: [
+        {
+          label: '은행명',
+          data: savingData,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 3
+        },
+      ],
+    };
+},
+    changeTab(index) {
+      const previousScrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  
+  this.activeTab = index;
+  this.$nextTick(() => {
+    this.drawCharts();
+    window.scrollTo(0, previousScrollPosition);
+  });
+}
   }
-};
+}
 </script>
