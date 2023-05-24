@@ -167,9 +167,10 @@ export default {
         join_way : this.$route.params.item.join_way,
         spcl_cnd : this.$route.params.item.spcl_cnd,
         etc_note : this.$route.params.item.etc_note,
-        salary : this.$store.state.user.salary,
-        age : this.$store.state.user.age,
-        assets : this.$store.state.user.assets,
+        // 추천 시스템에 사용하고자 함. 일단 보류!
+        // salary : this.$store.state.user.salary,
+        // age : this.$store.state.user.age,
+        // assets : this.$store.state.user.assets,
         product_type: 1,
         
       };
