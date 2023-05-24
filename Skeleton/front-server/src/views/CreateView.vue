@@ -1,55 +1,59 @@
+<!-- views/CreateView.vue -->
+
 <template>
-  <v-container fluid fill-height>
-    <v-row justify="center" align="center">
-      <v-col cols="12" sm="8" md="6">
-        <v-card>
-          <v-card-title class="headline">게시글 작성</v-card-title>
-          <v-card-text>
-            <v-form @submit.prevent="submitForm">
-              <v-text-field v-model.trim="title" label="제목"></v-text-field>
-              <v-textarea v-model="content" label="내용" rows="5"></v-textarea>
-              <v-btn type="submit" color="primary">작성</v-btn>
-            </v-form>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <h1>게시글 작성</h1>
+    <form @submit.prevent="createArticle">
+      <label for="title">제목 : </label>
+      <input type="text" id="title" v-model.trim="title"><br>
+      <label for="content">내용 : </label>
+      <textarea id="content" cols="30" rows="10" v-model="content"></textarea><br>
+      <input type="submit" id="submit">
+    </form>
+  </div>
 </template>
 
 <script>
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name: 'CreateView',
   data() {
     return {
-      title: '',
-      content: ''
+      title: null,
+      content: null,
     }
   },
   methods: {
-    submitForm() {
-      // Handle form submission here
+    createArticle() {
+      const title = this.title
+      const content = this.content
+
+      if (!title) {
+        alert('제목 입력해주세요')
+        return
+      } else if (!content){
+        alert('내용 입력해주세요')
+        return
+      }
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/v1/articles/`,
+        data: { title, content},
+      })
+      .then(() => {
+        // console.log(res)
+        this.$router.push({name: 'ArticleListView'})
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   }
 }
 </script>
 
-<style scoped>
-.v-container {
-  height: 100vh;
-}
+<style>
 
-.v-row {
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.v-card {
-  width: 100%;
-}
-
-.v-btn {
-  margin-top: 16px;
-}
 </style>

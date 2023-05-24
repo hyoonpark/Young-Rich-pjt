@@ -12,6 +12,10 @@ import DetailSaving from '@/components/DetailSaving'
 import Statistics from '@/components/Statistics'
 import ProfileDeposit from '@/components/ProfileDeposit'
 import ProfileSaving from '@/components/ProfileSaving'
+import KakaoView from '@/components/Map/KakaoMap'
+import ExchangeView from '@/components/ExchangeCalculator'
+import ArticleListView from '@/views/ArticleListView'
+import ArticleDetailView from '@/views/ArticleDetailView'
 
 
 Vue.use(VueRouter)
@@ -27,6 +31,18 @@ const routes = [
     path: '/create',
     name: 'CreateView',
     component: CreateView
+  },
+
+  {
+    path: '/board',
+    name: 'ArticleListView',
+    component: ArticleListView,
+  },
+
+  {
+    path: 'article/:id',
+    name: 'ArticleDetailView',
+    component: ArticleDetailView,
   },
 
   {
@@ -52,6 +68,13 @@ const routes = [
     name : 'CompareView',
     component : CompareView,
   },
+
+  {
+    path: '/map',
+    name: 'KakaoView',
+    component: KakaoView,
+  },
+
   {
     path: '/detail-deposit/:id',
     name: 'DetailDeposit',
@@ -82,6 +105,11 @@ const routes = [
     path : '/profilesaving',
     name : 'ProfileSaving',
     component : ProfileSaving,
+  },
+  {
+    path: '/exchange',
+    name: 'ExchangeView',
+    component: ExchangeView,
   },
 ]
 

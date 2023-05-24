@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'kakaomaps',
     'accounts',
     'finlife',
+    'articles',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',

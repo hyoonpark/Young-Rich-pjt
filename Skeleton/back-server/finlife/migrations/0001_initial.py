@@ -53,8 +53,11 @@ class Migration(migrations.Migration):
                 ('spcl_cnd', models.TextField()),
                 ('mtrt_int', models.TextField()),
                 ('max_limit', models.IntegerField(null=True)),
+<<<<<<< HEAD
                 ('dcls_strt_day', models.IntegerField(null=True)),
                 ('dcls_end_day', models.IntegerField(null=True)),
+=======
+>>>>>>> 22d4d80c2722bb1806e054e2e43d9e698b6d92e9
             ],
         ),
         migrations.CreateModel(
