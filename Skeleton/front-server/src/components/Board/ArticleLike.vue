@@ -1,10 +1,9 @@
 <template>
   <div>
-    <button @click="toggleLike" :class="{ 'liked': liked }">
-      <span v-if="liked">좋아요 취소</span>
-      <span v-else>좋아요</span>
-    </button>
-    <p>좋아요 개수: {{ likeCount }}</p>
+    <v-btn @click="toggleLike" :class="{ 'liked': liked }" icon>
+      <v-icon>{{ liked ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
+    </v-btn>
+    <p class="like-count">좋아요 개수: {{ likeCount }}</p>
   </div>
 </template>
 
@@ -105,5 +104,11 @@ export default {
 <style scoped>
 .liked {
   color: red;
+}
+
+.like-count {
+  /* text-align: center; */
+  font-size: 14px;
+  color: #888;
 }
 </style>

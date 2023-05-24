@@ -1,19 +1,24 @@
 <!-- views/UpdateView.vue -->
 
 <template>
-    <div class="update-container">
-      <h1>게시글 수정</h1>
-      <br>
-      <form @submit.prevent="updateArticle">
-        <label for="title">제목 : </label>
-        <input type="text" id="title" v-model.trim="title"><br>
-        <br>
-        <label for="content">내용 : </label>
-        <textarea id="content" cols="100" rows="10" v-model="content"></textarea><br>
-        <input type="submit" id="submit" value="수정">
-      </form>
-    </div>
-  </template>
+  <div class="update-container">
+    <h1>게시글 수정</h1>
+    <v-form @submit.prevent="updateArticle" class="update-form">
+      <v-text-field
+        v-model.trim="title"
+        label="제목"
+        required
+      ></v-text-field>
+      <v-textarea
+        v-model="content"
+        label="내용"
+        required
+        rows="5"
+      ></v-textarea>
+      <v-btn type="submit" color="primary">게시글 수정</v-btn>
+    </v-form>
+  </div>
+</template>
   
   <script>
   import axios from 'axios'
@@ -83,10 +88,30 @@
   }
   </script>
   
-  <style>
-  .update-container {
-    text-align:center;
-  
-  }
-  /* 스타일을 필요에 따라 추가 */
-  </style>
+  <style scoped>
+.update-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.update-form {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 20px;
+}
+
+/* Vuetify 스타일링 */
+.v-text-field {
+  width: 100%;
+}
+
+.v-textarea {
+  width: 100%;
+}
+
+.v-btn {
+  width: 100%;
+  margin-top: 20px;
+}
+</style>

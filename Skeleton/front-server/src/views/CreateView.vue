@@ -1,13 +1,21 @@
 <template>
   <div>
-    <h1>게시글 작성</h1>
-    <form @submit.prevent="createArticle">
-      <label for="title">제목 :</label>
-      <input type="text" id="title" v-model.trim="title"><br>
-      <label for="content">내용 :</label>
-      <textarea id="content" cols="30" rows="10" v-model="content"></textarea><br>
-      <input type="submit" value="게시글 생성" id="submit">
-    </form>
+    <br>
+    <h1>게시글 작성</h1><br><br><br><br>
+    <v-form @submit.prevent="createArticle" class="create-form">
+      <v-text-field
+        v-model.trim="title"
+        label="제목"
+        required
+      ></v-text-field>
+      <v-textarea
+        v-model="content"
+        label="내용"
+        required
+        rows="5"
+      ></v-textarea>
+      <v-btn type="submit" color="primary">게시글 생성</v-btn>
+    </v-form>
   </div>
 </template>
 
@@ -61,6 +69,36 @@ export default {
 }
 </script>
 
-<style>
-/* 추가적인 스타일링이 필요한 경우 여기에 작성하세요 */
+<style scoped>
+h1 {
+  text-align: center;
+}
+.create-form {
+  display: grid;
+  gap: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Vuetify 스타일링 */
+.v-text-field {
+  width: 100%;
+}
+
+.v-textarea {
+  width: 100%;
+}
+
+.v-btn {
+  margin-top: 20px;
+}
+
+/* Bootstrap 스타일링 */
+.create-form .form-group {
+  margin-bottom: 20px;
+}
+
+.create-form .btn-primary {
+  margin-top: 20px;
+}
 </style>

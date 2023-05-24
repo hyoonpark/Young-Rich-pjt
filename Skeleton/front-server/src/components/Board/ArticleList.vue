@@ -1,5 +1,6 @@
 <template>
   <div class="article-list">
+    <br>
     <h3>Article List</h3>
     <div v-for="article in articles" :key="article.id">
       <article-list-item :article="article" />
@@ -53,5 +54,15 @@ export default {
 </script>
 
 <style>
+.article-list {
+  text-align: center;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 
 </style>

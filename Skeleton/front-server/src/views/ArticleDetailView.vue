@@ -4,18 +4,24 @@
       <div class="article-wrapper">
         <!-- <p>글 번호: {{ article.id }}</p> -->
         <!-- <p>작성자: {{ article.username }}</p> -->
-        <p>제목: {{ article.title }}</p>
+        <h3 class="article-title">{{ article.title }}</h3>
         <div class="content-wrapper">
-          <p>내용: {{ article.content }}</p>
+          <div class="content-box">
+          <p class="article-content">{{ article.content }}</p>
+          </div>
         </div>
-        <p>작성시간: {{ article.created_at }}</p>
+        <p class="created-time">작성시간: {{ article.created_at }}</p>
         <!-- <p>수정시간: {{ article.updated_at }}</p> -->
-        <button @click="deleteArticle">삭제</button>
+        <div class="action-buttons">
+          <button class="edit-button btn btn-info" @click="goToArticleUpdateView">수정</button>
+          <button class="delete-button btn btn-danger" @click="deleteArticle">삭제</button>
+        </div>
+        <hr>
+        <ArticleLike v-if="article.id" :articleId="article.id" />
         <!-- <div v-if="isAuthorizedUser"> -->
         <!-- <ArticleUpdateView /> -->
-          <button class="" @click="goToArticleUpdateView">수정</button>
         <!-- </div> -->
-        <br><br><br>
+        <br><br>
 
         <Comments v-if="article.id" :article="article" />
         <!-- <div v-if="article.id">
@@ -24,7 +30,6 @@
             <button type="submit">댓글 작성</button>
           </form>
         </div> -->
-        <ArticleLike v-if="article.id" :articleId="article.id" />
       </div>
     </template>
   </div>
@@ -119,5 +124,48 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+  .article-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .article-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .content-wrapper {
+    margin-bottom: 10px;
+  }
+
+  .content-box {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .article-content {
+    line-height: 1.5;
+  }
+
+  .created-time {
+    font-size: 12px;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  .delete-button,
+  .edit-button {
+    margin-left: 10px;
+  }
 </style>

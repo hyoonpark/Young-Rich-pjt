@@ -1,9 +1,13 @@
 <template>
     <div>
-      <h1>Article Page</h1>
-      <router-link :to="{ name: 'CreateView' }">[CREATE]</router-link>
+      <br>
+      <h1>Young&Rich Board</h1>
+      <div class="centered">
+      <router-link class="btn btn-danger" id="create" :to="{ name: 'CreateView' }">CREATE</router-link>
+      <br>
       <ArticleList />
       <hr>
+      </div>
     </div>
   </template>
   
@@ -42,6 +46,23 @@
   }
   </script>
   
-  <style>
-  
+  <style scoped>
+  h1 {
+    text-align: center;
+  }
+
+  .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #create {
+    color: aliceblue;
+  }
+
+  .create-button {
+  margin-left: 10px;
+  }
   </style>

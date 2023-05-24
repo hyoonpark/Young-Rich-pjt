@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h3>댓글 작성</h3>
-    <label for="content">내용 : </label>
-    <input type="text" id="content" v-model="content" @keyup.enter="createComment">
-    <button type="submit" id="content" @click="createComment">작성</button>
+    <h3>댓글</h3>
+    <div>
+      <label for="content"></label>
+      <input type="text" class="content-box" id="content" v-model="content" @keyup.enter="createComment">
+      <button type="submit" class="btn btn-success" id="content" @click="createComment">작성</button>
+    </div>
 
     <br>
     <template v-if="commentList && commentList.filter(comment => comment.article === article.id).length === 0">
@@ -12,15 +14,18 @@
     <template v-else>
       <p v-for="(comment, idx) in commentList" :key="idx" v-if="comment.article === article?.id">
         <span v-if="!editingCommentId || editingCommentId !== comment.id">
-          댓글 - {{comment?.username}} : {{ comment?.content }}
-          
-          <button @click="deleteComment(comment)">삭제</button>
-          <button @click="editComment(comment)" v-if="comment.username===userInfo.username">수정</button>
+          <span class="comment-info">
+            댓글 {{comment?.username}} : {{ comment?.content }}
+          </span>
+          <span class="comment-buttons">
+            <button class="edit-button" @click="editComment(comment)">수정</button>
+            <button class="delete-button" @click="deleteComment(comment)">삭제</button>
+          </span>
         </span>
-        <span v-else>
-          <input type="text" v-model="editedContent">
-          <button @click="updateComment(comment)">확인</button>
-          <button @click="cancelEdit">취소</button>
+        <span v-else class="comment-wrapper">
+          <input type="text" class="edit-input" v-model="editedContent">
+          <button class="confirm-button" @click="updateComment(comment)">확인</button>
+          <button class="cancel-button" @click="cancelEdit">취소</button>
         </span>
       </p>
     </template>
@@ -135,6 +140,63 @@ export default {
 };
 </script>
 
-<style>
-/* 스타일 지정 */
+<style scoped>
+.content-box {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+.comment-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.comment-info {
+  flex: 1;
+}
+
+.comment-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.comment-buttons button {
+  margin-left: 10px;
+  padding: 3px 6px;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.edit-button {
+  background-color: #17a2b8;
+  color: #fff;
+  border: none;
+}
+
+.edit-input {
+  width: 150px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.confirm-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+}
+
+.cancel-button {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+}
 </style>
