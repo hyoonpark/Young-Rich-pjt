@@ -14,8 +14,9 @@
                   </div>
                   <div class="item-text">
                     <h3 class="item-title">{{ item.fin_prdt_nm }}</h3>
-                    <p class="item-info">{{ item.save_trm }} 개월</p>
-                    <p class="item-info">{{ item.intr_rate }}%</p>
+                    <p class="item-info">기간 : {{ item.save_trm }} 개월</p>
+
+                    <span class="item-info">최고 금리 {{ item.intr_rate2 }}%</span> / <span class="item-info">평균 금리 {{ item.intr_rate }}%</span>
                   </div>
                 </div>
               </v-card>
@@ -78,7 +79,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .table-container {
   max-height: 400px;
@@ -91,6 +92,10 @@ export default {
 }
 
 
+.item-card { 
+  height : 110%;
+}
+
 .item-details {
   display: flex;
   align-items: center;
@@ -98,12 +103,12 @@ export default {
 }
 
 .item-image-container {
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 .item-image {
   width: 36px;
-  height: 35px;
+  height: 34px;
 }
 
 .item-text {
