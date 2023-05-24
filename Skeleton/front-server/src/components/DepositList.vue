@@ -7,7 +7,7 @@
         <div class="table-container" style="height: 85%; ">
           <v-row>
             <v-col cols="12" sm="6" md="4" lg="3" v-for="(item, index) in flattenData" :key="index">
-              <v-card @click="goToDetail(item)" class="item-card" style="background-color:#E1F5FE">
+              <v-card @click="goToDetail(item)" class="item-card" >
                 <div class="item-details">
                   <div class="item-image-container">
                     <v-img :src="getBankImage(item.kor_co_nm)" alt="Bank Image" class="item-image"></v-img>
@@ -95,8 +95,10 @@ export default {
 
 .item-card { 
   height : 110%;
+  max-height: none; 
+  overflow-y: auto;
+  border: 1px solid #0D47A1; 
 }
-
 .item-details {
   display: flex;
   align-items: center;
