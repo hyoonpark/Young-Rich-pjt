@@ -1,5 +1,5 @@
 <template>
-   <v-container  fluid v-if="propsdata && propsdata.length > 0">
+   <v-container fluid v-if="propsdata && propsdata.length > 0" class="background-container">
   
   
       <v-card-text style="height:110%">
@@ -186,10 +186,21 @@ export default {
 </script>
 
 <style scoped>
+.separator {
+  height: 1px;
+  width: 100%;
+  background-color: black;
+  margin: 16px 0;
+  border-bottom: 1.5px solid gray;
+}
+
+
+
 
 .table-container {
   height: calc(100% - 200px); /* 원하는 높이에 맞게 값 조정 */
   overflow-y: auto;
+ 
 }
 
 .list-title {

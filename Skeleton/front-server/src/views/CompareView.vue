@@ -1,7 +1,7 @@
 <template>
-  <v-main>
-      <div class="tab-bar">
-        <div class="tab-wrapper">
+  <v-main class="background-container">
+      <div class="tab-bar ">
+        <div class="tab-wrapper ">
           <button class="tab deposit" :class="{ active: activeTab === 'deposit' }" @click="changeTab('deposit')">
             <v-avatar size="24">
               <v-icon>mdi-cash-multiple</v-icon>
@@ -90,10 +90,16 @@ export default {
 </script>
 
 <style scoped>
+/* 
+.background-container {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('@/assets/bank_images/imp14.jpg');
+  background-size: cover;
+  background-position: center;
+} */
 .tab-bar {
   display: flex;
- 
-  margin-bottom: 10px;
+
+  margin-bottom: 20px;
 }
 
 .tab-wrapper {
