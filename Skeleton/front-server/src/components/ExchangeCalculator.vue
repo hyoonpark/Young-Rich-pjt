@@ -143,7 +143,7 @@ export default {
   },
   methods: {
     fetchData() {
-      fetch(`https://v6.exchangerate-api.com/v6/51e2c95c2ce5649de60a9353/latest/${this.currency_one}`)
+      fetch(`https://v6.exchangerate-api.com/v6/${process.env.CURRECY_KEY}/latest/${this.currency_one}`)
       .then(res => res.json())
       .then(data => {
         this.data = data
