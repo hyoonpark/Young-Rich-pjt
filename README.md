@@ -1,5 +1,3 @@
-# README
-
 # Young&Rich
 
 ## 팀원 소개
@@ -46,7 +44,7 @@
 - Back-end : Django
 - Front-end : Vue.js, HTML, javascript, CSS
 
-```html
+```
 <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
@@ -79,25 +77,25 @@ Merge 후 git pull 잊지 않기.
 
 ## ERD
 
-
+!
 
 [ERD.pdf](README%200881585098f149b4b3ab664f04e2d7c5/ERD%201.pdf)
 
 ## 주요기능
 
-![슬라이드8.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C8.jpg)
+![주요기능1](./assets/primary1.png)
 
-![슬라이드9.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C9.jpg)
+![주요기능2](./assets/primary2.png)
 
-![슬라이드10.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C10.jpg)
+![주요기능3](./assets/primary3.png)
 
-![슬라이드11.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C11.jpg)
+![주요기능4](./assets/primary4.png)
 
 ## 페이지 설명
 
 ### 1. SiteMap SSaver 웹 페이지의 전체 사이트맵
 
-![sitemap.jpg](README%200881585098f149b4b3ab664f04e2d7c5/sitemap.jpg)
+![사이트맵](README%200881585098f149b4b3ab664f04e2d7c5/sitemap.jpg)
 
 ### 2. Main 페이지 : 주요 기능 요약과 각 기능 페이지로 이동 가능한 페이지
 
