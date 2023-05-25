@@ -180,3 +180,20 @@ def get_like_status(request, obj_type, obj_id):
     like_count = like_model.objects.filter(**{f"{obj_type}_id": obj_id}).count()
 
     return Response({'liked': liked, 'like_count': like_count}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def article_likes(request, article_pk):
+    if request.method == 'POST':
+        article = Article.objects.get(pk=article_pk)
+        user= request.user
+
+        if request.user.is_authenticated:
+            if user in article.like_users.all():
+                print('삭제')
+                article.like_users.remove(user)
+            else:
+                print('추가')
+                article.like_users.add(user)
+            print(article.like_users)
+            serializer = ArticleLikeSerializer(article)
+            return Response(serializer.data)

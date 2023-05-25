@@ -131,7 +131,7 @@ export default {
       this.bestinterestResult = (this.bestinterestRate/100) * this.principal * ((this.months)/12)
     },
     backcompare() {
-      this.$router.push('/rate-comparison')
+      this.$router.push('/profile')
     },  
     getCompanyData() {
       const bank_name = this.$route.params.product.kor_co_nm
@@ -278,7 +278,7 @@ h2 {
 
 .header {
   display: flex;
-  align-products: center;
+
   justify-content: space-between;
 }
 

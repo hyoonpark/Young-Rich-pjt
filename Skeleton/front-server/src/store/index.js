@@ -19,6 +19,8 @@ export default new Vuex.Store({
   state: {
     depositList: [],
     savingList: [],
+    articles: [],
+    comments: [],
     token: null,
     user: {
       id: null,
@@ -38,6 +40,15 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setSalary(state, salary) {
+      state.salary = salary;
+    },
+    setAssets(state, assets) {
+      state.assets = assets;
+    },
+    setAge(state, age) {
+      state.age = age;
+    },
     SET_DEPOSIT_LIST(state, depositList) {
       state.depositList = depositList;
     },
@@ -72,6 +83,7 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, token) {
       state.token = token;
       router.push({ name: 'CompareView' }); //  store/index.js $router 접근 불가 -> import를 해야함
+      router.push({name : 'ArticleView'})
     },
     SET_USER(state, user) {
       state.user = user;
@@ -92,6 +104,17 @@ export default new Vuex.Store({
       };
       router.push({ name: 'MainPageView' });
     },
+    GET_ARTICLES(state, articles) {
+      state.articles = articles
+    },
+    GET_COMMENTS(state, comments) {
+      state.comments = comments
+    },
+    // signup & login -> 완료하면 토큰 발급
+    // SAVE_TOKEN(state, token) {
+    //   state.token = token
+    //   router.push({name : 'ArticleView'}) // store/index.js $router 접근 불가 -> import를 해야함
+    // }
   },
   actions: {
     fetchDepositData({ commit }) {
@@ -355,7 +378,46 @@ export default new Vuex.Store({
       } else {
         return Promise.reject(new Error('인증되지 않은 사용자입니다.'));
       }
-    }
-    
+    },
+    fetchArticles({ commit, state }) {
+      return axios
+        .get(`${API_URL}/api/v1/articles/`, {
+          headers: {
+            Authorization: `Token ${state.token}`, // 토큰 첨부
+          },
+        })
+        .then((response) => {
+          const articles = response.data;
+          commit('GET_ARTICLES', articles);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getArticles({ commit, state }) {
+      return axios
+        .get(`${API_URL}/api/v1/articles/`, {
+          headers: {
+            Authorization: `Token ${state.token}`, // 토큰 첨부
+          },
+        })
+        .then((response) => {
+          const articles = response.data;
+          commit('GET_ARTICLES', articles);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getComments(context) {
+      axios
+        .get(`${API_URL}/api/v1/articles/comments/`)
+        .then((res) => {
+          context.commit('GET_COMMENTS', res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 });

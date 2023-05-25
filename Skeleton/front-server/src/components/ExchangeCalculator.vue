@@ -3,7 +3,7 @@
     <br>
     <h1 class="ercword">환율계산기</h1>
     <p>외화 환전금액을 계산하여 드립니다.</p>
-    <div class="container">
+    <div class="container-calc">
       <div class="container-one">
         <select name="first-currency" id="first-currency" v-model="currency_one">
           <option value="AED">AED</option>
@@ -59,10 +59,10 @@
           <option value="VND">VND</option>
           <option value="ZAR">ZAR</option>
         </select>
-        <input type="number" name="input-one" id="input-one" v-model="amountOne" @input="fetchData()"/>
+        <input type="number" name="input-one" id="input" v-model="amountOne" @input="fetchData()"/>
       </div>
       <div class="container-two">
-        <button @click="swapValues()">swap</button>
+        <button class="swap" @click="swapValues()">swap</button>
         <h4 id="baseValue">1 {{ currency_one }} = {{ rate }} {{ currency_two }}</h4>
       </div>
       <div class="container-three">
@@ -164,10 +164,11 @@ export default {
 }
 </script>
 
-<style>
-* {
+<style scoped>
+
+/* * {
   box-sizing: border-box;
-}
+} */
 
 #calc {
   display: flex;
@@ -178,11 +179,11 @@ export default {
   height: 100%;
 }
 
-h1 {
+.ercword {
   color: #5fbaaf;
 }
 
-.container {
+.container-calc {
   width: 50%;
   height: 100%;
   display: flex;
@@ -198,7 +199,7 @@ h1 {
   align-items: center;
 }
 
-.container-two button {
+.swap {
   background-color: #5fbaa7;
   color: #fff;
   padding: 5px 12px;
@@ -212,7 +213,7 @@ select {
   outline: none;
 }
 
-input {
+#input {
   padding: 5px;
   margin: 5px;
   border: 1px solid rgba(0,0,0,0,5);

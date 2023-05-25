@@ -1,13 +1,15 @@
 <template>
   <div class="article-list">
+    <br>
     <h3>Article List</h3>
-    <ArticleListItem 
-    v-for="article in articles" :key="article.id" :article="article"
-    />
+    <div v-for="article in articles" :key="article.id">
+      <article-list-item :article="article" />
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import ArticleListItem from '@/components/Board/ArticleListItem'
 
 export default {
@@ -15,16 +17,52 @@ export default {
   components: {
     ArticleListItem,
   },
-  computed: {
-    articles() {
-      return this.$store.state.articles
+  data() {
+    return {
+      articles: null
     }
-  }
+  },
+  methods: {
+    getArticles() {
+      const API_URL = 'http://127.0.0.1:8000'
+      const token = this.$store.state.token
+      axios
+        .get(`${API_URL}/api/v1/articles/`, {
+          headers:{
+            Authorization: `Token ${this.$store.state.token}`
+          },
+        })
+        .then((response) => {
+          this.articles = response.data
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    check(article){
+      this.$router.push({
+        name: 'ArticleDetailView',
+        params: { id: article.id }
+      });
+    }
+  },
+  created() {
+    this.getArticles()
+  },
 }
 </script>
 
 <style>
 .article-list {
-  text-align: start;
+  text-align: center;
 }
+
+.centered {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
 </style>
