@@ -77,29 +77,29 @@ Merge 후 git pull 잊지 않기.
 
 ## ERD
 
-!
+![ERD](./assets/ERD.png)
 
 [ERD.pdf](README%200881585098f149b4b3ab664f04e2d7c5/ERD%201.pdf)
 
 ## 주요기능
 
-![주요기능1](./assets/primary1.png)
+![주요기능1](./assets/primary1.JPG)
 
-![주요기능2](./assets/primary2.png)
+![주요기능2](./assets/primary2.JPG)
 
-![주요기능3](./assets/primary3.png)
+![주요기능3](./assets/primary3.JPG)
 
-![주요기능4](./assets/primary4.png)
+![주요기능4](./assets/primary4.JPG)
 
 ## 페이지 설명
 
 ### 1. SiteMap SSaver 웹 페이지의 전체 사이트맵
 
-![사이트맵](README%200881585098f149b4b3ab664f04e2d7c5/sitemap.jpg)
+![사이트맵](./assets/sitemap.JPG)
 
 ### 2. Main 페이지 : 주요 기능 요약과 각 기능 페이지로 이동 가능한 페이지
 
-![슬라이드1.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C1.jpg)
+![메인페이지](./assets/main.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -114,7 +114,7 @@ Merge 후 git pull 잊지 않기.
 
 ### 3. 로그인 페이지 : 로그인 서비스를 제공하는 페이지
 
-![슬라이드2.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C2.jpg)
+![로그인](./assets/login.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -122,7 +122,7 @@ Merge 후 git pull 잊지 않기.
 
 ### 4. 회원가입 페이지
 
-![슬라이드3.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C3.jpg)
+![회원가입](./assets/signup.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -139,9 +139,10 @@ Merge 후 git pull 잊지 않기.
 
 **예적금 상품 목록**
 
-![슬라이드4.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C4.jpg)
+![Copmpare1](./assets/compare1.JPG)
 
-![슬라이드5.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C5.jpg)
+
+![Copmpare2](./assets/compare2.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -154,7 +155,7 @@ Merge 후 git pull 잊지 않기.
 
 **예적금 상품 상세 페이지**
 
-![슬라이드6.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C6.jpg)
+![Copmpare3](./assets/compare3.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -167,7 +168,7 @@ Merge 후 git pull 잊지 않기.
 
 ### 6. Search Bank 페이지
 
-![슬라이드7.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C7.jpg)
+![은행찾기](./assets/map.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -176,7 +177,7 @@ Merge 후 git pull 잊지 않기.
 
 ### 7. Exchange 페이지
 
-![슬라이드8.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C8%201.jpg)
+![환율계산기](./assets/calc.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -190,8 +191,7 @@ Merge 후 git pull 잊지 않기.
 
 **게시글 목록**
 
-![슬라이드9.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C9%201.jpg)
-
+![게시글목록](./assets/board1.JPG)
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
 | 1 | CREATE 버튼 | 게시글을 작성할 수 있는 CREATE페이지로 이동 |
@@ -200,7 +200,7 @@ Merge 후 git pull 잊지 않기.
 
 **게시글 상세**
 
-![슬라이드10.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C10%201.jpg)
+![게시글상세](./assets/board2.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -216,7 +216,7 @@ Merge 후 git pull 잊지 않기.
 
 게시글, 댓글 수정
 
-![슬라이드11.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C11%201.jpg)
+![게시글댓글수정](./assets/board3.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -226,7 +226,7 @@ Merge 후 git pull 잊지 않기.
 
 ### 9. Create 페이지
 
-![슬라이드12.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C12.jpg)
+![게시글작성](./assets/create.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -238,7 +238,7 @@ Merge 후 git pull 잊지 않기.
 
 **프로필페이지**
 
-![슬라이드13.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C13.jpg)
+![본인정보](./assets/profile1.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -246,7 +246,7 @@ Merge 후 git pull 잊지 않기.
 
 **프로필 수정**
 
-![슬라이드14.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C14.jpg)
+![프로필수정](./assets/profile2.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -257,7 +257,7 @@ Merge 후 git pull 잊지 않기.
 
 **관심 상품 목록**
 
-![슬라이드15.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C15.jpg)
+![관심상품목록](./assets/profile3.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
@@ -266,7 +266,7 @@ Merge 후 git pull 잊지 않기.
 
 **한 눈에 보는 내 상품**
 
-![슬라이드16.JPG](README%200881585098f149b4b3ab664f04e2d7c5/%25EC%258A%25AC%25EB%259D%25BC%25EC%259D%25B4%25EB%2593%259C16.jpg)
+![내상품비교](./assets/profile4.JPG)
 
 | 구분 | 항목 | 내용 |
 | --- | --- | --- |
