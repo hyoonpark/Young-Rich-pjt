@@ -62,7 +62,6 @@ export default {
 <style scoped>
 .login-container {
   height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,7 +69,6 @@ export default {
 
 .login-row {
   max-width: 400px;
-
 }
 
 .login-title {

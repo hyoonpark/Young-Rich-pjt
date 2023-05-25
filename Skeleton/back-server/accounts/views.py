@@ -74,7 +74,7 @@ def interest_product(request):
 
     user = request.user
     product_data = request.data
-  
+
     if request.method == "POST" :
         
         # 이미 등록된 상품인지 확인
@@ -118,6 +118,7 @@ def check_interest(request):
 def get_interest(request):
     
     user_id = request.user.id
+    user_salary = request.user.id
     product_type = request.data.get('product_type')
     
     # 필터링된 데이터를 가져옴

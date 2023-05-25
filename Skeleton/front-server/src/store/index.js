@@ -40,6 +40,15 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setSalary(state, salary) {
+      state.salary = salary;
+    },
+    setAssets(state, assets) {
+      state.assets = assets;
+    },
+    setAge(state, age) {
+      state.age = age;
+    },
     SET_DEPOSIT_LIST(state, depositList) {
       state.depositList = depositList;
     },

@@ -1,37 +1,39 @@
 <template>
   <v-container>
     <h1>Profile Page</h1>
-    <p class="greeting">안녕하세요, <span class="username">{{ username }}</span>!</p>
+    <p class="greeting"><span class="username">{{ username }}</span>님의 프로필입니다 !</p>
     <v-card class="profile-info">
-      <v-card-text>
-        <v-row>
-          <v-col cols="12" sm="6">
-           <v-text-field v-model="username" :disabled="!isEditing || isUsernameDisabled" label="닉네임"></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="email" :disabled="!isEditing || isEmailDisabled" label="이메일"></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="age" :disabled="!isEditing" label="나이" type="number" suffix="세"></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="assets" :disabled="!isEditing" label="현재 자산" type="number" suffix="만원"></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field v-model="salary" :disabled="!isEditing" label="연봉" type="number" suffix="만원"></v-text-field>
-          </v-col>
-        </v-row>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn v-if="!isEditing" @click="toggleEditing">수정</v-btn>
-        <v-btn v-if="isEditing" @click="saveChanges">저장</v-btn>
-      </v-card-actions>
-    </v-card>
+  <v-card-text>
+    <v-row class="profile-row">
+      <v-col cols="12" sm="6">
+        <v-text-field v-model="username" :disabled="!isEditing || isUsernameDisabled" label="닉네임"></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-text-field v-model="email" :disabled="!isEditing || isEmailDisabled" label="이메일"></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row class="profile-row">
+      <v-col cols="12" sm="6">
+        <v-select v-model="age" :disabled="!isEditing" :items="ageOptions" label="나이" ></v-select>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-select v-model="assets" :disabled="!isEditing" :items="assetsOptions" label="자산">
+            <option :value="null">콘텐츠선택</option>
+        </v-select>
+      </v-col>
+    </v-row>
+    <v-row class="profile-row">
+      <v-col cols="12" sm="6">
+        <v-select v-model="salary" :disabled="!isEditing" :items="salaryOptions" label="월급"></v-select>
+      </v-col>
+    </v-row>
+  </v-card-text>
+  <v-card-actions>
+    <v-spacer></v-spacer>
+    <v-btn v-if="!isEditing" @click="toggleEditing" color="primary">수정</v-btn>
+    <v-btn v-if="isEditing" @click="saveChanges" color="primary">저장</v-btn>
+  </v-card-actions>
+</v-card>
     <h2 class="subtitle">관심 상품 목록</h2>
     <v-card class="interest-product-list">
       <v-card-text>
@@ -61,16 +63,13 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <v-row>
-      <v-col cols="6">
-        <h2 class="subtitle">한 눈에 보는 내 상품</h2>
-      </v-col>
-      <v-col cols="6" class="text-right">
-        <!-- "통계 보기" 버튼 추가 -->
-        <v-btn @click="showStatistics">통계 보기</v-btn>
-      </v-col>
+      <v-row>
+        <v-col cols="6">
+          <h2 class="subtitle">한 눈에 보는 내 상품 <v-btn @click="showStatistics" color=primary>통계 보기</v-btn></h2>
+         
+        </v-col>
     </v-row>
-    <!-- 통계 컴포넌트를 토글해서 보여줄 영역 -->
+  
     <v-card v-if="showStatisticsComponent" class="statistic-list">
       <v-row>
         <Statistics :savingProducts="savingProducts" :depositProducts="depositProducts" />
@@ -95,6 +94,9 @@ export default {
       savingProducts: [],
       bankName : null,
       showStatisticsComponent: false,
+      ageOptions: ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대'],
+      assetsOptions: ['0-1000만원', '1000-2000만원', '2000-3000만원', '3000-4000만원', '4000-5000만원', '5000-6000만원', '6000-7000만원', '7000-8000만원', '8000-9000만원', '9000-10000만원'],
+      salaryOptions: ['0-100만원', '100-200만원', '200-300만원', '300-400만원', '400-500만원', '500-600만원', '600-700만원', '700-800만원', '800-900만원', '900-1000만원'],
       }
   },
   components : {
@@ -111,19 +113,24 @@ export default {
 
     },
     assets: {
-      get() {
-        return this.user.assets;
+    get() {
+      console.log(this.getAssetsOption(this.user.assets))
+      // 숫자값을 범위 옵션으로 변환하여 반환
+        return this.getAssetsOption(this.user.assets);
       },
       set(value) {
-        this.user.assets = value;
+        // 범위 옵션을 숫자값으로 변환하여 설정
+        this.user.assets = this.getAssetsValue(value);
       }
     },
     salary: {
-      get() {
-        return this.user.salary;
+    get() {
+      // 숫자값을 범위 옵션으로 변환하여 반환
+        return this.getSalaryOption(this.user.salary);
       },
       set(value) {
-        this.user.salary = value;
+        // 범위 옵션을 숫자값으로 변환하여 설정
+        this.user.salary = this.getSalaryValue(value);
       }
     },
     username: {
@@ -134,10 +141,10 @@ export default {
       },
     age: {
       get() {
-        return this.user.age; 
+        return this.getAgeOption(this.user.age);
       },
       set(value) {
-        this.user.age = value; 
+        this.user.age = this.getAgeValue(value);
       }
     },
   },
@@ -159,9 +166,9 @@ export default {
       this.$store.commit('updateUserProfile', {
         username: this.username,
         email: this.email,
-        age: parseInt(this.age),
-        assets: parseInt(this.assets),
-        salary: parseInt(this.salary),
+        age  : this.getAgeValue(this.age),
+        assets : this.getNumericValue(this.assets),
+        salary : this.getNumericValue(this.salary)
       });
       this.$store.dispatch('saveProfileChanges', this.$store.state.user)
         .then(() => {
@@ -214,10 +221,88 @@ export default {
     showStatistics() {
       this.showStatisticsComponent = true;
     },
+    getAgeValue(ageOption) {
+      // 나이 옵션에 따라 실제 나이 값으로 변환하여 반환
+      switch (ageOption) {
+        case '10대':
+          return 10;
+        case '20대':
+          return 20;
+        case '30대':
+          return 30;
+        case '40대':
+          return 40;
+        case '50대':
+          return 50;
+        case '60대':
+          return 60;
+        case '70대':
+          return 70;
+        case '80대':
+          return 80;
+        default:
+          return null;
+      }
+    },
+    getNumericValue(rangeOption) {
+      // 범위 옵션에 따라 숫자 값으로 변환하여 반환
+      if (rangeOption) {
+        const rangeValues = rangeOption.split('-');
+        if (rangeValues.length === 2) {
+          return parseInt(rangeValues[1], 10) ;
+        }
+      }
+      return null;
+    },
+    getAgeOption(ageValue) {
+    // 실제 나이 값에 따라 나이 옵션으로 변환하여 반환
+    if (ageValue >= 10 && ageValue <= 80) {
+      return `${Math.floor(ageValue / 10) * 10}대`;
+    } else {
+      return null;
+    }
+  },
+  getAssetsValue(assetsOption) {
+    // 범위 옵션에 따라 숫자값으로 변환하여 반환
+    if (assetsOption) {
+      const rangeValues = assetsOption.split('-');
+      if (rangeValues.length === 2) {
+        return parseInt(rangeValues[1], 10);
+      }
+    }
+    return null;
+  },
+  getAssetsOption(assetsValue) {
+    // 숫자값에 따라 범위 옵션으로 변환하여 반환
+    if (assetsValue >= 0 && assetsValue <= 10000) {
+      return `${Math.floor(assetsValue/1000)*1000 -1000}-${Math.floor(assetsValue / 1000) * 1000}만원`;
+    } else {
+      return null;
+    }
+  },
+  getSalaryValue(salaryOption) {
+    // 범위 옵션에 따라 숫자값으로 변환하여 반환
+    if (salaryOption) {
+      const rangeValues = salaryOption.split('-');
+      if (rangeValues.length === 2) {
+        return parseInt(rangeValues[1], 10);
+      }
+    }
+    return null;
+  },
+  getSalaryOption(salaryValue) {
+    // 숫자값에 따라 범위 옵션으로 변환하여 반환
+    if (salaryValue >= 0 && salaryValue <= 1000) {
+      return `${Math.floor(salaryValue / 100) * 100-100}-${Math.floor(salaryValue / 100) * 100}만원`;
+    } else {
+      return null;
+    }
+  },
   },
   created() {
     this.loadinterestSaving(),
     this.loadinterestDeposit()
+ 
   },
 };
 </script>
@@ -226,6 +311,14 @@ export default {
 .profile-info {
   padding: 16px;
   margin-bottom: 16px;
+}
+
+.profile-row {
+  margin-bottom: 16px;
+}
+
+.v-btn {
+  margin-right: 8px;
 }
 
 h2.subtitle {
@@ -251,6 +344,6 @@ h2.subtitle {
 }
 
 .username {
-  color: #FF4081;
+  color: #03A9F4
 }
 </style>

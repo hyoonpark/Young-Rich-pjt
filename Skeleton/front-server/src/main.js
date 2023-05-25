@@ -15,6 +15,9 @@ import 'bootstrap/dist/js/bootstrap.js'
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
+
+
+
 new Vue({
   store,
   router,

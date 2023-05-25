@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container class="v-container-h" fluid fill-height>
     <v-row justify="center" align="center">
       <v-col cols="12">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
@@ -99,15 +99,7 @@ export default {
 </script>
 
 <style scoped>
-.v-container {
-  height: 100vh;
-}
 
-.v-row {
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
 
 /* 슬라이드의 화살표와 인디케이터의 색상을 수정합니다. */
 .carousel-control-prev-icon,

@@ -87,8 +87,11 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex';
+
 export default {
-  name: 'DetailSaving',
+  name: 'Detail',
   data() {
     return {
       isInterested: false,
@@ -102,6 +105,9 @@ export default {
       phone_number : null,
       homepage : null,
     };
+  },
+  computed: {
+    ...mapState(['salary', 'assets', 'age']),
   },
   created() {
     this.checkInterestProduct()
@@ -161,9 +167,14 @@ export default {
         join_way : this.$route.params.item.join_way,
         spcl_cnd : this.$route.params.item.spcl_cnd,
         etc_note : this.$route.params.item.etc_note,
+        // 추천 시스템에 사용하고자 함. 일단 보류!
+        // salary : this.$store.state.user.salary,
+        // age : this.$store.state.user.age,
+        // assets : this.$store.state.user.assets,
         product_type: 2,
+        
       };
-      
+      console.log(product)
       this.$store.dispatch('registerDepositProduct', product)
         .then(() => {
           this.isInterested = true;
