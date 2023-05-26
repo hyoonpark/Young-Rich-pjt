@@ -85,7 +85,7 @@ Merge 후 git pull 잊지 않기.
 
 ![ERD](./assets/ERD.png)
 
-[ERD.pdf](README%200881585098f149b4b3ab664f04e2d7c5/ERD%201.pdf)
+[ERD.pdf](./assets/ERD.pdf)
 
 ## 주요기능
 
