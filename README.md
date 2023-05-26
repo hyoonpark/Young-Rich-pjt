@@ -64,6 +64,12 @@
 
 [https://docs.google.com/spreadsheets/d/1hah26dYyuk8Y9sUoSdCa1p2HzKZPZQIABc24F8gIm18/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1hah26dYyuk8Y9sUoSdCa1p2HzKZPZQIABc24F8gIm18/edit?usp=sharing)
 
+## ERD
+
+![ERD](./assets/ERD.png)
+
+[ERD.pdf](./assets/ERD.pdf)
+
 ## Git Rule
 
 **branch**
@@ -81,11 +87,6 @@ Merge Pull requests 보내서 확인 후 Merge.
 Merge 후 git pull 잊지 않기.
 ```
 
-## ERD
-
-![ERD](./assets/ERD.png)
-
-[ERD.pdf](./assets/ERD.pdf)
 
 ## 주요기능
 
